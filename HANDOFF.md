@@ -90,7 +90,7 @@ v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit �
 - `scripts/check-skill-docs.mjs` 追加断言：SKILL.md 名字行、README 安装目录、`agents/openai.yaml` 的 default_prompt。
 
 **验收**
-- `skills-ref validate .`（Agent Skills 参考校验器）通过：目录名与 `name` 一致。
+- `skills-ref validate <skill 目录>`（Agent Skills 参考校验器，须传目录路径；传 `.` 会被参考实现解析成空目录名而误报）通过：目录名与 `name` 一致。
 - `npm run test:docs` 全过（含新增断言）。
 - 渲染与版面 validator 不读 skill 名，行为零变化。
 
