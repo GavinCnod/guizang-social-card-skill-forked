@@ -16,7 +16,9 @@ Three visual systems share one workflow:
 
 - **Editorial**. Restrained layouts in the spirit of *Monocle* / *Kinfolk* / *Cereal*. Best for storytelling, lifestyle, travel, reading, film, and personal observation.
 - **Swiss International**. Grid-first, single anchor color, sharp hairlines, extreme type contrast. Best for product reviews, data, frameworks, tutorials, and AI tools.
-- **Warm Gold (暖金中登)**. Serif titles + sans body + gold-gradient hairlines / glow / warm-gold shadows on ivory paper with espresso ink. Best for brand launches, membership perks, award rankings, annual milestones, and premium lifestyle.
+- **Warm Gold (暖金中登)** — **fork-custom, not in upstream**. Serif titles + sans body + gold-gradient hairlines / glow / warm-gold shadows on ivory paper with espresso ink. Best for brand launches, membership perks, award rankings, annual milestones, and premium lifestyle.
+
+> ⚠️ **This repository is a personal fork, not the upstream original.** [Upstream op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill) ships only **Editorial** and **Swiss**; **Warm Gold (暖金中登) is a fork-custom third visual system that does not exist upstream** — its seed template, G01-G12 layouts, 6 palettes, `style-c/` screenshot stage backgrounds, and validator rules R10/R11 live only on this fork's `dev-personal-usage-gavin` branch. Install with: `git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git`
 
 > Sister project to [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill). Shared visual language, separate maintenance. PPT solves "horizontal swipe talks"; this one solves "static feed images."
 
@@ -133,6 +135,7 @@ Tiered by "circle of competence" — see [`references/category-cookbook.md`](./r
 | Long article → Xiaohongshu carousel | Extract core takeaways; Editorial for narrative pacing, Swiss for data breakdowns |
 | Product review / tool wrap-up | Swiss + IKB blue, prefer `S09 KPI Tower` / `S10 H-Bar Chart` |
 | Travel / lifestyle | Editorial + Midnight Ink or Dune, `M16 Image-Led Cover` for full-bleed hero |
+| Membership perks / annual milestones | Warm Gold + Champagne or Bronze, `G06 KPI Tower` / `G04 Stat Monument` |
 | WeChat cover pair | Render the same content twice: `.poster.wide` 21:9 + `.poster.square` 1:1, visually consistent |
 | Screenshot tutorial / tool walkthrough | `.frame-shot` + `.device-browser`, prefer Swiss grid base |
 | Game guide / film recap | Editorial + Midnight Ink, pull game art from Wallhaven for full-bleed hero |
@@ -217,7 +220,7 @@ Full spec in [`SKILL.md`](./SKILL.md). Deep details in the matching `references/
 node validate-social-deck.mjs path/to/task-dir
 ```
 
-9 rules, based on Playwright real-render measurement, not static scanning:
+11 rules, based on Playwright real-render measurement, not static scanning:
 
 - **R1** Overflow — any section overflowing `.poster` fails immediately and reports a pixel-based fix tier
 - **R2** Footer Collision — content pressing into the bottom footer / page-number
@@ -228,6 +231,8 @@ node validate-social-deck.mjs path/to/task-dir
 - **R7** Figure Margin Drift — default browser `<figure>` margins causing layout drift
 - **R8** Visual Bounds — true visible top/bottom bounds, visual overflow, and bottom whitespace
 - **R9** Title Gap — display title too close to the next content block
+- **R10** Warm Gold Gold Area — gold gradients must not flood ≥60% of the canvas; gold stays for rules and signatures only
+- **R11** Warm Gold Shadow — shadows must use `rgba(122,74,0,…)` / `rgba(17,9,4,…)`; pure `#000` shadows with a gold glow are rejected
 
 `SKILL.md` Step 7 explicitly states **the validator does not auto-run** — wait for the user to look at the images first, saving tens of seconds per round.
 
@@ -255,7 +260,18 @@ Pick from [`references/theme-presets.md`](./references/theme-presets.md). **Cust
 | 🟢 **Lemon Green** | `#C5E803` | Eco, health, Gen Z, green brands |
 | 🟠 **Safety Orange** | `#FF6B35` | Alerts, news, industrial, energetic themes |
 
-To switch themes, just replace the `<section class="poster" data-theme="...">` attribute on the seed template; all CSS resolves through `var(--...)`.
+### Warm Gold (6)
+
+| Palette | Paper / ink | Best for |
+|---------|-------------|----------|
+| 🏅 **Classic** | `#FBF8F5` / `#110904` | General default, brand launches, when in doubt |
+| 🥂 **Champagne** | `#FBF8F5` / `#110904`, lighter gold | Membership perks, lifestyle, light-luxury launches |
+| 🥉 **Bronze** | `#FBF8F5` / `#110904`, coppery gold | Award rankings, annual milestones, institutional style |
+| 🌹 **Rose** | `#FBF8F5` / `#110904`, rosy gold | Emotional, feminine, gifting and anniversaries |
+| ☕ **Espresso** | `#FBF8F5` / `#110904`, deepened warm brown | Culture, objects, craft, grounded premium |
+| 🌑 **Warm Gold Noir** | dark base / bright gold `#E79F00` | Night galas, black-and-gold launches, dark key visuals |
+
+To switch themes, replace the root attribute on the seed template (Editorial `data-theme`, Swiss `data-accent`, Warm Gold `data-palette`); all CSS resolves through `var(--...)`.
 
 ## Directory
 
@@ -332,7 +348,7 @@ guizang-social-card-skill/
 Yes. A task directory's `index.html` can hold multiple `.poster` sections; `node render.mjs` screenshots each one. A 3-9 card Xiaohongshu set is the common case.
 
 **Why are custom colors disallowed?**
-Same reason as the PPT skill — the skill's core value is stable output. Free color picking breaks visual cohesion. Pick from the 10 presets only.
+Same reason as the PPT skill — the skill's core value is stable output. Free color picking breaks visual cohesion. Pick from the 16 presets only.
 
 **Can I use other models for image generation?**
 Yes. Image generation itself is out of scope. SKILL.md Step 4 spells out the sourcing protocol: user images → AI-generated → web sources. AI generation depends on whichever model your agent connects to.

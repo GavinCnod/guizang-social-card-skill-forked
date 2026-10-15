@@ -16,7 +16,9 @@
 
 - **电子杂志风(Editorial)**。像 *Monocle* / *Kinfolk* / *Cereal* 那样克制的版面,适合叙事、生活方式、旅行、阅读、影视、个人观察。
 - **瑞士国际主义(Swiss)**。网格、单一锚点色、直角发丝线、极致字号对比,适合产品测评、数据、方法论、教程、AI 工具。
-- **暖金中登(Warm Gold)**。衬线标题 + 无衬线正文 + 金渐变发丝线/光晕/金投影,象牙纸底 + 浓咖啡墨,适合品牌发布、会员权益、颁奖榜单、年度里程碑、高端生活方式。
+- **暖金中登(Warm Gold)**(**本 fork 定制,上游没有**)。衬线标题 + 无衬线正文 + 金渐变发丝线/光晕/金投影,象牙纸底 + 浓咖啡墨,适合品牌发布、会员权益、颁奖榜单、年度里程碑、高端生活方式。
+
+> ⚠️ **本仓库是个人 fork,不是上游原版。** [上游 op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill) 只有 **Editorial** 和 **Swiss** 两套视觉系统;**暖金中登(Warm Gold)是本 fork 定制、上游原版没有的第三套系统**,它的种子模板、G01-G12 版式、6 套色票、`style-c/` 截图舞台底与 validator R10/R11 规则都只存在于本 fork 的 `dev-personal-usage-gavin` 分支。安装:`git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git`
 
 > 这个 Skill 是 [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill) 的姊妹项目,共享美学语言但独立维护。PPT 解决"横向翻页演讲",这里解决"静态信息流图文"。
 

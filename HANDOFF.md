@@ -1,6 +1,6 @@
 # Handoff — guizang-social-card-skill
 
-最后更新：2026-07-22 · 版本：v0.16（第三套视觉系统 Warm Gold 暖金中登：`data-system` 根属性、6 套色票、G01-G12 recipe、混排字体种子模板、validator R10/R11、Identity Test）
+最后更新：2026-10-15 · 版本：v0.16（第三套视觉系统 Warm Gold 暖金中登：`data-system` 根属性、6 套色票、G01-G12 recipe、混排字体种子模板、validator R10/R11、Identity Test；README 补 fork 定制声明）
 
 这份文档只记录**事实**：当前 skill 由哪些文件组成、每个文件管什么、本轮更新改了什么、怎么验证它还能跑。想读"为什么这样做"或"未来要怎么走"，去看 `PRODUCT.md`。
 
@@ -98,6 +98,7 @@ v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit �
 - `SKILL.md` Step 3 三模式改写、Step 4.5 三模板路由、Non-Negotiables Warm Gold Identity Test、references 清单与 caption/image-overlay 三系统措辞。
 - 计数全仓同步：**40 个 recipe（M01-M16 + S01-S12 + G01-G12）**、**16 套主题**、**三套视觉系统**、**13 张舞台底**；`README.md` / `README.en.md` / `PRODUCT.md` 决策 1 改写为三套（非删除两套历史）。
 - 规则边界：**R3 不对 warmgold 启用**；金只做规则与签名（135° 渐变条 / `#B8860B` 光晕 / 金投影 / 金 hairline），画布级金铺底禁止（R10）。
+- 补注（2026-10-15）：`README.md` / `README.en.md` / `.docs/README.md` 明确标注**暖金中登是 fork 定制、上游原版没有**；`README.en.md` 补齐缺失的 Warm Gold 色票表与 R10/R11 说明；`check-skill-docs.mjs` 追加 README fork 断言。
 
 **验收**
 - `npm run test:docs`（含新增 Warm Gold 断言）。

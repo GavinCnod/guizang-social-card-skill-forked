@@ -261,6 +261,43 @@ mustInclude(
   "validator implements R11",
 );
 
+// ---- README fork-custom statements — appended 2026-10-15 ----
+mustInclude(
+  "README.md",
+  "本仓库是个人 fork,不是上游原版",
+  "README.md marks this repo as a personal fork",
+);
+mustInclude(
+  "README.md",
+  "暖金中登(Warm Gold)是本 fork 定制、上游原版没有的第三套系统",
+  "README.md marks Warm Gold as fork-custom",
+);
+mustInclude(
+  "README.md",
+  "git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git",
+  "README.md points at the fork install command",
+);
+mustInclude(
+  "README.en.md",
+  "This repository is a personal fork, not the upstream original",
+  "README.en.md marks this repo as a personal fork",
+);
+mustInclude(
+  "README.en.md",
+  "does not exist upstream",
+  "README.en.md marks Warm Gold as fork-custom",
+);
+mustInclude(
+  "README.en.md",
+  "### Warm Gold (6)",
+  "README.en.md declares the Warm Gold palette table",
+);
+mustInclude(
+  ".docs/README.md",
+  "本 fork 自定制，上游原版没有",
+  ".docs README marks Warm Gold as fork-custom",
+);
+
 let failed = 0;
 for (const run of checks) {
   const result = run();
