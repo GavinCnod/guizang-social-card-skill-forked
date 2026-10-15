@@ -264,12 +264,12 @@ mustInclude(
 // ---- README fork-custom statements — appended 2026-10-15 ----
 mustInclude(
   "README.md",
-  "本仓库是个人 fork,不是上游原版",
-  "README.md marks this repo as a personal fork",
+  "本仓库是 GavinChen 的个人二次开发版(fork),不是上游原版",
+  "README.md attributes the fork to GavinChen",
 );
 mustInclude(
   "README.md",
-  "暖金中登(Warm Gold)是本 fork 定制、上游原版没有的第三套系统",
+  "定制了第三套 **暖金中登(Warm Gold)**",
   "README.md marks Warm Gold as fork-custom",
 );
 mustInclude(
@@ -279,12 +279,12 @@ mustInclude(
 );
 mustInclude(
   "README.en.md",
-  "This repository is a personal fork, not the upstream original",
-  "README.en.md marks this repo as a personal fork",
+  "This repository is GavinChen's personal secondary-development fork",
+  "README.en.md attributes the fork to GavinChen",
 );
 mustInclude(
   "README.en.md",
-  "does not exist upstream",
+  "added a third visual system, **Warm Gold (暖金中登)**",
   "README.en.md marks Warm Gold as fork-custom",
 );
 mustInclude(
@@ -313,6 +313,23 @@ mustInclude(
   "agents/openai.yaml",
   "$guizang-social-card-skill-forked",
   "openai.yaml default_prompt uses the fork skill name",
+);
+
+// ---- Spec optional fields + fork contact — appended 2026-10-15 ----
+mustInclude(
+  "SKILL.md",
+  "license: AGPL-3.0",
+  "SKILL.md declares the fork license",
+);
+mustInclude(
+  "SKILL.md",
+  'author: "GavinChen (@GavinCnod)"',
+  "SKILL.md metadata carries the fork author",
+);
+mustInclude(
+  "README.md",
+  "agile.moon7744@fastmail.com",
+  "README fork notice carries the contact entry",
 );
 
 // ---- Template asset paths + CJK mono fallback pins — appended 2026-10-15 ----

@@ -1,6 +1,6 @@
 # Handoff — guizang-social-card-skill-forked
 
-最后更新：2026-10-15 · 版本：v0.17（fork 合规改名：`SKILL.md` 的 `name` 与仓库目录 `guizang-social-card-skill-forked` 对齐，符合 Agent Skills 规范 name=父目录名；v0.16 为 Warm Gold 暖金中登落地）
+最后更新：2026-10-15 · 版本：v0.17（fork 合规改名 + 规范字段补齐 + 署名文案：`SKILL.md` 的 `name` 与仓库目录对齐，frontmatter 补齐 `license` / `compatibility` / `metadata`；README 与 `.docs` 的 fork 声明升级为署名 + Star + 联系入口；v0.16 为 Warm Gold 暖金中登落地）
 
 这份文档只记录**事实**：当前 skill 由哪些文件组成、每个文件管什么、本轮更新改了什么、怎么验证它还能跑。想读"为什么这样做"或"未来要怎么走"，去看 `PRODUCT.md`。
 
@@ -80,17 +80,19 @@ v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit �
 
 ### v0.17 · 2026-10-15（本轮）
 
-主题：**fork 合规改名**。审查指出：fork 仓库目录名为 `guizang-social-card-skill-forked`，而 `SKILL.md` 的 `name` 仍是 `guizang-social-card-skill`，违反 Agent Skills 规范「`name` 必须与父目录同名」（`skills-ref validate` 会直接报 `Directory name 'guizang-social-card-skill-forked' must match skill name 'guizang-social-card-skill'`）。本仓库根目录即 skill 根，克隆目录名就是父目录名。本轮只对齐命名与安装说明，不涉及功能变更；`main` 分支保持上游原名，只用于同步上游。
+主题：**fork 合规改名与署名升级**。审查指出：fork 仓库目录名为 `guizang-social-card-skill-forked`，而 `SKILL.md` 的 `name` 仍是 `guizang-social-card-skill`，违反 Agent Skills 规范「`name` 必须与父目录同名」（`skills-ref validate` 会直接报 `Directory name 'guizang-social-card-skill-forked' must match skill name 'guizang-social-card-skill'`）。本仓库根目录即 skill 根，克隆目录名就是父目录名。本轮对齐命名、补齐规范可选字段并升级 fork 署名文案，不涉及功能变更；`main` 分支保持上游原名，只用于同步上游。
 
 **修改**
-- `SKILL.md` 的 `name` → `guizang-social-card-skill-forked`。
+- `SKILL.md` 的 `name` → `guizang-social-card-skill-forked`；frontmatter 补齐 Agent Skills 规范可选字段：`license: AGPL-3.0`、`compatibility`（渲染校验需 Node.js + Playwright；`.pvt` 链路需 macOS + iPhone；Python 辅助脚本需 Python 3 + ffprobe）、`metadata`（author / repository / upstream 三个字符串键）。
 - `README.md` / `README.en.md`：fork 安装命令补目标目录 `~/.claude/skills/guizang-social-card-skill-forked`；安装 / 更新指令与目录树根名同步；`npx skills add` 命令标注为「上游原版（不含暖金中登）」；补旧目录迁移说明 `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`。
+- `README.md` / `README.en.md` 的 fork 声明升级为署名版：明确 **GavinChen（GitHub @GavinCnod）基于上游出色工作的个人 / 团队二次开发**、遵循上游 **AGPL-3.0** 继续开源，并加入 Star 引导与联系入口（email `agile.moon7744@fastmail.com`）；`.docs/README.md` 定制内容行、`AGENT.md` 同步。
 - `agents/openai.yaml` 的 `default_prompt` → `$guizang-social-card-skill-forked`；`package.json` / `package-lock.json` 的 `name` 同步。
-- `AGENT.md`、`AGENTS.md`（命名约定）、`PRODUCT.md`（决策 8）、`.docs/README.md` / `.docs/01` / `.docs/06` / `.docs/07` 的仓库名与安装表述同步。
-- `scripts/check-skill-docs.mjs` 追加断言：SKILL.md 名字行、README 安装目录、`agents/openai.yaml` 的 default_prompt。
+- `AGENTS.md`（命名约定）、`PRODUCT.md`（决策 8 改名 + 决策 9 体量决策）、`.docs/01` / `.docs/06` / `.docs/07` 的仓库名与安装表述同步。
+- 体量决策：`SKILL.md` 350 行（达标）但粗估约 9k tokens，超规范「<5000 tokens」推荐值；评估后**接受现状并记录理由**（PRODUCT.md 决策 9）。
+- `scripts/check-skill-docs.mjs` 追加 / 更新断言：SKILL.md 名字行与 `license` / `metadata` 作者、README 安装目录与联系入口、`agents/openai.yaml` 的 default_prompt；README ×2 的 fork 断言改为署名版表述。
 
 **验收**
-- `skills-ref validate <skill 目录>`（Agent Skills 参考校验器，须传目录路径；传 `.` 会被参考实现解析成空目录名而误报）通过：目录名与 `name` 一致。
+- `skills-ref validate <skill 目录>`（Agent Skills 参考校验器，须传目录路径；传 `.` 会被参考实现解析成空目录名而误报）通过：目录名与 `name` 一致，frontmatter 全部落在规范白名单字段内。
 - `npm run test:docs` 全过（含新增断言）。
 - 渲染与版面 validator 不读 skill 名，行为零变化。
 

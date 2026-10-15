@@ -1,6 +1,12 @@
 ---
 name: guizang-social-card-skill-forked
 description: Generate Guizang-style social card image sets, Live Photo motion cards, material-first Live Photo puzzle layouts, triple Live Photo collages, long-video-to-Live-Photo treatments, and WeChat official account cover pairs from articles, scripts, screenshots, product notes, subtitles, photos, or user-supplied videos. Use when the user asks for 小红书图文, Rednote/Xiaohongshu images, social cards, carousel images, 3:4 covers, Live Photo, 实况照片, 单视频实况拼图, 二宫格实况拼图, 三连实况拼图, 四宫格实况拼图, 微信公众号封面, WeChat 21:9 + 1:1 covers, Swiss Style, Warm Gold, 暖金中登, gold-accent luxury cards, or magazine-style social images.
+license: AGPL-3.0
+compatibility: "Claude Code / Codex and other Agent Skills environments. Rendering and validation need Node.js with Playwright; Live Photo .pvt packaging needs macOS and an iPhone; the optional Python helpers need Python 3 and ffprobe."
+metadata:
+  author: "GavinChen (@GavinCnod)"
+  repository: "https://github.com/GavinCnod/guizang-social-card-skill-forked"
+  upstream: "https://github.com/op7418/guizang-social-card-skill"
 ---
 
 # Guizang Social Card Skill

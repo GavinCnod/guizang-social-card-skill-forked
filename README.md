@@ -18,7 +18,17 @@
 - **瑞士国际主义(Swiss)**。网格、单一锚点色、直角发丝线、极致字号对比,适合产品测评、数据、方法论、教程、AI 工具。
 - **暖金中登(Warm Gold)**(**本 fork 定制,上游没有**)。衬线标题 + 无衬线正文 + 金渐变发丝线/光晕/金投影,象牙纸底 + 浓咖啡墨,适合品牌发布、会员权益、颁奖榜单、年度里程碑、高端生活方式。
 
-> ⚠️ **本仓库是个人 fork,不是上游原版。** [上游 op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill) 只有 **Editorial** 和 **Swiss** 两套视觉系统;**暖金中登(Warm Gold)是本 fork 定制、上游原版没有的第三套系统**,它的种子模板、G01-G12 版式、6 套色票、`style-c/` 截图舞台底与 validator R10/R11 规则都只存在于本 fork 的 `dev-personal-usage-gavin` 分支。安装(目录名与 skill 名一致,符合 Agent Skills 规范):`git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`。旧版本升级:`mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`。
+> ⚠️ **本仓库是 GavinChen 的个人二次开发版(fork),不是上游原版。**
+>
+> 它基于 [op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill)(作者 [op7418 / 归藏](https://github.com/op7418))的出色工作 fork 而来。因为个人与团队的真实使用需求,**GavinChen**(GitHub [@GavinCnod](https://github.com/GavinCnod))在上游 **Editorial / Swiss** 两套视觉系统之外,定制了第三套 **暖金中登(Warm Gold)**:种子模板、G01-G12 版式、6 套色票、`style-c/` 截图舞台底、validator R10/R11 规则,并持续打磨 Live Photo、公众号封面等生产细节。这些定制只存在于本 fork 的 `dev-personal-usage-gavin` 分支,上游原版没有。
+>
+> 安装(目录名与 skill 名一致,符合 Agent Skills 规范):`git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`。旧版本升级:`mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`。
+>
+> **协议与开源**:本 fork 遵循上游的 **AGPL-3.0** 协议(见 [LICENSE](./LICENSE)),并继续开源;商用授权另见 [COMMERCIAL_LICENSING.md](./COMMERCIAL_LICENSING.md)。
+>
+> ⭐ **如果这个项目帮到了你,请务必给[上游仓库](https://github.com/op7418/guizang-social-card-skill)和[本仓库](https://github.com/GavinCnod/guizang-social-card-skill-forked)各点一个 Star**——这是对开源作者最实在的支持。
+>
+> 🤝 如果你有更多 **skills / agents / Agent 工作流 / 内容生产管线**的定制开发需求(视觉系统扩展、私有版式、团队工作流集成等),欢迎联系 **GavinChen** 交流洽谈:GitHub [@GavinCnod](https://github.com/GavinCnod) / 邮箱 [agile.moon7744@fastmail.com](mailto:agile.moon7744@fastmail.com)。
 
 > 这个 Skill 是 [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill) 的姊妹项目,共享美学语言但独立维护。PPT 解决"横向翻页演讲",这里解决"静态信息流图文"。
 

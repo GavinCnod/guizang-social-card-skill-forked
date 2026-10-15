@@ -18,7 +18,17 @@ Three visual systems share one workflow:
 - **Swiss International**. Grid-first, single anchor color, sharp hairlines, extreme type contrast. Best for product reviews, data, frameworks, tutorials, and AI tools.
 - **Warm Gold (暖金中登)** — **fork-custom, not in upstream**. Serif titles + sans body + gold-gradient hairlines / glow / warm-gold shadows on ivory paper with espresso ink. Best for brand launches, membership perks, award rankings, annual milestones, and premium lifestyle.
 
-> ⚠️ **This repository is a personal fork, not the upstream original.** [Upstream op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill) ships only **Editorial** and **Swiss**; **Warm Gold (暖金中登) is a fork-custom third visual system that does not exist upstream** — its seed template, G01-G12 layouts, 6 palettes, `style-c/` screenshot stage backgrounds, and validator rules R10/R11 live only on this fork's `dev-personal-usage-gavin` branch. Install with (the target directory must match the skill name, per the Agent Skills spec): `git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`. Upgrading from the old name: `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`.
+> ⚠️ **This repository is GavinChen's personal secondary-development fork, not the upstream original.**
+>
+> It is forked from and builds on the excellent work of [op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill) (by [op7418](https://github.com/op7418)). To fit personal and team needs, **GavinChen** (GitHub [@GavinCnod](https://github.com/GavinCnod)) added a third visual system, **Warm Gold (暖金中登)**, on top of upstream's **Editorial / Swiss**: seed template, G01-G12 layouts, 6 palettes, `style-c/` screenshot stage backgrounds, and validator rules R10/R11 — and keeps refining Live Photo and WeChat cover details. These customizations live only on this fork's `dev-personal-usage-gavin` branch, not upstream.
+>
+> Install (the target directory must match the skill name, per the Agent Skills spec): `git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`. Upgrading from the old name: `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`.
+>
+> **License & open source**: this fork follows upstream's **AGPL-3.0** license ([LICENSE](./LICENSE)) and stays open source; see [COMMERCIAL_LICENSING.md](./COMMERCIAL_LICENSING.md) for commercial licensing.
+>
+> ⭐ **If it helps you, please star both the [upstream repo](https://github.com/op7418/guizang-social-card-skill) and [this fork](https://github.com/GavinCnod/guizang-social-card-skill-forked)** — the most direct way to support open source.
+>
+> 🤝 Need more **skills / agents / content-pipeline** custom development (extra visual systems, private layouts, team workflow integration)? Contact **GavinChen**: GitHub [@GavinCnod](https://github.com/GavinCnod) / email [agile.moon7744@fastmail.com](mailto:agile.moon7744@fastmail.com).
 
 > Sister project to [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill). Shared visual language, separate maintenance. PPT solves "horizontal swipe talks"; this one solves "static feed images."
 

@@ -174,6 +174,12 @@ v0.6-v0.11 都把 validator（`validate-social-deck.mjs`）写成"渲完必须�
 
 两种修法里选择「改 skill 名」而不是「改仓库名」：保留 `-forked` 的 fork 可见性，不动 GitHub URL 与本地目录；改后 fork 版与上游原版可以作为两个独立 skill 并存安装、互不覆盖；`main` 分支保持上游原名，只承担同步上游的职责。代价是命令名变长（`/guizang-social-card-skill-forked`），描述触发不变，日常使用无感。
 
+### 决策 9：SKILL.md 保持单入口，接受超 5k token 推荐值（2026-10-15）
+
+Agent Skills 规范推荐 SKILL.md 的指令体控制在 5000 tokens 以内（行数推荐 <500，本仓库 350 行，达标）。本仓库实测粗估约 9k tokens，超推荐值近一倍。
+
+接受现状的理由：SKILL.md 是路由与硬规则的单一入口——三模式改写、Non-Negotiables、可见文案规则、Live Photo 收口都是每个任务都要在场的约束；拆到 `references/` 后，agent 在多数任务里要额外多读一个文件，总 context 成本反而上升，同时放大与上游的 merge 面。结论：保持单入口；如果未来某个 harness 的 context 成本成为真实问题，再做轻量拆分（优先级：品类边界等已有 `references/` 覆盖的段落）。
+
 ---
 
 ## 6. 反模式（我们主动拒绝的事）

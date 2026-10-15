@@ -7,7 +7,7 @@
 | 仓库本体 | `guizang-social-card-skill-forked`（Claude Code / Codex 等 Agent 环境的 Skill，目录名与 skill 名一致） |
 | 上游 | `op7418/guizang-social-card-skill` |
 | 本仓库 remote | `GavinCnod/guizang-social-card-skill-forked`（fork） |
-| 定制内容 | **暖金中登（Warm Gold）第三视觉系统**——本 fork 自定制，上游原版没有 |
+| 定制内容 | GavinChen（GitHub @GavinCnod）基于上游出色工作的个人/团队二次开发：**暖金中登（Warm Gold）第三视觉系统**——本 fork 自定制，上游原版没有；遵循上游 AGPL-3.0 协议继续开源 |
 | 当前版本 | v0.17（2026-10-15，fork 合规改名；v0.16 为 Warm Gold 暖金中登落地） |
 | 许可 | AGPL-3.0，另见 `COMMERCIAL_LICENSING.md` |
 | 文档定位 | 只描述仓库里真实存在的内容，不引入未实现的能力 |
