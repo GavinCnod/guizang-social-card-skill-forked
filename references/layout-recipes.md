@@ -924,6 +924,7 @@ Best for when one excellent product/event photo owns the cover — the Warm Gold
 Structure:
 
 - Full-bleed or large `.frame-img` photo in a gold-hairline well (not edge-to-edge neon gold).
+- Full-bleed variant: put `position:absolute; inset:0` on the media node itself (the validator's R2 full-bleed skip only recognizes the absolutely-positioned ≥95%-area node — wrapping the image in an absolutely-positioned `<figure>` still triggers a footer collision). Keep the media node as a direct child of `.poster`, not inside `.content` (`.content` carries `z-index:2` and would cover the `.issue-strip` above the photo).
 - Serif title over a quiet zone (follow `image-overlay.md` subject-map rules), **one** phrase in `.gold-text` max.
 - Bottom mono meta strip with gold hairline above.
 

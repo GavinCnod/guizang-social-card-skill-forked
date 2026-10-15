@@ -359,6 +359,16 @@ mustInclude(
   "R10",
   "docs 08 lists the Warm Gold validator rules",
 );
+mustInclude(
+  "assets/template-warmgold-card.html",
+  ".cs-col.dark .h-md",
+  "warmgold dark split columns remap serif headings to paper",
+);
+mustInclude(
+  "references/layout-recipes.md",
+  "R2 full-bleed skip",
+  "layout-recipes G08 documents the R2 full-bleed pattern",
+);
 
 let failed = 0;
 for (const run of checks) {

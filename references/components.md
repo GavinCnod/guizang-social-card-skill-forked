@@ -138,7 +138,7 @@ The smoke deck's p2 title `第三次进山,装备比上一次轻 3.4kg` is the 2
 - M14 (Vertical Pipeline): 2-line title + **5 steps** (each step-title 42px serif + step-desc 26px sans, 28px gap) hits the 1440 floor exactly — adding a 6th step requires shrinking title to 1 line.
 - M07 (Field Ledger): 2-line title + **5 ledger rows** with both `.ledger-title` and `.ledger-note` ≈ 100-120px row height — exactly fills. 6 rows requires 1-line title.
 
-**Warm Gold (G recipes):** R6 caps are board-based, not style-based — Warm Gold inherits the same max lines / chars. `.poster.xhs .h-xl` defaults to 80px serif 500 (`.poster.square` 72px). Smoke-verified with G01 / G02 / G06 / G12 in `local-tests/smoke-warmgold-audit/`.
+**Warm Gold (G recipes):** R6 caps are board-based, not style-based — Warm Gold inherits the same max lines / chars. `.poster.xhs .h-xl` defaults to 80px serif 500 (`.poster.square` 72px). Smoke-verified with all G01-G12 in `local-tests/smoke-warmgold-audit/`.
 
 ### Matrix + hero-stat-bottom on `.poster.xhs`
 

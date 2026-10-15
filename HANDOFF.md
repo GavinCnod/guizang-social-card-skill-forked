@@ -100,6 +100,7 @@ v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit �
 - 规则边界：**R3 不对 warmgold 启用**；金只做规则与签名（135° 渐变条 / `#B8860B` 光晕 / 金投影 / 金 hairline），画布级金铺底禁止（R10）。
 - 补注（2026-10-15）：`README.md` / `README.en.md` / `.docs/README.md` 明确标注**暖金中登是 fork 定制、上游原版没有**；`README.en.md` 补齐缺失的 Warm Gold 色票表与 R10/R11 说明；`check-skill-docs.mjs` 追加 README fork 断言。
 - 审计修复（2026-10-15）：① `references/qa-checklist.md` 补 Warm Gold identity test 与 R10/R11；② `.docs/08` 补暖金身份判定 / R10-R11 验收行 / 冒烟覆盖；③ 三个种子模板 `.frame-shot.bg-asset-*` 素材路径 `../assets` → `../../assets`（修复 `local-tests/<slug>/` 默认布局下材质不加载；v0.14 的路径描述有误，已在 `screenshot-treatment.md` / `.docs/03` / `.docs/07` 同步纠正）；④ 三个模板 `--mono` 增加 CJK fallback（Noto Sans SC），修复无系统中文字体机器上 kicker/meta 中文显示为方框；⑤ 清理 `.docs/03` / `.docs/04` / `category-cookbook.md` 残留的两套系统措辞；⑥ `title-shortener.md` / `map-component.md` / `image-overlay.md` / `live-photo-production.md` / `components.md` 补暖金覆盖。
+- 冒烟扩展（2026-10-15）：`local-tests/smoke-warmgold-audit/` 扩为 **G01-G12 全覆盖**（12 张 3:4）+ R10/R11 负样例；validator 12/12 全过、12 张全部渲染。过程中修两个模板 / 规则坑并写入文档：G05 暗色分栏的衬线标题字色（`.cs-col.dark` 补 `.h-md` / `.h-xl` / `.num-*` 纸色映射）与 G08 全幅图的 R2 跳过条件 + `.content` z-index 遮挡（已写进 `layout-recipes.md` G08）。
 
 **验收**
 - `npm run test:docs`（含新增 Warm Gold 断言）。
