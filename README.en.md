@@ -12,10 +12,11 @@
 
 An agent skill for Claude Code, Codex, and similar coding-agent environments. It generates **Xiaohongshu / Rednote carousel images**, **Live Photo motion cards**, and **WeChat 21:9 + 1:1 cover pairs** from articles, copy, screenshots, product notes, subtitles, photos, or user-supplied videos.
 
-Two visual systems share one workflow:
+Three visual systems share one workflow:
 
 - **Editorial**. Restrained layouts in the spirit of *Monocle* / *Kinfolk* / *Cereal*. Best for storytelling, lifestyle, travel, reading, film, and personal observation.
 - **Swiss International**. Grid-first, single anchor color, sharp hairlines, extreme type contrast. Best for product reviews, data, frameworks, tutorials, and AI tools.
+- **Warm Gold (暖金中登)**. Serif titles + sans body + gold-gradient hairlines / glow / warm-gold shadows on ivory paper with espresso ink. Best for brand launches, membership perks, award rankings, annual milestones, and premium lifestyle.
 
 > Sister project to [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill). Shared visual language, separate maintenance. PPT solves "horizontal swipe talks"; this one solves "static feed images."
 
@@ -49,6 +50,7 @@ Other useful prompts:
 
 ```text
 Make me a 3:4 Xiaohongshu set from this product review, with editorial-style titles.
+Turn this membership-perks post into a Warm Gold set: ivory paper, gold hairline rules.
 Turn this article into a WeChat cover pair: 21:9 hero + 1:1 share card, visually consistent.
 I have 3 camping photos — make me an image-led Xiaohongshu carousel.
 Turn this game guide copy into a Xiaohongshu set; pull some game art from Wallhaven.
@@ -58,15 +60,15 @@ Turn these three game clips into a triple Live Photo collage with Swiss-style gu
 
 ## What you get
 
-- 🖋 **Two visual systems**: Editorial for atmosphere and narrative, Swiss for facts and structure, sharing one workflow
+- 🖋 **Three visual systems**: Editorial for atmosphere and narrative, Swiss for facts and structure, Warm Gold for premium ceremony, sharing one workflow
 - 📐 **3 canvas sizes**: `.poster.xhs` 1080×1440 (Xiaohongshu 3:4), `.poster.wide` 2100×900 (WeChat 21:9), `.poster.square` 1080×1080 (WeChat 1:1)
 - 🎬 **Live Photo motion cards**: single video, two-grid, three-grid, four-grid, triple collage, and low-cost long-video diagnosis; `5s` for Xiaohongshu, `3s` for WeChat Official Account articles
-- 🧩 **28 layout skeletons**: 16 Editorial (`M01-M16`, including Image-Led Cover, Pipeline, Before/After) + 12 Swiss (`S01-S12`, including KPI Tower, H-Bar Chart, Matrix + Hero)
-- 🎨 **10 theme presets**: 6 Editorial (Ink Classic, Indigo Porcelain, Forest Ink, Kraft Paper, Dune, **Midnight Ink** dark) + 4 Swiss anchor colors (IKB Klein Blue, Lemon, Lemon Green, Safety Orange)
+- 🧩 **40 layout skeletons**: 16 Editorial (`M01-M16`, including Image-Led Cover, Pipeline, Before/After) + 12 Swiss (`S01-S12`, including KPI Tower, H-Bar Chart, Matrix + Hero) + 12 Warm Gold (`G01-G12`, including Gilded Cover, Premium Ledger, Plate Matrix, Stat Monument)
+- 🎨 **16 theme presets**: 6 Editorial (Ink Classic, Indigo Porcelain, Forest Ink, Kraft Paper, Dune, **Midnight Ink** dark) + 4 Swiss anchor colors (IKB Klein Blue, Lemon, Lemon Green, Safety Orange) + 6 Warm Gold (Classic, Champagne, Bronze, Rose, Espresso, **Warm Gold Noir** dark)
 - 🖼 **Image sourcing workflow**: user images first; otherwise waterfall through Unsplash → Pexels → Flickr CC → Wallhaven → direct search, downloaded locally with auto-generated `SOURCES.md`
 - 🌫 **WebGL ink-flow background**: editorial hero pages can ship a live ink animation; can be disabled for low-power devices or screenshot mode
 - 🪧 **Text-on-image + subject safety**: full-bleed images require quiet-zone and subject mapping first; add only localized tint when needed, not a default full-canvas mask
-- 🧰 **Screenshot beautification assets**: 9 real-texture WebP backgrounds (5 Editorial / 4 Swiss), paired with `.frame-shot` / `.device-browser` / `.device-phone` utilities
+- 🧰 **Screenshot beautification assets**: 13 real-texture WebP backgrounds (5 Editorial / 4 Swiss / 4 Warm Gold), paired with `.frame-shot` / `.device-browser` / `.device-phone` utilities
 - 🗺 **Map component**: MapLibre + OSM real tiles, multi-pin + connectors, made for travel guides
 - ✅ **Validator**: `validate-social-deck.mjs` auto-detects overflow, type cap violations, 4-band density gaps, and footer collisions
 - 📄 **Single-file HTML + Playwright rendering**: no frontend build pipeline; `node render.mjs` outputs PNG directly
@@ -198,8 +200,8 @@ Once installed, Claude Code auto-detects the skill. Trigger phrases:
 The skill is a structured workflow. The agent walks through 7 steps:
 
 1. **Intake** — capture 4 things: target platform / style / source content / user images. When no images are available, present A/B/C once (shoot your own / AI generate / source online); don't re-pitch
-2. **Style & Theme** — pick Editorial or Swiss, then pick one of 10 theme presets. Custom hex values are not allowed
-3. **Layout Selection** — pick / paste / adapt copy from the 28 layout skeletons. 16 Editorial / 12 Swiss
+2. **Style & Theme** — pick Editorial / Swiss / Warm Gold, then pick one of 16 theme presets. Custom hex values are not allowed
+3. **Layout Selection** — pick / paste / adapt copy from the 40 layout skeletons. 16 Editorial / 12 Swiss / 12 Warm Gold
 4. **Asset Prep** — source images (Unsplash / Pexels / Flickr CC / Wallhaven / direct search), download locally + write `SOURCES.md`; ask whether to credit sources
 5. **Compose & Render** — copy seed template → replace `<!-- POSTERS_HERE -->` → `node render.mjs`
 6. **Deliver & Review** — show PNGs first, ask "look at them yourself, or want me to run the validator?" — does not auto-validate
@@ -269,15 +271,17 @@ guizang-social-card-skill/
 ├── assets/
 │   ├── template-editorial-card.html      ← Editorial seed (6 themes / 3 canvases)
 │   ├── template-swiss-card.html          ← Swiss seed (4 accents / 3 canvases)
+│   ├── template-warmgold-card.html       ← Warm Gold seed (6 palettes / 3 canvases)
 │   ├── magazine-bg-webgl.js              ← WebGL ink-flow background
-│   └── screenshot-backgrounds/           ← 9 screenshot stage backgrounds (WebP)
+│   └── screenshot-backgrounds/           ← 13 screenshot stage backgrounds (WebP)
 │       ├── style-a/                      ←   5 Editorial
-│       └── style-b/                      ←   4 Swiss
+│       ├── style-b/                      ←   4 Swiss
+│       └── style-c/                      ←   4 Warm Gold
 └── references/
     ├── platform-specs.md                 ← Platform × resolution × naming
-    ├── style-system.md                   ← Hard rules and anti-patterns for both styles
-    ├── theme-presets.md                  ← All 10 palettes in detail
-    ├── layout-recipes.md                 ← 28 layout skeletons (M01-M16 + S01-S12)
+    ├── style-system.md                   ← Hard rules and anti-patterns for all three styles
+    ├── theme-presets.md                  ← All 16 palettes in detail
+    ├── layout-recipes.md                 ← 40 layout skeletons (M01-M16 + S01-S12 + G01-G12)
     ├── components.md                     ← Type / cards / spacing / icons
     ├── background-systems.md             ← Ink flow / grid / paper layers
     ├── portrait-fill.md                  ← Whitespace strategy for the 3:4 board
@@ -296,7 +300,7 @@ guizang-social-card-skill/
 
 1. **Restraint over loudness** — restrained palettes stand out in a saturated feed
 2. **Structure over decoration** — type / contrast / grid carries the hierarchy, not shadows or cards
-3. **Layouts over freedom** — pick first, adapt later; do not invent pages outside the 28 skeletons
+3. **Layouts over freedom** — pick first, adapt later; do not invent pages outside the 40 skeletons
 4. **User images first** — at intake, present A/B/C once; do not re-pitch shooting their own
 5. **Select and avoid first** — full-bleed images need a quiet zone; text drop zones must clear the subject (faces / products / text-dense regions); add localized tint only when needed
 6. **Bigger means thinner** — Swiss `.h-xl` size goes up → weight must come down. Editorial follows the same rule

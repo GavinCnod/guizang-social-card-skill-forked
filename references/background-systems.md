@@ -4,6 +4,8 @@ The original Guizang PPT electronic-magazine mode uses WebGL fluid, contour, ink
 
 Do not reduce this mode to a flat beige page with a faint grid. Do not add visible grid, dot-matrix, or drafting-paper patterns to the background.
 
+Warm Gold uses its own layered model below — same discipline (atmosphere beats flat fill), different ingredients (gold glow + warm wash instead of ink flow).
+
 ## Layer Model
 
 Use 3-5 layers:
@@ -97,6 +99,70 @@ If WebGL fails, create a 2D canvas with:
 - Theme color at very low opacity.
 
 The output should still feel like an editorial background, not a plain fill.
+
+## Warm Gold Layer Model (暖金中登)
+
+Warm Gold does **not** mount the ink-flow WebGL canvas. Its atmosphere is CSS-only: warm ivory paper, subtle grain, one radial gold glow behind the focal element, and hairline gold rules as content dividers. Use 3-5 layers:
+
+1. Paper base from `theme-presets.md` (`--paper`).
+2. Subtle grain (same `.grain` element, warm-tuned opacity).
+3. Optional radial gold glow (`.gold-glow`) behind the focal element only — one per poster.
+4. Hairline gold rules as content dividers (`.gold-rule` / `.gold-rule-thin`), never as a page-wide grid.
+5. Content layer.
+
+Recommended CSS order (3:4):
+
+```html
+<section class="poster warmgold hero" data-system="warm-gold" data-palette="warm-gold-classic">
+  <div class="grain"></div>
+  <div class="gold-glow" style="--gx:30%; --gy:18%"></div>
+  <div class="content stack gap-4">
+    <div class="issue-row">VOL. 01 · 2026.07</div>
+    <div class="gold-rule"></div>
+    ...
+  </div>
+</section>
+```
+
+```css
+.poster.warmgold { position: relative; overflow: hidden; background: var(--paper); }
+.poster.warmgold .grain {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  opacity: .10; mix-blend-mode: multiply;
+  background:
+    linear-gradient(112deg, rgba(17,9,4,.03), transparent 28%, rgba(255,255,255,.14) 54%, transparent 84%),
+    radial-gradient(circle at 20% 24%, rgba(17,9,4,.04), transparent 40%);
+}
+.poster.warmgold .gold-glow {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(42% 34% at var(--gx, 30%) var(--gy, 20%),
+    rgba(184,134,11,.22), transparent 70%);
+}
+.poster.warmgold .gold-rule {
+  height: 3px; border: 0; width: 100%;
+  background: var(--gold-rule);
+}
+.poster.warmgold .gold-rule-thin {
+  height: 1px; border: 0; width: 100%;
+  background: linear-gradient(135deg, rgba(122,74,0,.55), rgba(231,159,0,.55));
+}
+.poster.warmgold .content { position: relative; z-index: 3; }
+```
+
+When to show the gold glow:
+
+- Strong (α ~.22, large radius): cover, chapter/divider, pull quote, closing page.
+- Subtle or absent (α ~.10 or none): screenshot pages, dense ledgers, checklists, data pages.
+
+For `warm-gold-noir`, swap the wash per the override block in `theme-presets.md` — light-paper math does not carry over.
+
+**Warm Gold Do Not:**
+
+- Do not mount the ink-flow WebGL canvas — it belongs to Editorial.
+- Do not pour `--gold-rule` across ≥60% of the canvas (validator **R10**).
+- Do not use pure `#000` shadows with a gold glow (validator **R11**).
+- Do not add page-wide grids or dot matrices.
+- Do not put strong gold marks behind body text.
 
 ## Do Not
 

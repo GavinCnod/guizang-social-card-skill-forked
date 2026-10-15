@@ -1,6 +1,6 @@
 # Screenshot Treatment
 
-When the user supplies an app / web / code / dashboard screenshot, **do not** drop it raw into a `.frame-img`. The aspect ratio mismatch crops UI and the harsh edge looks SaaS-y. Use `.frame-shot` instead — a sibling class added to both seed templates.
+When the user supplies an app / web / code / dashboard screenshot, **do not** drop it raw into a `.frame-img`. The aspect ratio mismatch crops UI and the harsh edge looks SaaS-y. Use `.frame-shot` instead — a sibling class present in all three seed templates.
 
 ## When to reach for it
 
@@ -56,6 +56,7 @@ Pick six values before writing the markup. Treat this like the M16 cover decisio
 
 - **Swiss** default: `corners-sq`. Use `corners-sm` only if the slot has surrounding shadow or chrome.
 - **Editorial** default: `corners-sm` (6 px). Bump to `corners-md` (14 px) for "cutout" feel on paper.
+- **Warm Gold** default: `corners-sm` (6 px). Pair with a gold hairline frame rather than larger radii.
 
 Never go above 14 px — anything bigger reads as iOS marketing.
 
@@ -63,23 +64,24 @@ Never go above 14 px — anything bigger reads as iOS marketing.
 
 - Swiss → `shadow-none` 90% of the time. `shadow-soft` only on screenshots that float on `bg-grid` / `bg-dot`. `shadow-ed` adds a `1px` outline as part of the shadow — reserve for hero shots.
 - Editorial → `shadow-soft` on `bg-paper-2` is the warm default. `shadow-ed` for hero shots.
+- Warm Gold → `shadow-soft` (which resolves to `--gold-shadow` in the warm-gold seed) on `bg-paper-2` is the default. `shadow-ed` for hero shots. Never `shadow-none` on ivory — the shot needs lift.
 
 ### 4. `bg-*` (the screenshot "stage")
 
-| Token        | Swiss role          | Editorial role         |
-| ------------ | ------------------- | ---------------------- |
-| `bg-paper`   | Default plain stage | Same                   |
-| `bg-paper-2` | n/a                 | Default warm stage     |
-| `bg-grey-1`  | Default plain stage | n/a                    |
-| `bg-grid`    | Engineering / data  | Field-notes engineering |
-| `bg-dot`     | Subtle structure    | Subtle structure       |
-| `bg-ink`     | Dark-mode UI shot   | Dark-mode UI shot      |
+| Token        | Swiss role          | Editorial role         | Warm Gold role         |
+| ------------ | ------------------- | ---------------------- | ---------------------- |
+| `bg-paper`   | Default plain stage | Same                   | Same                   |
+| `bg-paper-2` | n/a                 | Default warm stage     | Default warm stage     |
+| `bg-grey-1`  | Default plain stage | n/a                    | n/a                    |
+| `bg-grid`    | Engineering / data  | Field-notes engineering| Engineering data       |
+| `bg-dot`     | Subtle structure    | Subtle structure       | Subtle structure       |
+| `bg-ink`     | Dark-mode UI shot   | Dark-mode UI shot      | Dark-mode UI shot      |
 
-Backgrounds are **never** accent-coloured. If the screenshot needs an accent emphasis, add a `.t-cat` chip or `.kicker` next to it — don't tint the stage.
+Backgrounds are **never** accent-coloured. If the screenshot needs an accent emphasis, add a `.t-cat` chip or `.kicker` next to it — don't tint the stage. Gold is a rule colour, never a stage colour.
 
 #### Solid `bg-*` vs asset `bg-asset-*`
 
-The tokens above are **CSS-generated solids** — flat tones, fast, no asset dependency. They work, but for code / IDE / dashboard / dense-UI captures they can feel undersold. Ported from the PPT skill, both seed templates also ship 9 **real texture WebP** backgrounds under `assets/screenshot-backgrounds/`. Reach for these when the screenshot is the page's hero, when a solid stage feels too thin, or when you need the warmth/grain of a printed magazine.
+The tokens above are **CSS-generated solids** — flat tones, fast, no asset dependency. They work, but for code / IDE / dashboard / dense-UI captures they can feel undersold. Ported from the PPT skill, the seed templates also ship real texture WebP backgrounds under `assets/screenshot-backgrounds/` (9 for Editorial/Swiss + 4 for Warm Gold). Reach for these when the screenshot is the page's hero, when a solid stage feels too thin, or when you need the warmth/grain of a printed magazine.
 
 Editorial assets (`assets/screenshot-backgrounds/style-a/`):
 
@@ -100,9 +102,18 @@ Swiss assets (`assets/screenshot-backgrounds/style-b/`):
 | `bg-asset-lemon-grid`      | Lemon-yellow      | `data-accent="lemon"` decks only                 |
 | `bg-asset-safety-orange`   | Safety orange     | `data-accent="safety-orange"` decks only         |
 
+Warm Gold assets (`assets/screenshot-backgrounds/style-c/`):
+
+| Class                    | Tone                | Use only when                                   |
+| ------------------------ | ------------------- | ----------------------------------------------- |
+| `bg-asset-gold-ivory`    | Warm ivory + grain  | Default warm-gold hero stage                    |
+| `bg-asset-gold-champagne`| Champagne linen     | `warm-gold-champagne` / beauty-lifestyle decks  |
+| `bg-asset-gold-bronze`   | Bronze leaf texture | `warm-gold-bronze` / craft-premium decks        |
+| `bg-asset-gold-noir`     | Black + gold dust   | `warm-gold-noir` decks only                     |
+
 **Rules of thumb**
 
-- Don't mix accents — a `data-accent="ikb"` deck must not pull a `bg-asset-safety-orange` stage.
+- Don't mix accents — a `data-accent="ikb"` deck must not pull a `bg-asset-safety-orange` stage. Warm Gold: a `data-palette="warm-gold-bronze"` deck must not pull `bg-asset-gold-champagne`.
 - Asset backgrounds already carry texture; don't stack `shadow-ed` on top (the `1px` outline will read as a SaaS frame). Use `shadow-soft` or `shadow-none`.
 - Decide once per deck whether asset stages are part of the visual identity — don't sprinkle one asset background into a deck of solid stages, it looks like a sample card.
 - These assets are crop-safe at 16:10 and 16:9. For tall `r-3x4` or square `r-1x1` slots, prefer solid `bg-*` — the texture pattern can read awkwardly when over-cropped.
@@ -112,8 +123,8 @@ Swiss assets (`assets/screenshot-backgrounds/style-b/`):
 ### 5. `inset-*` (padding between shot and stage)
 
 - `inset-none` — image fills the frame. Use when the screenshot itself already has window chrome.
-- `inset-sub` (Swiss 20 px / Editorial 24 px) — default. Lets the stage breathe.
-- `inset-bal` (Swiss 48 px / Editorial 56 px) — when the shot is busy and needs to feel calm.
+- `inset-sub` (Swiss 20 px / Editorial 24 px / Warm Gold 24 px) — default. Lets the stage breathe.
+- `inset-bal` (Swiss 48 px / Editorial 56 px / Warm Gold 48 px) — when the shot is busy and needs to feel calm.
 
 ### 6. `fit-cover` (override)
 
@@ -165,7 +176,7 @@ If you can't crop ahead of time, use `object-position: center 6%` to bias the vi
 
 ## Style cheat-sheet
 
-Two recipes that cover 80% of cases.
+Three recipes that cover 80% of cases.
 
 **Swiss product demo** — pure stage, no shadow:
 ```
@@ -185,6 +196,11 @@ Two recipes that cover 80% of cases.
 **Swiss hero with brand-aligned stage** — only when accent matches asset:
 ```
 .frame-shot.r-16x10.corners-sq.shadow-none.bg-asset-ikb-dot.inset-bal
+```
+
+**Warm Gold hero** — gold-lifted stage:
+```
+.frame-shot.r-16x10.corners-sm.shadow-soft.bg-asset-gold-ivory.inset-sub
 ```
 
 For comparison shots (before / after), use **the same parameters** on both — different treatment between cells reads as inconsistency, not contrast.

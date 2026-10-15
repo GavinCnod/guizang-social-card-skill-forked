@@ -17,6 +17,8 @@
  *   R7  figure margin drift    browser-default <figure> margin offsets media alignment
  *   R8  visual bounds          measured top/bottom blank space and visual overflow
  *   R9  title gap              display title touches the next content block
+ *   R10 gold gradient area     warmgold: gold gradient covers >=60% of the canvas (WARN)
+ *   R11 shadow discipline      warmgold: pure #000 shadow with a gold glow (WARN)
  */
 import { chromium } from "playwright";
 import { fileURLToPath } from "node:url";
@@ -31,7 +33,7 @@ for (const a of args) {
   else if (!target) target = a;
 }
 if (!target) {
-  console.error("usage: node validate-social-deck.mjs <task-dir|index.html> [--style=swiss|editorial]");
+  console.error("usage: node validate-social-deck.mjs <task-dir|index.html> [--style=swiss|editorial|warmgold]");
   process.exit(2);
 }
 const abs = path.resolve(target);
@@ -58,6 +60,9 @@ await page.waitForTimeout(1200);
 
 const style = styleOverride || await page.evaluate(() => {
   const html = document.documentElement;
+  // Warm Gold probes FIRST — it must never be mistaken for editorial (serif titles)
+  // or swiss (accent attr). data-system is the root contract for the third system.
+  if (html.dataset.system === "warm-gold") return "warmgold";
   if (html.dataset.theme) return "editorial";
   if (html.dataset.accent) return "swiss";
   // Fallback: any display class using a serif family = editorial; otherwise swiss.
@@ -289,6 +294,75 @@ for (const s of sections) {
     }, DISPLAY_CLASSES);
     for (const b of bolds) {
       fails.push({ rule: "R3", msg: `.${b.cls} "${b.text}" is ${b.size}px @ weight ${b.weight} — Swiss "larger = lighter" hard rule`, fix: "remove inline font-weight; use the typed class default (200-300)" });
+    }
+  }
+
+  // R10 warmgold gold-gradient discipline (WARN) — gold never covers >=60% of canvas
+  if (style === "warmgold") {
+    const goldFlood = await s.evaluate(el => {
+      const W = el.clientWidth, H = el.clientHeight;
+      const posterArea = W * H;
+      let goldArea = 0;
+      const hits = [];
+      const GRAD = /linear-gradient|gold-rule|135deg/;
+      const GOLDISH = /#7a4a00|#c18200|#e79f00|rgb\(\s*122\s*,\s*74\s*,\s*0|rgb\(\s*193\s*,\s*130\s*,\s*0|rgb\(\s*231\s*,\s*159\s*,\s*0/i;
+      for (const n of el.querySelectorAll("*")) {
+        if (n.closest("script, style")) continue;
+        const cs = getComputedStyle(n);
+        const r = n.getBoundingClientRect();
+        if (r.width < 20 || r.height < 4) continue;
+        const bg = cs.backgroundImage || "";
+        const isGoldGrad = GRAD.test(bg) && (GOLDISH.test(bg) || bg.includes("var(--gold-rule)"));
+        // background may resolve var() already in computed style
+        const isGoldFill = GOLDISH.test(cs.backgroundColor || "");
+        if (!isGoldGrad && !isGoldFill) continue;
+        // skip text nodes with background-clip:text (gold-text phrases are tiny)
+        if (cs.webkitBackgroundClip === "text" || cs.backgroundClip === "text") continue;
+        const area = r.width * r.height;
+        if (area < 4000) continue;
+        goldArea += area;
+        hits.push({ cls: n.className ? "." + String(n.className).split(" ").filter(Boolean).join(".") : n.tagName.toLowerCase(), area: Math.round(area) });
+      }
+      return { ratio: goldArea / posterArea, hits: hits.slice(0, 5) };
+    });
+    if (goldFlood.ratio >= 0.60) {
+      warns.push({
+        rule: "R10",
+        msg: `gold gradient/fill covers ${Math.round(goldFlood.ratio * 100)}% of canvas (>=60% violates R10) — largest: ${goldFlood.hits.map(h => `${h.cls} ${h.area}px²`).join(", ")}`,
+        fix: "confine gold to rules / thin bands / one focal phrase / badges — never a full-bleed hero panel (components.md Gold Utilities)",
+      });
+    }
+  }
+
+  // R11 warmgold shadow discipline (WARN) — no pure #000 shadow with a gold glow
+  if (style === "warmgold") {
+    const badShadows = await s.evaluate(el => {
+      const out = [];
+      for (const n of el.querySelectorAll("*")) {
+        if (n.closest("script, style")) continue;
+        const cs = getComputedStyle(n);
+        const sh = cs.boxShadow || "";
+        if (!sh || sh === "none") continue;
+        // pure black shadow
+        const hasPureBlack = /rgba?\(\s*0\s*,\s*0\s*,\s*0\s*(,|\)|\s)/.test(sh) && !/rgba?\(\s*0\s*,\s*0\s*,\s*0\s*,\s*0(\.0+)?\s*\)/.test(sh);
+        // gold glow nearby: filter drop-shadow with gold, or background glow on same node
+        const hasGoldGlow = /184,\s*134,\s*11|231,\s*159,\s*0|#B8860B|#E79F00/i.test(sh)
+          || (cs.filter && /drop-shadow\([^)]*(184,\s*134,\s*11|231,\s*159,\s*0)/i.test(cs.filter));
+        if (hasPureBlack && (hasGoldGlow || n.classList.contains("gold-glow"))) {
+          out.push({ cls: n.className ? "." + String(n.className).split(" ").filter(Boolean).join(".") : n.tagName.toLowerCase(), shadow: sh.slice(0, 80) });
+        } else if (hasPureBlack) {
+          // pure #000 shadow on warmgold is always a violation (must be warm-black or warm-gold)
+          out.push({ cls: n.className ? "." + String(n.className).split(" ").filter(Boolean).join(".") : n.tagName.toLowerCase(), shadow: sh.slice(0, 80) });
+        }
+      }
+      return out.slice(0, 8);
+    });
+    for (const b of badShadows) {
+      warns.push({
+        rule: "R11",
+        msg: `${b.cls} uses pure #000 shadow "${b.shadow}" — R11 requires rgba(122,74,0,…) or rgba(17,9,4,…)`,
+        fix: "replace with --gold-shadow (0 2px 12px rgba(122,74,0,.18)) or --ink-shadow (0 2px 8px rgba(17,9,4,.10)); never #000 + gold glow (components.md Hard Rules 12)",
+      });
     }
   }
 
@@ -539,7 +613,7 @@ for (const { meta, fails, warns } of report) {
 }
 
 lines.push("");
-lines.push(`Legend: R1 overflow · R2 footer collision · R3 swiss bold display · R4 min font · R5 4-band density · R6 h-xl cap · R7 figure margin drift · R8 visual bounds · R9 title gap`);
+lines.push(`Legend: R1 overflow · R2 footer collision · R3 swiss bold display · R4 min font · R5 4-band density · R6 h-xl cap · R7 figure margin drift · R8 visual bounds · R9 title gap · R10 gold area · R11 shadow color`);
 lines.push(`Exit code 1 only on FAIL. Warnings are advisory.`);
 
 console.log(lines.join("\n"));

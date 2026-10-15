@@ -1,6 +1,6 @@
 # Components
 
-Shared component spec for both seed templates. Read this when you need to look up a class, a font size, or a hard rule that recurs across recipes. Per-recipe details live in `layout-recipes.md`; per-theme color tokens live in `theme-presets.md`.
+Shared component spec for all three seed templates. Read this when you need to look up a class, a font size, or a hard rule that recurs across recipes. Per-recipe details live in `layout-recipes.md`; per-theme color tokens live in `theme-presets.md`.
 
 ## Font Stacks
 
@@ -18,11 +18,19 @@ Swiss International (`template-swiss-card.html`):
 - `--sans-zh`: Noto Sans SC, PingFang SC — Chinese body.
 - `--mono`: IBM Plex Mono — labels, captions, t-meta.
 
-Never load a serif font in the Swiss template. Never let the Editorial template lose its serif display family.
+Warm Gold 暖金中登 (`template-warmgold-card.html`):
+
+- `--serif-zh`: Noto Serif SC, Songti SC, STSong — **display titles only**.
+- `--serif-en`: Playfair Display — italic accent words inside titles, pull quotes.
+- `--sans-zh`: Noto Sans SC, PingFang SC — **body, lead, captions** (inverted vs Editorial).
+- `--sans-en`: Inter — Latin body in mixed content.
+- `--mono`: IBM Plex Mono — labels, metadata, numerals, issue strip.
+
+Never load a serif font in the Swiss template. Never let the Editorial template lose its serif display family. Warm Gold must load **both** serif and sans: serif for titles, sans for body — dropping either breaks the identity test.
 
 ## Type Scale + Weight Mapping
 
-Both templates follow the rule **"the larger, the lighter."** Small text always uses heavier weight than large text. On 1080x1440 boards, the minimum readable size is 22-28px after factoring in mobile downsample.
+All three templates follow the rule **"the larger, the lighter."** Small text always uses heavier weight than large text. On 1080x1440 boards, the minimum readable size is 22-28px after factoring in mobile downsample.
 
 Editorial scale (default for 3:4):
 
@@ -33,7 +41,7 @@ Editorial scale (default for 3:4):
 | Mid title   | `.h-md`     |  56px | 500    | +.02em   | serif-zh  |
 | Subtitle    | `.h-sub`    |  36px | 400 it | normal   | serif-en  |
 | Pull quote  | `.pullquote`|  64px | 500 it | normal   | serif-zh  |
-| Lead        | `.lead`     |  28px | 400    | normal   | **serif-zh** |
+| Lead        | `.lead`     |  28px | 400    | normal   | **serif-zh** (Warm Gold: same) |
 | Body        | `.body`     |  24px | 400    | normal   | **serif-zh** |
 | Kicker      | `.kicker`   |  21px | 500    | +.22em   | mono      |
 | Meta        | `.meta`     |  18px | 500    | +.20em   | mono      |
@@ -57,7 +65,33 @@ Swiss scale (default for 3:4):
 | Meta        | `.t-meta`     |  20px | 500    | mono      |
 | Caption     | `.swiss-img-caption` | 18px | 500 | mono   |
 
-Both templates auto-shrink display sizes inside `.poster.square` and `.poster.wide`. You usually do not override them. Override only when a single title cannot be shortened further.
+Warm Gold scale (default for 3:4) — **serif titles, sans body, mono meta**:
+
+| Role        | Class          | Size  | Weight | Tracking | Family    |
+| ----------- | -------------- | ----- | ------ | -------- | --------- |
+| Display     | `.h-display`   | 116px | 500    | +.02em   | serif-zh  |
+| Section ttl | `.h-xl`        |  80px | 500    | +.01em   | serif-zh  |
+| Mid title   | `.h-md`        |  52px | 500    | normal   | serif-zh  |
+| Subtitle    | `.h-sub`       |  34px | 400 it | normal   | serif-en  |
+| Pull quote  | `.pullquote`   |  60px | 500 it | normal   | serif-zh  |
+| Lead        | `.lead`        |  30px | 400    | normal   | **sans-zh** |
+| Body        | `.body`        |  26px | 400    | normal   | **sans-zh** |
+| Mega number | `.num-mega`    | 140px | 500    | normal   | mono      |
+| XL number   | `.num-xl`      |  96px | 500    | normal   | mono      |
+| Kicker      | `.kicker`      |  21px | 500    | +.22em   | mono      |
+| Meta        | `.meta`        |  18px | 500    | +.20em   | mono      |
+
+Warm Gold title-length bands track the Editorial bands (serif density), but display defaults to 116px instead of 124px because sans body + gold rules need slightly more vertical budget:
+
+| Title shape                    | Warm Gold display |
+| ------------------------------ | ----------------- |
+| 1 line, <= 6 Chinese chars     | 124px (default)  |
+| 1 line, 7-10 chars             | 104px            |
+| 2 lines, each <= 8 chars       | 92px             |
+| 2 lines, any line 9-12 chars   | 80px             |
+| 3 lines (rare)                 | 72px             |
+
+All three seeds auto-shrink display sizes inside `.poster.square` and `.poster.wide`. You usually do not override them. Override only when a single title cannot be shortened further.
 
 ### Chinese Title Length Bands
 
@@ -119,12 +153,14 @@ A 1080x1440 PNG is usually viewed on a phone at 360-420 logical pixels wide. Any
 
 | Role                | Minimum | Notes                                    |
 | ------------------- | ------- | ---------------------------------------- |
-| Body / paragraph    | 28px    | Editorial, Swiss alike                   |
+| Body / paragraph    | 28px    | Editorial, Swiss, Warm Gold alike        |
 | Lead                | 30px    | The "1.5x body" guard                    |
 | Caption / kicker    | 20px    | Do not drop below 18px                   |
 | Label / meta strip  | 20px    | Mono only                                |
 | Cell title in grids | 24px    | Matrix / brief cards                     |
 | Number annotation   | 22px    | Stat-card .lbl, ledger .sub              |
+
+Warm Gold follows the same floors. Gold hairline captions may go to 18px only if `--ink` on `--paper` still passes contrast; gold text on ivory never goes below 20px.
 
 If you cannot fit the copy, cut the copy. Do not shrink type.
 
@@ -141,9 +177,31 @@ Multi-card grids must use **the same** card class for every cell, except a singl
 
 The Editorial template intentionally does not provide card classes. Editorial layouts express hierarchy through type, rules, ledger rows, and column structure — not card backgrounds. If you find yourself wanting a card on an Editorial poster, you probably picked the wrong style mode.
 
+Warm Gold ships its own plate classes (mutually exclusive, same grid discipline as Swiss):
+
+- `.plate` — `--paper-2` fill + 1px `--line` hairline. The workhorse.
+- `.plate-gold` — transparent + 1px gold hairline (`--accent-deep` at 40%). Focal plates only; max one per poster.
+- `.plate-ink` — `--ink` fill, `--paper` text. One statement plate max.
+
+Never give a Warm Gold plate a full gold-gradient background — that violates R10.
+
+## Gold Utilities (Warm Gold only)
+
+| Class / token | What it does | Discipline |
+| ------------- | ------------ | ---------- |
+| `.gold-rule` | 135° gold gradient bar, 3-4px tall, full content width | One per zone; not an edge frame |
+| `.gold-rule-thin` | 1px gold hairline | Section separators |
+| `.gold-text` | gradient text fill on a span | **One focal phrase per headline** |
+| `.gold-plate` | small solid `--accent-deep` badge, `--paper` text | Numerals / "NEW" / rank badges |
+| `.gold-glow` | radial `rgba(184,134,11,.35)` glow behind focal element | One per poster |
+| `--gold-rule` | the 135° gradient token itself | Rules, thin bands, ≤120px wide fills |
+| `--gold-shadow` | `0 2px 12px rgba(122,74,0,.18)` | Plates and framed images only |
+
+Hard limits: the gold gradient never covers ≥60% of the canvas (validator **R10**); gold shadows never replace neutral shadows on body content; never stack `.gold-glow` + `.gold-text` + `.plate-gold` on the same element cluster.
+
 ## Image Containers
 
-Both templates share the same `.frame-img` system. Always pick a standard ratio class. Never write `aspect-ratio: 2592/1798` style ad-hoc ratios.
+All three templates share the same `.frame-img` system. Always pick a standard ratio class. Never write `aspect-ratio: 2592/1798` style ad-hoc ratios.
 
 | Class       | Ratio  | Use                                                |
 | ----------- | ------ | -------------------------------------------------- |
@@ -155,7 +213,7 @@ Both templates share the same `.frame-img` system. Always pick a standard ratio 
 | `.r-16x10`  | 16 : 10| Default for left-text + right-image splits.        |
 | `.r-21x9`   | 21 : 9 | WeChat 21:9 hero image, S08 Image Hero top zone.   |
 
-Default `object-fit: cover` keeps `object-position: center 50%` (both templates). Use `.fit-contain` for UI screenshots, dense text, code, and infographics. Do not crop faces or product key features.
+Default `object-fit: cover` keeps `object-position: center 50%` (all three templates). Use `.fit-contain` for UI screenshots, dense text, code, and infographics. Do not crop faces or product key features.
 
 **Subject-aware cropping — always set `object-position` inline per photo.** The template default is a fallback, not a recommendation. Before each `<img>`, look at the source and ask: where is the subject? Then set `style="object-position:center N%"` on the `<img>` directly:
 
@@ -171,12 +229,13 @@ The default `center 50%` will silently crop subjects out of frame on tall ratios
 **Caption class name (don't get this wrong):**
 - Editorial template: `.img-cap` — 18px mono, applied to `<figcaption>` under `.frame-img`. Writing `.cap` falls back to browser-default 16px and trips R4.
 - Swiss template: `.swiss-img-caption` — same role, 18px mono.
+- Warm Gold template: `.img-cap` — same as Editorial, 18px mono.
 
 There is no shared `.cap` class. If you see `.cap` in a draft, fix it before render.
 
 ## Screenshot Containers (.frame-shot)
 
-For UI screenshots / web captures / code shots, use `.frame-shot` (both seeds carry it). It defaults to `object-fit: contain` so the source pixels stay pristine — the opposite of `.frame-img`. See `references/screenshot-treatment.md` for the full parameter matrix.
+For UI screenshots / web captures / code shots, use `.frame-shot` (all three seeds carry it). It defaults to `object-fit: contain` so the source pixels stay pristine — the opposite of `.frame-img`. See `references/screenshot-treatment.md` for the full parameter matrix.
 
 Quick summary of style-locked defaults (don't second-guess these):
 
@@ -184,12 +243,13 @@ Quick summary of style-locked defaults (don't second-guess these):
 | --------- | ------------ | ------------ | ------------ | ------------- |
 | Swiss     | `corners-sq` | `shadow-none`| `bg-grey-1`  | `inset-sub`   |
 | Editorial | `corners-sm` | `shadow-soft`| `bg-paper-2` | `inset-sub`   |
+| Warm Gold | `corners-sm` | `shadow-gold`| `bg-paper-2` | `inset-sub`   |
 
-Two device wrappers (`.device-browser`, `.device-phone`) ship in both templates and provide CSS-only browser chrome / phone bezel — no SVG, no image deps. Wrap one `.frame-shot` per chrome.
+Two device wrappers (`.device-browser`, `.device-phone`) ship in all three templates and provide CSS-only browser chrome / phone bezel — no SVG, no image deps. Wrap one `.frame-shot` per chrome.
 
 ## Map Block (.map-block)
 
-For content with spatial relationships (routes, neighborhoods, store locations). Both seeds ship `.map-block` + `.map-pin` + `.map-legend`. Pick the map source by how literal the location needs to be — see `references/map-component.md` for the full playbook:
+For content with spatial relationships (routes, neighborhoods, store locations). All three seeds ship `.map-block` + `.map-pin` + `.map-legend`. Pick the map source by how literal the location needs to be — see `references/map-component.md` for the full playbook:
 
 - **Mode T** (default for travel / route / wayfinding) — Mapbox Static Images API URL as `<img>` source; needs `MAPBOX_ACCESS_TOKEN`. Apply `tone-paper` (Editorial) or `tone-paper` saturation-0 (Swiss).
 - **Mode O** — OSM static tile composite, fallback when no Mapbox token is available and the map still needs to be geographically real.
@@ -217,13 +277,15 @@ Swiss template exposes a Carbon-style 2x scale. Stick to these tokens — arbitr
 
 Editorial template uses bare `px` for now because magazine layouts often want bespoke spacing for atmosphere. If you find a pattern that recurs, add an editorial token here.
 
+Warm Gold reuses the Swiss Carbon-style spacing scale (same token table above) — gilded layouts want the same engineered rhythm, just with warmer fills.
+
 ## Icons
 
-Default icon library is **Lucide** (loaded only by the Swiss template). Editorial layouts rarely need icons; when they do, use the same Lucide set, but limit to one or two per poster.
+Default icon library is **Lucide** (loaded by Swiss and Warm Gold templates). Editorial layouts rarely need icons; when they do, use the same Lucide set, but limit to one or two per poster.
 
 Rules:
 
-- No emoji anywhere. Emojis ruin both styles.
+- No emoji anywhere. Emojis ruin all three styles.
 - Use angular Lucide icons (`arrow-right`, `check`, `triangle-alert`, `dot`, `plus`, `equal`, `slash`). Avoid pillow-rounded icons (`smile`, `heart-filled`) — they fight Swiss geometry.
 - Icon stroke weight: 1.5 (Lucide default). Do not thicken.
 - Size: 56px for ledger row indicators, 32px inline with body, 24px in chips. Never below 20px.
@@ -251,29 +313,34 @@ Swiss issue elements:
 - `.chrome-min` — top single row with category on left, date/issue on right, bottom hairline.
 - `.t-meta` — inline mono uppercase metadata anywhere on the poster.
 
+Warm Gold issue elements:
+
+- `.issue-row` — top row: "VOL. 01 · 2026.07" with a gold hairline under it (Editorial's structure, gold instead of accent dot).
+- `.meta` — inline mono uppercase metadata; pair with `.gold-rule-thin` when a separator is needed.
+
 One issue element per poster. Never both top issue strip and bottom issue strip on the same poster — it looks like decoration.
 
 ## Layout Primitives
 
-Both templates share the same primitives (different default gaps).
+All three templates share the same primitives (different default gaps).
 
-| Class            | Editorial gap   | Swiss gap       | Use                                  |
-| ---------------- | --------------- | --------------- | ------------------------------------ |
-| `.stack`         | flex column     | flex column     | Default vertical flow.               |
-| `.row`           | flex row        | flex row        | Horizontal flow.                     |
-| `.gap-1`...`-5`  | 12-64px         | 8-16px          | Editorial gaps (px) vs Swiss (token).|
-| `.gap-6`...`-10` | n/a             | 24-64px         | Swiss only — Carbon scale.           |
-| `.col-2-7-5`     | 7:5 split       | n/a             | Editorial only — quote + image.      |
-| `.col-2-8-4`     | 8:4 split       | n/a             | Editorial only — text-heavy + image. |
-| `.grid-12`       | n/a             | 12-col grid     | Swiss only.                          |
-| `.span-N`        | n/a             | grid column span| Swiss only.                          |
-| `.grid-3`        | 3 columns       | 3 columns       | Both.                                |
+| Class            | Editorial gap   | Swiss gap       | Warm Gold gap  | Use                                  |
+| ---------------- | --------------- | --------------- | -------------- | ------------------------------------ |
+| `.stack`         | flex column     | flex column     | flex column    | Default vertical flow.               |
+| `.row`           | flex row        | flex row        | flex row       | Horizontal flow.                     |
+| `.gap-1`...`-5`  | 12-64px         | 8-16px          | 8-16px (token) | Editorial gaps (px) vs token scales. |
+| `.gap-6`...`-10` | n/a             | 24-64px         | 24-64px        | Token scales only.                   |
+| `.col-2-7-5`     | 7:5 split       | n/a             | 7:5 split      | Quote + image.                       |
+| `.col-2-8-4`     | 8:4 split       | n/a             | 8:4 split      | Text-heavy + image.                  |
+| `.grid-12`       | n/a             | 12-col grid     | 12-col grid    | Swiss / Warm Gold.                   |
+| `.span-N`        | n/a             | grid column span| grid column span | Swiss / Warm Gold.                |
+| `.grid-3`        | 3 columns       | 3 columns       | 3 columns      | All.                                 |
 
 ## Hard Rules (Shared)
 
 These rules guard the visual identity. Violations are almost always wrong.
 
-1. Pick exactly one style mode per package. Never mix Editorial and Swiss.
+1. Pick exactly one style mode per package. Never mix Editorial, Swiss, and Warm Gold.
 2. Pick exactly one theme/accent per package. Never combine two palettes.
 3. No emojis, ever. Use Lucide or restrained type.
 4. No fake data, no fake percentages, no `Lorem` text in delivered output.
@@ -283,3 +350,5 @@ These rules guard the visual identity. Violations are almost always wrong.
 8. Every image must be wrapped in `.frame-img` with a standard ratio class.
 9. Multi-card grids use one card class. One accent card maximum.
 10. Honor the type scale and minimum sizes. Cut copy before shrinking type.
+11. **R10 — Warm Gold: gold gradient discipline.** The 135° gold gradient may never cover ≥60% of the canvas. Use it on rules, thin bands, small plates, one focal phrase, and badges only. Full-bleed gold hero panels are a violation (validator WARN).
+12. **R11 — Warm Gold: shadow discipline.** Shadows on Warm Gold posters must be `rgba(122,74,0,…)` (warm-gold) or `rgba(17,9,4,…)` (neutral warm-black). Pure `#000` shadows with a gold glow are a violation (validator WARN). R3 (Swiss no-shadow) does not apply to Warm Gold.

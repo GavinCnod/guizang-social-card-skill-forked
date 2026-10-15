@@ -809,6 +809,198 @@ HTML skeleton (3:4 — matrix collapses to 2 columns):
 
 Hard limits: 8 cells on 3:4 (2×4), 9 cells on 1:1 (3×3), 12 cells on 21:9 (4×3). Max one `is-accent` cell — two breaks the rhythm. The `num-mega` at bottom must agree with the cell count (`12` if 12 cells, `8` if 8); never display a number unsupported by the grid.
 
+## Warm Gold Recipes (暖金中登)
+
+These structures (gilded cover / gold-rule ledger / plate grid / stat monument / ceremony split) work for **any topic** that wants a premium, ceremonial pace — brand launches, awards, membership, financial milestones, heritage retrospectives. The mode is a visual stance, not a content filter.
+
+Warm Gold global rules for every G-recipe:
+
+- Serif display title + sans body + mono metadata (mixed typography is the identity).
+- Exactly one gold signature minimum per page (gradient rule / glow / gold shadow / gold hairline).
+- Gold gradient never covers ≥60% of the canvas (**R10**).
+- Same 3:4 density floor as Editorial: ≥75% canvas height, no whitespace band >15% without a stated reason.
+- `data-system="warm-gold"` + one `data-palette` on the root. Never reuse `data-theme` / `data-accent`.
+
+### G01 Gilded Cover
+
+Best for Rednote page 1, brand launches, annual ceremony covers, premium product drops.
+
+Structure:
+
+- Top `.issue-row` with gold hairline underneath (category · date · vol).
+- Large serif title (2-4 lines) with **one** focal phrase in `.gold-text`.
+- `.gold-rule` under the title.
+- One large image or product render occupying 35%-50% of the page, framed with a gold hairline (`.frame-img` + gold border).
+- Bottom strip: 3-5 mono points separated by gold hairlines.
+
+Style:
+
+- Ivory paper background, espresso ink title.
+- Gold appears as: rule, one gradient phrase, and the image frame hairline — nowhere else.
+
+### G02 Premium Ledger
+
+Best for feature lists, membership benefits, product capability sheets, "what's included" pages.
+
+Structure:
+
+- `kicker` + serif `h-xl` title.
+- `.gold-rule-thin` under the header.
+- 4-6 full-width rows (118-170px each on 1080×1440). Each row: mono index (`01`), serif row title, sans consequence line.
+- Hairline row separators (`--line`), optional gold index numerals.
+- Bottom issue note.
+
+Do not put gold gradient fills behind rows — gold lives in the numerals and one header rule.
+
+### G03 Plate Matrix
+
+Best for capability grids, benefit tiles, collection indexes, "the set covers X" pages.
+
+Structure:
+
+- `kicker` + serif title.
+- `.matrix`-style grid of 6-8 `.plate` cells (`.plate` = paper-2 + hairline). Each cell: mono cell number + serif/sans short phrase.
+- Exactly one `.plate-gold` cell (gold hairline border) to mark the focal item.
+- Optional `.hero-stat-bottom` with one `num-mega` in mono gold.
+
+Hard limits: 6 cells on 3:4 (2×3 or 3×2), 9 on 1:1, 8-10 on 21:9. Max one `.plate-gold`.
+
+### G04 Stat Monument
+
+Best for financial milestones, growth announcements, award tallies, anniversary numbers — 1-3 hero numbers that deserve a monument.
+
+Structure:
+
+- Small mono kicker at top with gold hairline.
+- One huge mono/serif number (`num-mega` 140-160px) with `.gold-text` or gold underline.
+- Serif unit/caption under the number.
+- 2-3 supporting stats in a bottom row, each with gold hairline separators.
+- One sentence of sans body context.
+
+Use when the number **is** the story. If you have 4+ comparable numbers, use G06 KPI instead.
+
+### G05 Ceremony Split
+
+Best for before/after of a premium rebrand, "classic vs limited edition", two-product comparisons at a premium pace.
+
+Structure:
+
+- `kicker` + serif title + `.gold-rule`.
+- Two `.plate` columns (7:5 or 50/50): left can be `.plate-ink` (dark statement) or plain `.plate`.
+- Each column: small mono label, serif subtitle, 3-4 sans bullets.
+- Vertical gold hairline between columns.
+
+Never fill both columns with gold gradient — at most one column carries a `.gold-plate` badge.
+
+### G06 Gilded KPI Tower
+
+Best for quarterly results, dashboard-style premium reporting, "four numbers that define the year".
+
+Structure:
+
+- `kicker` + serif `h-xl` title + `.gold-rule-thin`.
+- 4 `.tower-col`s: mono `num` (gold on the peak bar), sans `lbl`, bar with `--h` encoding value.
+- Peak column bar uses `--gold-rule` gradient fill; other bars use `--accent-deep` at reduced α or neutral `--line` fill.
+
+Adapt for 1:1: 2 columns max. Adapt for 21:9: keep 4 columns.
+
+### G07 Closing Crest
+
+Best for final page — the ceremonial sign-off.
+
+Structure:
+
+- Centered or axis-aligned serif takeaway title (≤2 lines), optional `.gold-text` on key phrase.
+- `.gold-rule` (centered, max 240px wide).
+- 4-5 short sans closing lines or a signature block.
+- Bottom mono issue strip + gold hairline.
+
+Mood: end of a gala program, not a sales banner. Same density floor as M07 — 3 bare lines under-fills; expand or switch to a pull-quote crest.
+
+### G08 Hero Frame (Image-Led)
+
+Best for when one excellent product/event photo owns the cover — the Warm Gold analogue of M16/S08.
+
+Structure:
+
+- Full-bleed or large `.frame-img` photo in a gold-hairline well (not edge-to-edge neon gold).
+- Serif title over a quiet zone (follow `image-overlay.md` subject-map rules), **one** phrase in `.gold-text` max.
+- Bottom mono meta strip with gold hairline above.
+
+Qualification gate identical to M16: quiet-zone test + light test must pass, else fall back to G01.
+
+### G09 Gold-Rule Checklist
+
+Best for buying guides, "how to choose", tier comparisons, editorial pick lists.
+
+Structure:
+
+- Serif header title.
+- 4-6 checklist rows: mono tick/index in gold, serif item title, sans one-line rationale.
+- `.gold-rule-thin` between rows (this recipe's signature — the rules themselves are the gold).
+- Optional small framed thumb image on the right of 1-2 rows.
+
+Avoid rounded cards; rules and columns only.
+
+### G10 Marginalia Premium
+
+Best for nuanced premium explanation — heritage story, craft process narrative, "why this costs what it costs".
+
+Structure:
+
+- Wide serif title + `.gold-rule`.
+- Main column: 2-3 sans paragraphs (body).
+- Narrow marginal column: mono keywords, small gold-framed evidence crops, or pull fragments.
+- Hairline vertical rule between columns (gold-tinted).
+
+Warm Gold inverse of M11: body is sans, marginalia is mono/gold.
+
+### G11 Divider / Act Break
+
+Best for mid-carousel breath. Gold analogue of M12.
+
+Structure:
+
+- Strong `.gold-glow` background layer visible across most of the canvas.
+- Mono kicker (`Act II` / `Part 2`).
+- Large serif section name (3-6 Chinese chars), optional single `.gold-text` char/phrase.
+- Serif italic subtitle.
+- Bottom issue strip with gold hairline.
+
+HTML skeleton (3:4):
+
+```html
+<section class="poster xhs warmgold" data-system="warm-gold" data-palette="warm-gold-classic" id="xhs-g11">
+  <div class="grain"></div>
+  <div class="gold-glow" style="--gx:50%; --gy:42%"></div>
+  <div class="content stack gap-4" style="justify-content:center; align-items:flex-start">
+    <p class="kicker">Act II · Part 2</p>
+    <div class="gold-rule" style="width:160px"></div>
+    <h1 class="h-display">年度<span class="gold-text">名单</span></h1>
+    <p class="h-sub">The shortlist.</p>
+  </div>
+  <div class="issue-strip">
+    <span>Section · Findings</span>
+    <span>—</span>
+    <span>3 pages</span>
+  </div>
+</section>
+```
+
+### G12 Closing Question
+
+Best for the last page of a carousel — the Warm Gold analogue of M13.
+
+Structure:
+
+- Visible `.gold-glow` atmosphere.
+- Quiet mono kicker (`The Question` / `留给你的`).
+- Big serif question, 2-3 lines hard-broken at semantic seams, one optional `.gold-text` word.
+- One sans `lead` prompt (comment invitation).
+- Minimal bottom metadata + gold hairline.
+
+Required anchors (same as M13): top kicker + bottom prompt + bottom metadata strip. Gold glow must be visible — if the page reads flat-ivory, the atmosphere layer is missing.
+
 ## WeChat Adaptation
 
 For 21:9:

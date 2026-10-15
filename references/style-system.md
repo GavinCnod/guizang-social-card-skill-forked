@@ -13,7 +13,7 @@ This skill extracts Guizang PPT visual principles for static social images. It d
 
 ## Style ↔ content type are decoupled
 
-The two modes below are **visual stances, not content categories**. Any topic can be rendered in either mode — what changes is the page's feel and which structural devices are available (ledger / marginalia / pull quote vs matrix / KPI tower / h-bar). Pick by editorial intent ("feature story" vs "release note" / "system explainer"), not by topic lookup. The lists below are *good fits*, not exhaustive.
+The three modes below are **visual stances, not content categories**. Any topic can be rendered in any mode — what changes is the page's feel and which structural devices are available (ledger / marginalia / pull quote vs matrix / KPI tower / h-bar vs gilded plate / gold-rule list). Pick by editorial intent ("feature story" vs "release note" vs "premium brand piece"), not by topic lookup. The lists below are *good fits*, not exhaustive.
 
 ## Mode A: Editorial Magazine x E-ink
 
@@ -78,6 +78,43 @@ Typography guidance:
 
 Chinese titles are visually dense. Shorten first, then reduce size. Do not solve overflow by shrinking body text below readability.
 
+## Mode C: Warm Gold (暖金中登)
+
+Good fits: brand launches, premium product drops, membership / loyalty programs, awards and rankings, luxury lifestyle, annual reports, craft spirits / jewelry / hospitality, financial milestones — but also award-season cultural coverage, heritage brand retrospectives, and "limited edition" launches. Topic is not the gate; visual stance is.
+
+Visual anchors:
+
+- **Mixed typography**: Noto Serif SC display titles + Noto Sans SC body + IBM Plex Mono metadata. The serif/sans split is the structural signal — titles serif, body sans, numbers and labels mono.
+- Warm ivory paper (`#FBF8F5`), deep espresso ink (`#110904`), one bronze-to-amber gold family (`#7A4A00` → `#C18200` → `#E79F00` at 135°).
+- Gold signatures used sparingly: a 135° gradient rule (≤4px tall or ≤120px wide), a radial `#B8860B` glow behind the focal element, a gold hairline border, or a warm-gold drop shadow (`rgba(122,74,0,…)`) on a single element.
+- Hairline gold rules, restrained letter-spacing, and plate-like framing rather than floating cards.
+- Imagery is warm-toned and framed; gold is a *rule and accent*, never a background fill.
+
+Use one of the 6 Warm Gold palettes in `theme-presets.md`. Exactly one palette per package. **Warm Gold Noir** (`warm-gold-noir`) is the only sanctioned dark variant, reserved for content whose source imagery is already dark (night events, black-tie photography, dark product shots). Do not invent a second dark palette.
+
+**Typography stance — serif title, sans body, mono meta.** Display titles run at **weight 500-600** serif with normal-to-slightly-wide tracking (`0` to `+.02em`). Body is **sans-zh**, not serif — this is the inverse of Editorial and is intentional: gold framing wants a modern, clean reading voice under a classic title. Small labels (kicker, meta, page number) are mono uppercase with wide tracking (`+.18em` to `+.22em`). The anti-pattern — serif body, or all-sans with no serif title, or a gold-gradient headline — collapses Warm Gold into generic "luxury template" territory. See `local-tests/` warm-gold smoke output for source-of-truth once generated.
+
+Rules:
+
+- **Gold is an accent, not a surface.** The 135° gold gradient may never cover ≥60% of the canvas. Use it on rules, thin bands, small plates, numerals, and one focal badge at most.
+- Use a **neutral warm-black shadow** (`rgba(17,9,4,…)`) or the sanctioned warm-gold shadow (`rgba(122,74,0,…)`). Never pure `#000` shadows with a colored glow — that reads as cheap neon.
+- Headings sit on the content axis (left or center per recipe); gold rules reinforce the axis, they do not decorate edges randomly.
+- Large titles may use a gold gradient fill on **one** focal phrase only — never the whole headline.
+- Images are framed with hairline gold borders or sit in warm-tinted wells. Straight edges; radius ≤8px if any.
+
+Typography guidance:
+
+| Role | Size Guidance | Weight | Family |
+| --- | --- | --- | --- |
+| Main cover title | 84-120px on 1080x1440 | 500-600 | serif-zh |
+| Page title | 52-80px | 500-600 | serif-zh |
+| Lead / standfirst | 28-34px | 400 | sans-zh |
+| Body copy | 24-30px | 400 | sans-zh |
+| Kicker / meta | 18-22px | 500 | mono |
+| Numerals (stats) | 72-160px | 500-600 | mono or serif |
+
+Chinese titles are visually dense. Shorten first, then reduce size. Do not solve overflow by shrinking body text below readability.
+
 ## Image Rules
 
 - Photos: crop with intent. Keep faces, hands, products, and main objects in safe areas.
@@ -123,6 +160,16 @@ A poster is Editorial only if **all three** hold:
 
 If a poster has a serif title, mono labels everywhere, structured pill grids, and a flat paper background — it is **Swiss-with-a-serif**, not Editorial. Either add atmosphere + magazine structure, or switch the package to Swiss honestly.
 
+### Warm Gold identity test
+
+A poster is Warm Gold only if **all three** hold:
+
+1. `data-system="warm-gold"` (or the package slug `warm-gold`) is set, and the palette tokens resolve to the Warm Gold family (ivory paper `#FBF8F5`-range, espresso ink `#110904`-range, gold accent `#7A4A00`/`#C18200`/`#E79F00`-range) — one of the 6 sanctioned palettes from `theme-presets.md`.
+2. Typography is **mixed**: a serif-zh display title (`Noto Serif SC` / `Songti SC`) and a sans-zh body (`Noto Sans SC` / `Inter`) coexist in the same document head, and the body elements actually use the sans family.
+3. At least one **gold signature** is present: a 135° gold gradient rule/band, a radial `#B8860B` glow behind the focal element, a warm-gold drop shadow (`rgba(122,74,0,…)`), or a gold hairline border on a framed element.
+
+If a poster has an ivory background and a gold accent but an all-sans or all-serif type system, it is **Swiss-with-gold** or **Editorial-with-gold**, not Warm Gold. If gold is poured across most of the canvas as a gradient fill, it fails rule 3's discipline and reads as a generic "luxury" template — fix the gradient area or relabel the package.
+
 ## Anti-Patterns From Real Demos
 
 These all rendered without errors and looked plausible in isolation, but failed once compared against a clean reference.
@@ -167,7 +214,7 @@ When `.foot` or `.issue-strip` is positioned with `position: absolute; bottom: .
 .poster .pad { display: grid; grid-template-rows: auto 1fr auto; height: 100%; }
 ```
 
-Both seed templates already use Pattern A. Preserve it. If a recipe truly needs an absolutely-positioned foot, reserve `padding-bottom: <foot-height + 24px>` on the content container.
+All three seed templates already use Pattern A. Preserve it. If a recipe truly needs an absolutely-positioned foot, reserve `padding-bottom: <foot-height + 24px>` on the content container.
 
 ### Anti-pattern D: full-bleed photo with title crossing the subject
 
@@ -186,3 +233,29 @@ Fix by following `image-overlay.md`:
 4. **Thumbnail test** — render the PNG, downscale to 360 px wide, and look at the title. If it fights the photo, add a localized, image-toned tint only around the title area; if the photo looks dead, the tint is too heavy or the photo is wrong.
 
 This anti-pattern survives almost every other check because the HTML is valid, the image loads, and the title renders. The only way to catch it is to look at the rendered output at the size readers will actually see it.
+
+### Anti-pattern E: gold as a surface (Warm Gold)
+
+Warm Gold fails fastest when the gold gradient is treated as a background instead of a rule:
+
+```html
+<!-- WRONG: gradient floods the hero, title drowns -->
+<section style="background:linear-gradient(135deg,#7A4A00,#C18200,#E79F00); min-height:60%">
+  <h1 style="color:#FBF8F5">年度盛典</h1>
+</section>
+
+<!-- RIGHT: paper surface, gold as rule + one focal phrase -->
+<section class="pad">
+  <div class="gold-rule"></div>
+  <h1 class="h-display">年度<em class="gold-text">盛典</em></h1>
+</section>
+```
+
+Also failing:
+
+- Gold gradient applied to an entire headline instead of one focal phrase.
+- Pure `#000` drop shadow with a gold glow (neon "luxury ad" look) — use `rgba(122,74,0,…)` or neutral warm-black.
+- Serif body text — Warm Gold body must be sans-zh; serif is reserved for display titles.
+- A second dark palette invented alongside Warm Gold Noir.
+
+Fix by confining gold to rules / small plates / one gradient phrase, restoring the mixed serif-title + sans-body stack, and picking one of the 6 sanctioned palettes.

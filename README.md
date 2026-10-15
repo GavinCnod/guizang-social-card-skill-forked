@@ -12,10 +12,11 @@
 
 一个适配 Claude Code / Codex 等 Agent 环境的图文卡片技能,用于从文章、文案、截图、产品笔记、字幕、照片或用户视频生成**小红书 / Rednote 图文组图**、**Live Photo 动态卡**与**公众号 21:9 + 1:1 封面对**。
 
-内置两套视觉系统,共用一份图文工作流:
+内置三套视觉系统,共用一份图文工作流:
 
 - **电子杂志风(Editorial)**。像 *Monocle* / *Kinfolk* / *Cereal* 那样克制的版面,适合叙事、生活方式、旅行、阅读、影视、个人观察。
 - **瑞士国际主义(Swiss)**。网格、单一锚点色、直角发丝线、极致字号对比,适合产品测评、数据、方法论、教程、AI 工具。
+- **暖金中登(Warm Gold)**。衬线标题 + 无衬线正文 + 金渐变发丝线/光晕/金投影,象牙纸底 + 浓咖啡墨,适合品牌发布、会员权益、颁奖榜单、年度里程碑、高端生活方式。
 
 > 这个 Skill 是 [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill) 的姊妹项目,共享美学语言但独立维护。PPT 解决"横向翻页演讲",这里解决"静态信息流图文"。
 
@@ -49,6 +50,7 @@ npx skills add https://github.com/op7418/guizang-social-card-skill --skill guiza
 
 ```text
 基于这份产品测评做一套小红书 3:4,标题用电子杂志风。
+把这套会员权益介绍做成暖金中登风,象牙底 + 金渐变发丝线。
 帮我把这篇文章做成公众号封面对:21:9 头图 + 1:1 分享卡,视觉保持一致。
 我有 3 张露营照片,帮我做一套全图风格的小红书图文。
 把这段游戏攻略文案做成一套小红书图文,需要从 wallhaven 拿点游戏原画。
@@ -58,17 +60,17 @@ npx skills add https://github.com/op7418/guizang-social-card-skill --skill guiza
 
 ## 效果
 
-- 🖋 **双视觉系统**:电子杂志风做氛围与叙事,瑞士风做事实与结构,两套共用同一份工作流
+- 🖋 **三视觉系统**:电子杂志风做氛围与叙事,瑞士风做事实与结构,暖金中登做高端仪式感,三套共用同一份工作流
 - 📐 **3 个画板尺寸**:`.poster.xhs` 1080×1440(小红书 3:4)、`.poster.wide` 2100×900(公众号 21:9)、`.poster.square` 1080×1080(公众号 1:1)
 - 🎬 **Live Photo 动态卡**:支持单视频、二宫格、三宫格、四宫格、三连拼图、长视频低成本诊断;小红书按 `5s`,微信公众号文章内按 `3s`
-- 🧩 **28 个版式骨架**:Editorial 16 个(`M01-M16`,含 Image-Led Cover、Pipeline、Before/After 等)+ Swiss 12 个(`S01-S12`,含 KPI Tower、H-Bar Chart、Matrix + Hero 等)
-- 🎨 **10 套主题预设**:Editorial 6 套(墨水经典、靛蓝瓷、森林墨、牛皮纸、沙丘、**Midnight Ink** 暗色)+ Swiss 4 套锚点色(IKB Klein Blue、柠檬黄、柠檬绿、安全橙)
+- 🧩 **40 个版式骨架**:Editorial 16 个(`M01-M16`,含 Image-Led Cover、Pipeline、Before/After 等)+ Swiss 12 个(`S01-S12`,含 KPI Tower、H-Bar Chart、Matrix + Hero 等)+ Warm Gold 12 个(`G01-G12`,含 Gilded Cover、Premium Ledger、Plate Matrix、Stat Monument 等)
+- 🎨 **16 套主题预设**:Editorial 6 套(墨水经典、靛蓝瓷、森林墨、牛皮纸、沙丘、**Midnight Ink** 暗色)+ Swiss 4 套锚点色(IKB Klein Blue、柠檬黄、柠檬绿、安全橙)+ Warm Gold 6 套(Classic、Champagne、Bronze、Rose、Espresso、**Warm Gold Noir** 暗色)
 - 🖼 **图源工作流**:用户图优先;无图时按 Unsplash → Pexels → Flickr CC → Wallhaven → 直接搜索的优先级取图,落本地 + 自动写 `SOURCES.md`
 - 🌫 **WebGL 墨流背景**:杂志风 hero 页可挂动态墨流;低性能或截图时可禁用
 - 🪧 **文字压图 + 主体避让**:满铺图先做 quiet-zone 与主体映射,文字避开人脸、产品和关键动作;需要时只加局部 tint,不默认全图遮罩
-- 🧰 **截图美化资产**:9 张 WebP 真实材质背景(Editorial 5 / Swiss 4),配套 `.frame-shot` / `.device-browser` / `.device-phone` 工具类
+- 🧰 **截图美化资产**:13 张 WebP 真实材质背景(Editorial 5 / Swiss 4 / Warm Gold 4),配套 `.frame-shot` / `.device-browser` / `.device-phone` 工具类
 - 🗺 **地图组件**:MapLibre + OSM 真实瓦片,支持多 pin + 连线,适合旅行攻略
-- ✅ **校验脚本**:`validate-social-deck.mjs` 自动检测溢出、字号上限、4 横带密度、footer 碰撞
+- ✅ **校验脚本**:`validate-social-deck.mjs` 自动检测溢出、字号上限、4 横带密度、footer 碰撞、暖金金渐变面积(R10)与阴影色(R11)
 - 📄 **单文件 HTML + Playwright 渲染**:不需要前端构建链,`node render.mjs` 直接出 PNG
 
 ## Live Photo 效果与版式
@@ -131,6 +133,7 @@ Live Photo 在这个 Skill 里的定位是"把用户提供的视频装进社交�
 | 长文章 → 小红书图文 | 抽核心观点,Editorial 走叙事节奏,Swiss 走拆条数据 |
 | 产品测评 / 工具回顾 | Swiss + IKB 蓝,优先 `S09 KPI Tower` / `S10 H-Bar Chart` |
 | 旅行 / 生活方式分享 | Editorial + Midnight Ink 或 Dune,`M16 Image-Led Cover` 满铺主图 |
+| 会员权益 / 年度里程碑 | Warm Gold + Champagne 或 Bronze,`G06 KPI Tower` / `G04 Stat Monument` |
 | 公众号封面对 | 同一份内容渲两块:`.poster.wide` 21:9 + `.poster.square` 1:1,视觉一致 |
 | 截图教程 / 工具说明 | `.frame-shot` + `.device-browser` 包壳,优先 Swiss 网格底 |
 | 游戏攻略 / 影视回顾 | Editorial + Midnight Ink,从 Wallhaven 取游戏原画做满铺 |
@@ -198,8 +201,8 @@ git clone https://github.com/op7418/guizang-social-card-skill.git ~/.claude/skil
 Skill 本身是结构化工作流,Agent 会按 7 步走:
 
 1. **Intake** — 抓 4 件事:目标平台 / 风格 / 内容素材 / 用户图。无图时一次性给 A/B/C 三选(自己拍图 / AI 生图 / 网络取图),不二次劝导
-2. **Style & Theme** — 选 Editorial 还是 Swiss,再从 10 套预设里选主题色。不允许自定义 hex
-3. **Layout Selection** — 根据内容结构从 28 个版式骨架里挑、粘、改文案。Editorial 16 个 / Swiss 12 个
+2. **Style & Theme** — 选 Editorial / Swiss / Warm Gold,再从 16 套预设里选主题色。不允许自定义 hex
+3. **Layout Selection** — 根据内容结构从 40 个版式骨架里挑、粘、改文案。Editorial 16 个 / Swiss 12 个 / Warm Gold 12 个
 4. **Asset Prep** — 取图(Unsplash / Pexels / Flickr CC / Wallhaven / 直接搜索),落本地 + 写 `SOURCES.md`;问用户要不要标来源
 5. **Compose & Render** — 拷种子模板 → 替换 `<!-- POSTERS_HERE -->` → `node render.mjs`
 6. **Deliver & Review** — 先把 PNG 给用户看,询问"你自己看还是我先帮你跑 validator",默认不自动核查
@@ -215,7 +218,7 @@ Live Photo 请求会在第 5 步进入动态分支:先判断 `3s/5s` 内能承�
 node validate-social-deck.mjs path/to/task-dir
 ```
 
-9 条规则,基于 Playwright 真实渲染测量,不是静态扫描:
+11 条规则,基于 Playwright 真实渲染测量,不是静态扫描:
 
 - **R1** Overflow — 任何 section 超出 `.poster` 立刻报错,并给出超出像素对应的修正阶梯
 - **R2** Footer Collision — 内容压到底部 footer / page-number
@@ -226,6 +229,8 @@ node validate-social-deck.mjs path/to/task-dir
 - **R7** Figure Margin Drift — 浏览器默认 `<figure>` margin 造成版式漂移
 - **R8** Visual Bounds — 测量真实可见内容的上/下边界,报告视觉超出和底部空白
 - **R9** Title Gap — 标题与下一块内容之间的距离过小,避免贴在一起
+- **R10** Warm Gold Gold Area — 金渐变不得铺 ≥60% 画布,只做规则与签名
+- **R11** Warm Gold Shadow — 阴影须 `rgba(122,74,0,…)` / `rgba(17,9,4,…)`,拒绝纯 `#000` + 金光晕
 
 `SKILL.md` 第 7 步明确**默认不自动跑** validator —— 等用户先看完图再问,避免每轮多花数十秒。
 
@@ -253,7 +258,18 @@ node validate-social-deck.mjs path/to/task-dir
 | 🟢 **柠檬绿 Lemon Green** | `#C5E803` | 生态、健康、Z 世代、绿色品牌 |
 | 🟠 **安全橙 Safety Orange** | `#FF6B35` | 警示、新闻、工业、活力主题 |
 
-切主题只需替换种子模板的 `<section class="poster" data-theme="...">` 属性,所有 CSS 走 `var(--...)`。
+### Warm Gold 6 套
+
+| 主题 | 纸底 / 墨 | 适合场景 |
+|------|-----------|---------|
+| 🏅 **经典 Classic** | `#FBF8F5` / `#110904` | 通用默认、品牌发布、不知道选啥时最稳 |
+| 🥂 **香槟 Champagne** | `#FBF8F5` / `#110904` 金调偏浅 | 会员权益、生活方式、轻奢发布 |
+| 🥉 **青铜 Bronze** | `#FBF8F5` / `#110904` 金调偏铜 | 颁奖榜单、年度里程碑、机构风格 |
+| 🌹 **玫瑰 Rose** | `#FBF8F5` / `#110904` 金调偏玫 | 情感向、女性向、礼遇与周年 |
+| ☕ **浓咖 Espresso** | `#FBF8F5` / `#110904` 暖褐加重 | 文化、器物、手作、沉稳高端 |
+| 🌑 **暖金 Noir** | 暗底 / 亮金 `#E79F00` | 夜场盛典、黑金发布会、暗调 key visual |
+
+切主题只需替换种子模板的根属性（Editorial `data-theme`、Swiss `data-accent`、Warm Gold `data-palette`),所有 CSS 走 `var(--...)`。
 
 ## 目录结构
 
@@ -268,15 +284,17 @@ guizang-social-card-skill/
 ├── assets/
 │   ├── template-editorial-card.html      ← Editorial 种子(6 主题 / 3 画板)
 │   ├── template-swiss-card.html          ← Swiss 种子(4 accent / 3 画板)
+│   ├── template-warmgold-card.html       ← Warm Gold 种子(6 色票 / 3 画板)
 │   ├── magazine-bg-webgl.js              ← WebGL 墨流背景
-│   └── screenshot-backgrounds/           ← 9 张截图舞台底(WebP)
+│   └── screenshot-backgrounds/           ← 13 张截图舞台底(WebP)
 │       ├── style-a/                      ←   Editorial 5 套
-│       └── style-b/                      ←   Swiss 4 套
+│       ├── style-b/                      ←   Swiss 4 套
+│       └── style-c/                      ←   Warm Gold 4 套
 └── references/
     ├── platform-specs.md                 ← 平台 × 分辨率 × 命名
-    ├── style-system.md                   ← 两种风格的硬规则与反模式
-    ├── theme-presets.md                  ← 10 套色票详解
-    ├── layout-recipes.md                 ← 28 个版式骨架(M01-M16 + S01-S12)
+    ├── style-system.md                   ← 三种风格的硬规则、Identity Test 与反模式
+    ├── theme-presets.md                  ← 16 套色票详解
+    ├── layout-recipes.md                 ← 40 个版式骨架(M01-M16 + S01-S12 + G01-G12)
     ├── components.md                     ← 字体 / 卡片 / 间距 / 图标
     ├── background-systems.md             ← 墨流 / 网格 / 纸纹层
     ├── portrait-fill.md                  ← 3:4 板的留白对策
@@ -295,7 +313,7 @@ guizang-social-card-skill/
 
 1. **克制优于喊话** — 信息流里克制色板反而最显眼,不要堆饱和度
 2. **结构优于装饰** — 字号 + 字体对比 + 网格留白撑起信息层级,不靠阴影和卡片
-3. **版式优于自由** — 28 个版式骨架先选后改,不要发明不存在的页面
+3. **版式优于自由** — 40 个版式骨架先选后改,不要发明不存在的页面
 4. **图片优先用户的** — Intake 时一次性给 A/B/C,不二次劝导用户拍图
 5. **选图与避让优先** — 满铺图先确认 quiet zone,文字避开主体(人脸 / 产品 / 文字密集区),必要时才加局部 tint
 6. **越大越细** — Swiss `.h-xl` 字号上去 → 字重必须下来。Editorial 同此原则
@@ -327,7 +345,7 @@ guizang-social-card-skill/
 可以。一个 task 目录下的 `index.html` 包含多个 `.poster`,`node render.mjs` 会逐个截 PNG。一次出小红书 3-9 张组图很常见。
 
 **为什么不允许自定义颜色?**
-和 PPT skill 同样的理由——这个 Skill 的核心价值是稳定产出。自由选色会破坏整体风格,只允许从 10 套预设里挑。
+和 PPT skill 同样的理由——这个 Skill 的核心价值是稳定产出。自由选色会破坏整体风格,只允许从 16 套预设里挑。
 
 **能用其他模型生图吗?**
 可以。生图本身不在 Skill 范围内,但 SKILL.md Step 4 写清了取图协议:用户图 → AI 生图 → 网络取图。AI 生图能力依赖你当前 Agent 接的模型。

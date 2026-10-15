@@ -3,8 +3,8 @@
 Per-category cheat sheet for the 11 most common Rednote (小红书) content types. Each entry maps a category to:
 
 - **What we can do** — concrete poster types this skill produces well.
-- **Style mode** — which side of the system (Editorial / Swiss) fits.
-- **Recipes** — which layout IDs (M01-M15 / S01-S12) are first reach.
+- **Style mode** — which side of the system (Editorial / Swiss / Warm Gold) fits.
+- **Recipes** — which layout IDs (M01-M16 / S01-S12 / G01-G12) are first reach.
 - **Text scheme** — how text relates to image (text-on-image / text-beside-image / text-only).
 - **Image source** — where the photos come from.
 - **Common pitfalls** — the way this category breaks.

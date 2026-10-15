@@ -1,6 +1,6 @@
 ---
 name: guizang-social-card-skill
-description: Generate Guizang-style social card image sets, Live Photo motion cards, material-first Live Photo puzzle layouts, triple Live Photo collages, long-video-to-Live-Photo treatments, and WeChat official account cover pairs from articles, scripts, screenshots, product notes, subtitles, photos, or user-supplied videos. Use when the user asks for 小红书图文, Rednote/Xiaohongshu images, social cards, carousel images, 3:4 covers, Live Photo, 实况照片, 单视频实况拼图, 二宫格实况拼图, 三连实况拼图, 四宫格实况拼图, 微信公众号封面, WeChat 21:9 + 1:1 covers, Swiss Style, or magazine-style social images.
+description: Generate Guizang-style social card image sets, Live Photo motion cards, material-first Live Photo puzzle layouts, triple Live Photo collages, long-video-to-Live-Photo treatments, and WeChat official account cover pairs from articles, scripts, screenshots, product notes, subtitles, photos, or user-supplied videos. Use when the user asks for 小红书图文, Rednote/Xiaohongshu images, social cards, carousel images, 3:4 covers, Live Photo, 实况照片, 单视频实况拼图, 二宫格实况拼图, 三连实况拼图, 四宫格实况拼图, 微信公众号封面, WeChat 21:9 + 1:1 covers, Swiss Style, Warm Gold, 暖金中登, gold-accent luxury cards, or magazine-style social images.
 ---
 
 # Guizang Social Card Skill
@@ -22,7 +22,7 @@ Use this skill for:
 - Long-video intake for Live Photo: diagnose whether to trim, speed up, split into a triple collage, or ask the user for a specific time range before rendering.
 - WeChat Official Account cover pairs: one `21:9` main cover plus one `1:1` square cover, composed together in the same HTML for visual checking.
 - Screenshot-heavy product posts, article covers, tutorial carousels, outdoor/lifestyle notes, AI/product update explainers.
-- Social images that need Guizang-style Swiss or editorial magazine layouts.
+- Social images that need Guizang-style Swiss, editorial magazine, or Warm Gold (暖金中登) layouts.
 
 Do not use this skill for:
 
@@ -46,7 +46,7 @@ The 11 most-common Rednote (小红书) categories fall into three buckets. See `
 
 - 美食 菜品大片摆盘 (food-photography showcase).
 - 穿搭 日常 OOTD 全身 (daily OOTD body shots; we cannot generate or simulate).
-- 情感 梦核 / 氛围感装饰风 (dreamcore / aesthetic-light styling — clashes with both Editorial and Swiss).
+- 情感 梦核 / 氛围感装饰风 (dreamcore / aesthetic-light styling — clashes with Editorial, Swiss, and Warm Gold).
 - Y2K / 千禧辣妹 / 哥特萝莉 / kawaii decorated aesthetics.
 - Pure photography showcase posts where the image is the entire deliverable.
 
@@ -68,10 +68,10 @@ For each page, decide:
 Read these files as needed:
 
 - `references/platform-specs.md` for exact ratios, output sizes, and naming.
-- `references/style-system.md` for Guizang editorial and Swiss visual rules.
-- `references/theme-presets.md` when choosing electronic-magazine palettes or Swiss accent palettes.
+- `references/style-system.md` for Guizang editorial, Swiss, and Warm Gold visual rules — includes the per-mode Identity Tests.
+- `references/theme-presets.md` when choosing electronic-magazine palettes, Swiss accent palettes, or Warm Gold palettes.
 - `references/layout-recipes.md` when selecting carousel/social-card/WeChat page structures.
-- `references/components.md` for the shared component spec: font stacks, type scale, minimum readable sizes, Chinese title length bands, Swiss card-fill mutual-exclusion rule, image-container ratio classes, spacing tokens, and Lucide icon rules.
+- `references/components.md` for the shared component spec: font stacks, type scale, minimum readable sizes, Chinese title length bands, Swiss card-fill mutual-exclusion rule, Warm Gold plate/gold-utility classes and R10/R11 hard rules, image-container ratio classes, spacing tokens, and Lucide icon rules.
 - `references/background-systems.md` when building electronic-magazine WebGL/ink/paper backgrounds.
 - `references/portrait-fill.md` when adapting layouts to 3:4 and avoiding under-filled vertical space.
 - `references/content-planning.md` for cover hooks, page breakdown, and copy compression.
@@ -105,7 +105,7 @@ Gather only the missing information that changes the output:
   ```
 
   Recommend A in one line — your own photo is what makes a poster not look AI-generated. Accept whatever the user picks (including "都行你看着办") and proceed. **Do not re-prompt later, do not keep nudging toward A across multiple turns.** This question is one-shot.
-- Preferred style if specified: Swiss Style, magazine/editorial, tech, outdoor, etc.
+- Preferred style if specified: Swiss Style, magazine/editorial, Warm Gold / 暖金中登, tech, outdoor, etc.
 - Hard constraints: title text, no image on 1:1 cover, must include a hardware photo, keep screenshot readable, and so on.
 
 If the user has already supplied enough context, proceed with reasonable assumptions.
@@ -132,7 +132,7 @@ For WeChat:
 
 ### 3. Choose Style Mode
 
-Pick one mode per package. **The two systems are not bound to specific content types** — what changes is the visual stance, not which topic you can talk about. A workplace essay can be Editorial; a travel ledger can be Swiss. Pick by the feeling you want, not by category lookup.
+Pick one mode per package. **The three systems are not bound to specific content types** — what changes is the visual stance, not which topic you can talk about. A workplace essay can be Editorial; a travel ledger can be Swiss; a membership launch can be Warm Gold. Pick by the feeling you want, not by category lookup.
 
 **Editorial Magazine x E-ink** brings:
 
@@ -148,14 +148,23 @@ Pick one mode per package. **The two systems are not bound to specific content t
 - Card-fill matrices, KPI towers, h-bar charts, numbered statements — system / data feel.
 - Best when you want the page to feel engineered, quantified, decisive.
 
-If both feel viable for a piece of content, the question becomes editorial intent: "is this a feature story or a release note?" That decides the mode, not the topic itself.
+**Warm Gold 暖金中登** brings:
 
-Do not mix the two visual systems inside the same image set unless the user explicitly asks for a hybrid.
+- Mixed typography: Noto Serif SC titles + Noto Sans SC body + IBM Plex Mono meta.
+- Ivory paper, espresso ink, one bronze-to-amber gold family (`#7A4A00 → #C18200 → #E79F00` at 135°).
+- Gold signatures as rules/accents only: gradient hairlines, radial glow, warm-gold shadows, gold-framed plates — never a canvas-wide gold fill (R10).
+- Gilded covers, premium ledgers, plate matrices, stat monuments, ceremony splits — brand / award / milestone feel.
+- Best when you want the page to feel premium, ceremonial, quietly expensive.
+
+If multiple modes feel viable, the question becomes editorial intent: "is this a feature story, a release note, or a brand ceremony?" That decides the mode, not the topic itself.
+
+Do not mix the three visual systems inside the same image set unless the user explicitly asks for a hybrid.
 
 Then pick one theme:
 
 - Editorial Magazine x E-ink uses one of 6 magazine palettes: Ink Classic, Indigo Porcelain, Forest Ink, Kraft Paper, Dune, or Midnight Ink (the only dark variant; reserved for game key art / night photography / cinematic covers).
 - Swiss International uses one of 4 accent palettes: IKB Blue, Lemon Yellow, Lemon Green, or Safety Orange.
+- Warm Gold uses one of 6 palettes: Warm Gold Classic, Champagne, Bronze, Rose, Espresso, or Warm Gold Noir (the only dark variant; reserved for night events / black-tie photography / dark product shots).
 
 Read `references/theme-presets.md` for exact CSS tokens. Do not invent arbitrary colors unless the user has a strict brand requirement.
 
@@ -189,15 +198,17 @@ Do not write HTML from scratch. Pick one seed template based on the style mode c
 
 - Editorial Magazine × E-ink → copy `assets/template-editorial-card.html` into the task folder as `index.html`.
 - Swiss International → copy `assets/template-swiss-card.html` into the task folder as `index.html`.
+- Warm Gold 暖金中登 → copy `assets/template-warmgold-card.html` into the task folder as `index.html`.
 
 The seed already wires up: font loading, theme tokens, all three poster sizes (`.poster.xhs` / `.poster.square` / `.poster.wide`), the pair-preview frame, grain/background layers, and all class definitions referenced by the layout recipes.
 
-Set the theme/accent on the `<html>` element:
+Set the theme/accent/system on the `<html>` element:
 
 - Editorial: `<html data-theme="ink-classic | indigo-porcelain | forest-ink | kraft-paper | dune | midnight-ink">`.
 - Swiss: `<html data-accent="ikb | lemon-yellow | lemon-green | safety-orange">`.
+- Warm Gold: `<html data-system="warm-gold" data-palette="warm-gold-classic | warm-gold-champagne | warm-gold-bronze | warm-gold-rose | warm-gold-espresso | warm-gold-noir">`. `data-system` must stay `warm-gold` — the validator probes it first. Never reuse `data-theme` or `data-accent` for Warm Gold.
 
-Replace the single placeholder poster after `<!-- POSTERS_HERE -->` with one `<section class="poster ...">` block per page, each carrying the HTML skeleton from a chosen Layout Recipe (M01-M16 for Editorial, S01-S12 for Swiss). Never load the wrong template's class system: Editorial recipes assume serif display + ledger/marginalia/pipeline-v; Swiss recipes assume Inter + card-fills + matrix/h-bar/kpi-tower. Mixing them silently breaks the layout.
+Replace the single placeholder poster after `<!-- POSTERS_HERE -->` with one `<section class="poster ...">` block per page, each carrying the HTML skeleton from a chosen Layout Recipe (M01-M16 for Editorial, S01-S12 for Swiss, G01-G12 for Warm Gold). Never load the wrong template's class system: Editorial recipes assume serif display + ledger/marginalia/pipeline-v; Swiss recipes assume Inter + card-fills + matrix/h-bar/kpi-tower; Warm Gold recipes assume mixed serif/sans + gold-rule/plate/gold-glow. Mixing them silently breaks the layout.
 
 ### 5. Build And Render
 
@@ -209,7 +220,7 @@ Default implementation pattern:
 - Use Playwright or a browser screenshot tool to export each `.poster` or `.cover` node.
 - Save rendered images in `output/`.
 - Verify dimensions and inspect the rendered PNGs.
-- Keep `node validate-social-deck.mjs <task-dir>` available for auto-check passes. It checks overflow (R1), footer collision (R2), Swiss bold display (R3), minimum font size (R4), 4-band density (R5), `.h-xl` line caps (R6), browser-default figure margin drift (R7), visual bounds / bottom whitespace (R8), and title-to-content gaps (R9). Exit code 1 on any FAIL — fix before final delivery when auto-check is requested. WARN is advisory but read it.
+- Keep `node validate-social-deck.mjs <task-dir>` available for auto-check passes. It checks overflow (R1), footer collision (R2), Swiss bold display (R3), minimum font size (R4), 4-band density (R5), `.h-xl` line caps (R6), browser-default figure margin drift (R7), visual bounds / bottom whitespace (R8), title-to-content gaps (R9), Warm Gold gold-gradient area discipline (R10), and Warm Gold shadow color discipline (R11). Style auto-detect probes `data-system="warm-gold"` first, then `data-theme` / `data-accent`. Exit code 1 on any FAIL — fix before final delivery when auto-check is requested. WARN is advisory but read it.
 
 Live Photo branch:
 
@@ -224,6 +235,8 @@ Live Photo branch:
 Do not place visible instructions, keyboard shortcuts, or usage explanations inside the images.
 
 For Editorial Magazine x E-ink, use a layered background system. Prefer a subtle WebGL ink-flow canvas or a frozen procedural canvas plus paper grain. Read `references/background-systems.md`; do not rely on a flat beige background, and do not add page-wide grid/dot backgrounds.
+
+For Warm Gold, use the CSS-only layer model in `background-systems.md` (grain + one radial gold glow + gold hairline rules). Do not mount the ink-flow WebGL canvas — it belongs to Editorial. Gold gradient must never cover ≥60% of the canvas (R10).
 
 ### 6. Image And Screenshot Handling
 
@@ -243,7 +256,7 @@ Whenever a poster places text on top of a photo (full-bleed cover, large image w
 - **Crop discipline — set `object-position` inline on every photo.** The template default (`center 50%`) is a fallback, not a recommendation. For every `<img>`, decide based on subject location and write it inline: e.g. `style="object-position:center 62%"` for mid-body subjects, `center 30%` for sky-heavy landscapes with horizon-line subjects, `center 70%` for foreground gear. See the table in `references/components.md` for ranges and `image-overlay.md` for face-photo specifics. Skipping this silently crops subjects out of frame on tall ratios (`r-3x4`, `r-21x9`).
 - **Thumbnail test.** Downscale the rendered PNG to 360 px wide and confirm the title is still legible. If the title fights the photo, move the title, swap the photo, or add a localized image-toned tint; if the photo looks dead, the tint is too heavy or the photo was wrong for text-on-image.
 
-Editorial dark covers (e.g. game journals on key art) and Swiss covers with hero photos both require these checks. Skipping them is a known failure mode (see `style-system.md` Anti-Pattern D).
+Editorial dark covers (e.g. game journals on key art), Swiss covers with hero photos, and Warm Gold hero frames (G08) all require these checks. Skipping them is a known failure mode (see `style-system.md` Anti-Pattern D).
 
 When the user has no images:
 
@@ -265,7 +278,7 @@ Recommended sources, in order of preference. **All five below are free-tier libr
 4. **Wallhaven** — `https://wallhaven.cc/search?q=<keyword>`. Strong for game / anime / wallpaper themes. Content is user-uploaded, rights are unverified.
 5. **Direct web search** — when a specific subject is needed (a product render, a game still, a historical photo). Use WebFetch / WebSearch to find a candidate URL.
 
-Editorial-mode picking order: **Pexels (if keyword is Chinese / China-specific) → Unsplash → Flickr CC (if you need real-life feel) → direct search**. Swiss mode rarely needs any of these — product renders, UI screenshots, and keyshot-style images should be user-supplied or AI-generated, not stock.
+Editorial-mode picking order: **Pexels (if keyword is Chinese / China-specific) → Unsplash → Flickr CC (if you need real-life feel) → direct search**. Swiss mode rarely needs any of these — product renders, UI screenshots, and keyshot-style images should be user-supplied or AI-generated, not stock. Warm Gold prefers warm-toned product/event photography: same sourcing order as Editorial, but reject cool-blue stock that fights the ivory/gold palette.
 
 How to fetch:
 
@@ -286,7 +299,7 @@ After fetching, surface the provenance to the user **before** finalizing the des
 - 不要：原样使用,不加注释。
 ```
 
-If the user picks "标注" — add a small `mono` caption (Swiss: `.t-meta` 18-20px in corner; Editorial: `.label` next to the image well). Never crowd the caption into the layout's focal area.
+If the user picks "标注" — add a small `mono` caption (Swiss: `.t-meta` 18-20px in corner; Editorial: `.label` next to the image well; Warm Gold: `.meta` under a gold hairline). Never crowd the caption into the layout's focal area.
 
 If the user picks "不标注" — proceed silently. The provenance still lives in `assets/SOURCES.md` for the user's own records.
 
@@ -326,6 +339,7 @@ Final response (after the user has reviewed or asked for auto-check) should incl
 - Do not let text become too small to read on mobile.
 - Do not write inline `font-size` + `font-weight` on display titles in Swiss. Use the typed classes (`.h-hero` / `.h-statement` / `.h-xl` / `.num-mega`). A 80-120px headline at weight 700-900 is not Swiss; "the larger, the lighter" is a hard rule.
 - Do not deliver Editorial posters with a flat paper background, mono labels on every row, and no atmosphere layer. Run the Editorial Identity Test in `references/style-system.md` — a serif title alone does not make a poster Editorial.
+- Do not deliver Warm Gold posters with a single-family type system or a canvas-wide gold gradient. Run the Warm Gold Identity Test in `references/style-system.md` — `data-system="warm-gold"` + mixed serif-title/sans-body + at least one gold signature (rule / glow / shadow / hairline). Gold is a rule, never a surface (R10); shadows are warm-black or warm-gold, never pure `#000` with a gold glow (R11).
 - Do not fake data, release details, or percentages.
 - Do not crop faces, key UI text, or hardware/product details unless the user explicitly accepts it.
 - Do not turn a video card into a fake still sequence without saying so. If a source is shorter than the target duration, ask for a longer source, use a shorter platform-safe duration, or explicitly document any hold/slowdown.

@@ -160,6 +160,11 @@ mustInclude(
 );
 mustInclude(
   "HANDOFF.md",
+  "### v0.16 · 2026-07-22",
+  "HANDOFF.md records the Warm Gold v0.16 release entry",
+);
+mustInclude(
+  "HANDOFF.md",
   "### v0.15 · 2026-07-01",
   "handoff records Live Photo version history",
 );
@@ -167,6 +172,93 @@ mustInclude(
   "HANDOFF.md",
   "不要把制作要求当成观众可见内容",
   "handoff records Live Photo execution pitfall",
+);
+
+// ---- Warm Gold (third visual system) — appended 2026-07-22 ----
+mustInclude(
+  "SKILL.md",
+  "### 3. Choose Style Mode",
+  "style mode step exists for mode routing",
+);
+mustInclude(
+  "references/style-system.md",
+  "## Mode C: Warm Gold (暖金中登)",
+  "style-system.md declares Mode C Warm Gold",
+);
+mustInclude(
+  "references/style-system.md",
+  "### Warm Gold identity test",
+  "style-system.md declares Warm Gold Identity Test",
+);
+mustInclude(
+  "references/style-system.md",
+  "The three modes below are **visual stances, not content categories**",
+  "style-system.md declares three modes (not two)",
+);
+mustInclude(
+  "references/layout-recipes.md",
+  "### G12 Closing Question",
+  "layout-recipes.md declares G12 (G01-G12 range complete)",
+);
+mustInclude(
+  "references/theme-presets.md",
+  "warm-gold-noir",
+  "theme-presets.md declares the only dark Warm Gold palette",
+);
+mustInclude(
+  "references/theme-presets.md",
+  "## Warm Gold Palettes (暖金中登)",
+  "theme-presets.md declares Warm Gold palette section",
+);
+mustInclude(
+  "references/components.md",
+  "R10",
+  "components.md declares R10 gold-gradient discipline",
+);
+mustInclude(
+  "references/components.md",
+  "R11",
+  "components.md declares R11 shadow discipline",
+);
+mustInclude(
+  "SKILL.md",
+  "Do not mix the three visual systems inside the same image set",
+  "SKILL.md forbids mixing the three visual systems",
+);
+mustInclude(
+  "SKILL.md",
+  "Warm Gold 暖金中登 → copy `assets/template-warmgold-card.html`",
+  "SKILL.md routes Warm Gold to its seed template",
+);
+mustInclude(
+  "SKILL.md",
+  "Run the Warm Gold Identity Test",
+  "SKILL.md points at Warm Gold Identity Test",
+);
+mustInclude(
+  "assets/template-warmgold-card.html",
+  'data-system="warm-gold"',
+  "warmgold seed carries data-system root attribute",
+);
+mustInclude(
+  "assets/template-warmgold-card.html",
+  "warm-gold-noir",
+  "warmgold seed ships the noir dark palette",
+);
+mustInclude(
+  "validate-social-deck.mjs",
+  'html.dataset.system === "warm-gold"',
+  "validator probes data-system before theme/accent",
+);
+mustInclude(
+  "validate-social-deck.mjs",
+  'rule: "R10"',
+  "validator implements R10",
+);
+mustInclude(
+  "validate-social-deck.mjs",
+  'rule: "R11"',
+  "validator implements R11",
 );
 
 let failed = 0;

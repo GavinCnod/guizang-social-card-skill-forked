@@ -1,6 +1,6 @@
 # Handoff — guizang-social-card-skill
 
-最后更新：2026-07-01 · 版本：v0.15（Live Photo 生产规则：3s/5s 平台限制、拼图版式、长视频处理、发布提醒、可见文案与不自造规则）
+最后更新：2026-07-22 · 版本：v0.16（第三套视觉系统 Warm Gold 暖金中登：`data-system` 根属性、6 套色票、G01-G12 recipe、混排字体种子模板、validator R10/R11、Identity Test）
 
 这份文档只记录**事实**：当前 skill 由哪些文件组成、每个文件管什么、本轮更新改了什么、怎么验证它还能跑。想读"为什么这样做"或"未来要怎么走"，去看 `PRODUCT.md`。
 
@@ -18,22 +18,24 @@ guizang-social-card-skill/
 ├── assets/
 │   ├── template-editorial-card.html   # 杂志风种子
 │   ├── template-swiss-card.html       # 瑞士风种子
+│   ├── template-warmgold-card.html    # 暖金中登种子（v0.16）
 │   ├── magazine-bg-webgl.js           # WebGL 墨流背景
-│   └── screenshot-backgrounds/        # 9 张 WebP 截图舞台底（v0.14 从 PPT skill port）
+│   └── screenshot-backgrounds/        # 13 张 WebP 截图舞台底
 │       ├── style-a/                   #   5 张 Editorial（dune / forest-ink / indigo-porcelain / kraft-paper / monocle-classic）
-│       └── style-b/                   #   4 张 Swiss（ikb-dot / lemon-green-dot / lemon-grid / safety-orange）
+│       ├── style-b/                   #   4 张 Swiss（ikb-dot / lemon-green-dot / lemon-grid / safety-orange）
+│       └── style-c/                   #   4 张 Warm Gold（gold-ivory / gold-champagne / gold-bronze / gold-noir）
 ├── references/                # 子规范，按需读取
 │   ├── platform-specs.md      平台 × 分辨率 × 命名
-│   ├── style-system.md        两种风格的硬规则与反模式
-│   ├── theme-presets.md       6 套杂志 palette（含 Midnight Ink）+ 4 套 Swiss accent
-│   ├── layout-recipes.md      版式骨架（M01-M16 + S01-S12 + WeChat）
-│   ├── components.md          字体 / 卡片 / 间距 / 图标 / 标题字数表
-│   ├── background-systems.md  墨流 / 网格 / 纸纹层
+│   ├── style-system.md        三种风格的硬规则、Identity Test 与反模式（v0.16 含 Mode C）
+│   ├── theme-presets.md       6 套杂志 palette + 4 套 Swiss accent + 6 套 Warm Gold（v0.16）
+│   ├── layout-recipes.md      版式骨架（M01-M16 + S01-S12 + G01-G12 + WeChat）
+│   ├── components.md          字体 / 卡片 / 金工具类 / R10-R11 / 间距 / 图标 / 标题字数表
+│   ├── background-systems.md  墨流 / 网格 / 纸纹层 / 暖金 CSS 层模型
 │   ├── portrait-fill.md       3:4 板的留白对策
 │   ├── content-planning.md    钩子 / 拆页 / 文案压缩
 │   ├── production-workflow.md 渲染管线与命令
 │   ├── image-overlay.md       文字压图：选图 / 局部 tint / 主体映射
-│   ├── screenshot-treatment.md 截图处理
+│   ├── screenshot-treatment.md 截图处理（含 style-c 资产表）
 │   ├── map-component.md       Mapbox / OSM / schematic 地图
 │   ├── title-shortener.md     公众号 1:1 短标题
 │   ├── category-cookbook.md   小红书 11 个品类的版式路由
@@ -42,22 +44,14 @@ guizang-social-card-skill/
 ├── agents/
 │   └── openai.yaml            # 子代理配置（备用）
 ├── scripts/
-│   ├── check-skill-docs.mjs       # Skill 文档约束测试
+│   ├── check-skill-docs.mjs       # Skill 文档约束测试（v0.16 追加 Warm Gold 断言）
 │   ├── make-video-contact-sheet.py # Live Photo 视频抽帧 contact sheet
 │   ├── package-live-photo.py      # JPG+MOV 打包为 .pvt 的入口
 │   └── *.swift                    # Apple Live Photo metadata helper
-├── validate-social-deck.mjs   # R1-R9 渲染后校验器
+├── validate-social-deck.mjs   # R1-R11 渲染后校验器（v0.16 + R10/R11 + data-system 探测）
 ├── package.json / package-lock.json / node_modules   # 仅 playwright
 ├── .gitignore                 # v0.13 新增
 └── local-tests/               # 本地测试与素材（git 忽略，不随 skill 分发）
-    ├── demo-*                 # 各次设计案例（kyoto / yading / wukong / kit-* / zzz-* / m16-camping / eyeliner / showcase / smoke-editorial-travel / map-component / screenshot-treatment / multi-platform）
-    ├── social-card-*          # 历史与 Codex 外部测试产物（含 codex-remote-* / wukong-breakout / kyoto-guide / moon-eyes-lip-mud）
-    ├── smoke-ai-tools/        # v0.6 冒烟测试样例
-    ├── test-dark-theme-elden-ring/  # v0.12 Midnight Ink 验证
-    ├── Image/                 # 用户上传的测试图
-    ├── 全图封面参考/           # v0.10 杂志封面参考图
-    ├── .codepilot-uploads/    # 历史上传缓存
-    └── *.cjs                  # 旧的 debug / probe / render 脚本
 ```
 
 v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit 只跟踪 skill 内容。
@@ -69,12 +63,12 @@ v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit �
 | 维度 | 数量 |
 | --- | --- |
 | 工作流步骤 | 7 步（Intake → Extract → Style → Plan → Seed → Build → Image → Deliver） |
-| 风格模式 | 2 个（Editorial Magazine × E-ink / Swiss International） |
-| 主题色 | Editorial 6 套（5 浅 + 1 暗 Midnight Ink）+ Swiss 4 套 = 10 套 |
-| 版式骨架 | Editorial 16 个（M01-M16）+ Swiss 12 个（S01-S12）= 28 个 |
+| 风格模式 | 3 个（Editorial Magazine × E-ink / Swiss International / Warm Gold 暖金中登） |
+| 主题色 | Editorial 6 套（5 浅 + 1 暗 Midnight Ink）+ Swiss 4 套 + Warm Gold 6 套（5 浅 + 1 暗 Warm Gold Noir）= 16 套 |
+| 版式骨架 | Editorial 16 个（M01-M16）+ Swiss 12 个（S01-S12）+ Warm Gold 12 个（G01-G12）= 40 个 |
 | 平台 × 比例 | 小红书 3:4 / 1:1，微信 21:9 + 1:1 配对，方封面 1:1 |
 | 小红书品类覆盖 | 11 个品类中 7 个完整支持，4 个需用户提供素材，4 个明确不接 |
-| 种子模板 | 2 份（Editorial / Swiss），单文件即含全部 class 与字体 |
+| 种子模板 | 3 份（Editorial / Swiss / Warm Gold），单文件即含全部 class 与字体 |
 | 已交付案例 | 7 个 demo（2 个 image-cover + 5 个 kit） |
 | Live Photo 支持 | 小红书 `5s` / 微信公众号 `3s`；单视频、二宫格、三宫格、四宫格、三连拼图、长视频低成本诊断 |
 
@@ -84,7 +78,33 @@ v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit �
 
 仅记录"什么时候新增/变更了哪些可见资产"，不记录文风调整。
 
-### v0.15 · 2026-07-01（本轮）
+### v0.16 · 2026-07-22（本轮）
+
+主题：**第三套视觉系统 Warm Gold 暖金中登落地**。用户明确要求增加暖金高端系（不是放开任意加风格口子）；按既有门槛完整进入：Identity Test、独立种子模板、专属 recipe 段、validator 探测与硬规则。
+
+**新增**
+- `references/style-system.md` Mode C Warm Gold + Warm Gold Identity Test（3 条）+ Anti-pattern E（金不作画布铺底）。
+- `references/theme-presets.md` Warm Gold Palettes：classic / champagne / bronze / rose / espresso / noir 六套 `data-palette` + noir 背景覆盖。
+- `references/layout-recipes.md` Warm Gold Recipes：**G01-G12**（Gilded Cover、Premium Ledger、Plate Matrix、Stat Monument、Ceremony Split、Gilded KPI Tower、Closing Crest、Hero Frame、Gold-Rule Checklist、Marginalia Premium、Divider、Closing Question）。
+- `references/background-systems.md` Warm Gold Layer Model（CSS-only 纸洗 + 金光晕 + grain，拒绝金大面积铺底）。
+- `references/components.md` 混排字体立场（serif 标题 + sans 正文 + mono 元数据 + Playfair 斜体）、暖金类型阶梯、Gold Utilities、**R10 / R11** 硬规则。
+- `references/screenshot-treatment.md` Warm Gold 截图默认值与 `style-c/` 资产表。
+- `assets/template-warmgold-card.html` 暖金种子模板（`data-system` + 六色票 + G-recipe 组件）。
+- `assets/screenshot-backgrounds/style-c/`：`gold-ivory` / `gold-champagne` / `gold-bronze` / `gold-noir` 四张舞台底。
+- `validate-social-deck.mjs`：`data-system` 根属性探测、`--style=warmgold`、**R10** 金渐变面积（≥60% WARN，跳过 `background-clip:text`）、**R11** 纯 `#000` 阴影 WARN。
+- `scripts/check-skill-docs.mjs` 追加 Warm Gold Mode C / Identity Test / G12 / 三系统改写 / seed 模板 / R10 断言。
+
+**修改**
+- `SKILL.md` Step 3 三模式改写、Step 4.5 三模板路由、Non-Negotiables Warm Gold Identity Test、references 清单与 caption/image-overlay 三系统措辞。
+- 计数全仓同步：**40 个 recipe（M01-M16 + S01-S12 + G01-G12）**、**16 套主题**、**三套视觉系统**、**13 张舞台底**；`README.md` / `README.en.md` / `PRODUCT.md` 决策 1 改写为三套（非删除两套历史）。
+- 规则边界：**R3 不对 warmgold 启用**；金只做规则与签名（135° 渐变条 / `#B8860B` 光晕 / 金投影 / 金 hairline），画布级金铺底禁止（R10）。
+
+**验收**
+- `npm run test:docs`（含新增 Warm Gold 断言）。
+- `node validate-social-deck.mjs local-tests/smoke-warmgold --style=warmgold` 跑通 R10/R11。
+- Editorial / Swiss 回归：旧模板与旧断言不改原文、不破坏。
+
+### v0.15 · 2026-07-01
 
 主题：**Live Photo 从一次测试能力收口成 Skill 规则**。本轮把两天聊天里关于平台限制、拼图版式、长视频处理、品类判断、发布路径和执行失误的结论写回文档，并补上文档测试。
 
@@ -120,7 +140,7 @@ v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit �
 - 长视频不要默认做精准高光检测。只能先做稀疏抽帧和候选段诊断，再让用户选择修剪、倍速、拆成三连或指定时间段。
 - 网页下载视频不是用户工作流。那只服务我们自己的测试和宣传案例。
 
-### v0.14 · 2026-05-28（本轮）
+### v0.14 · 2026-05-28
 
 主题：**截图美化素材从 PPT skill 迁移**。v0.11 当时只 port 了规则文档（`references/screenshot-treatment.md` 154 行）和工具类（`.frame-shot.*` + `.device-browser` / `.device-phone`），但 PPT skill 的真实材质 WebP 背景**整目录没拷过来**，导致 `.bg-paper / bg-grid / bg-dot` 这些舞台底全是纯 CSS 实色，截图密度高的卡片视觉偏薄。本轮把素材补齐。
 
@@ -402,7 +422,7 @@ python3 /Users/guohao/.agents/skills/skill-creator/scripts/quick_validate.py .
 npm run test:docs
 ```
 
-`quick_validate.py` 只检查 Skill Creator 的基础结构：`SKILL.md`、frontmatter、name / description 合法性。`npm run test:docs` 检查本仓库新增的产品规则：根目录不产出、Live Photo 拼图、M16 图片压字、可见文案、发布提醒、产品复盘和交接记录。
+`quick_validate.py` 只检查 Skill Creator 的基础结构：`SKILL.md`、frontmatter、name / description 合法性。`npm run test:docs` 检查本仓库新增的产品规则：根目录不产出、Live Photo 拼图、M16 图片压字、可见文案、发布提醒、产品复盘、交接记录，以及 v0.16 的 Warm Gold Mode C / Identity Test / G12 / 三系统改写 / seed 模板 / validator R10-R11 断言。
 
 最快的验证路径，不要发明新需求。
 
@@ -434,7 +454,7 @@ ls output/
 
 按 `SKILL.md` 第 7 步走，**不要跳步**。最易踩坑的两步：
 
-- **Step 3 不要混风格**：Editorial 用 serif + ledger/marginalia；Swiss 用 Inter + card-fill/matrix。两套 class 命名空间隔离，模板间不能跨用。
+- **Step 3 不要混风格**：Editorial 用 serif + ledger/marginalia；Swiss 用 Inter + card-fill/matrix；Warm Gold 用 serif 标题 + sans 正文 + gold-rule/plate/gold-glow。三套 class 命名空间隔离，模板间不能跨用。
 - **Step 4.5 必须拷种子**：从零写 HTML 是 v0.4 之前的工作流，已废弃。
 
 文字压图的页（封面 / 大图位 / 全幅图）四步：先 `Read` 图、写 HTML 注释记录主体位置、选 `object-position`、做 360px 缩略图检查。默认先不加遮罩；只有缩略图不可读时才加局部、取自图片色调的 tint。
@@ -445,7 +465,7 @@ Live Photo 页先当静态社交卡做：先确认第一帧、裁切、字体、
 
 ## 6. 已知风险与限制（事实层面）
 
-- **校验脚本是按需兜底**。`validate-social-deck.mjs` 已可检查溢出、页脚碰撞、字号下限、密度、标题行数与 figure 默认 margin 漂移；默认交付流先给用户看，用户要求 auto-check 时再跑。
+- **校验脚本是按需兜底**。`validate-social-deck.mjs` 已可检查溢出、页脚碰撞、字号下限、密度、标题行数、figure 默认 margin 漂移，以及 Warm Gold 的金渐变面积（R10）与阴影色（R11）；默认交付流先给用户看，用户要求 auto-check 时再跑。
 - **没有跨平台一次出包工具**。一篇文章要同时出小红书 3:4 + 微信 21:9+1:1 + 方封面 1:1，目前要手工开两个任务文件夹。
 - **品类能力圈未硬编码**。`category-cookbook.md` 写明了 4 个不接的品类，但 skill 不会主动拒绝；需要执行者在 Step 1 自己读到并主动告知用户。
 - **图片来源签名机制是"用户决定"**。`SOURCES.md` 总会写，但是否在图上加标注由用户回答。这不是技术限制是产品决策（见 `PRODUCT.md`）。
@@ -458,7 +478,7 @@ Live Photo 页先当静态社交卡做：先确认第一帧、裁切、字体、
 
 - 不要改 PPT skill（在 `~/.claude/skills/guizang-ppt-skill/`）。本 skill 借了它的视觉原则但**独立维护**。
 - 不要把 demo 文件夹删掉来"清理"。它们是回归测试样本。
-- 不要在两份种子模板里塞动效系统、键盘翻页、ESC 索引——那是 PPT 的需求，社交卡是静态 PNG。
+- 不要在三份种子模板里塞动效系统、键盘翻页、ESC 索引——那是 PPT 的需求，社交卡是静态 PNG。
 - 不要把 components.md 的硬上限表"调宽"以接更长的标题。先压文案。
 - 不要把内部制作词写到卡面上，例如 `三连拼图`、`5 秒看完`、`信息量`、`Live Photo`、`长视频处理`。这些词只能出现在计划、文件名、QA 或交付说明里。
 - 不要用自造背景色、线条、刻度、标签、徽章去"补排版"。先找既有模板和 reference；没有规则支持就不要加。

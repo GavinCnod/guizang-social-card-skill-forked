@@ -2,7 +2,7 @@
 
 Use when the content has **spatial relationships**: a travel route, store locations, walking tour, neighborhood overview, store-vs-store comparison by district, before/after relocation. Single coordinates ("我在北京") don't need a map.
 
-Both seeds ship `.map-block` + `.map-pin` + `.map-legend` classes. The same markup works in either; only the style-locked tones differ.
+All three seeds ship `.map-block` + `.map-pin` + `.map-legend` classes. The same markup works in any; only the style-locked tones differ.
 
 ## Three rendering modes
 
@@ -45,7 +45,7 @@ Editorial uses `tone-paper` (multiply-blend, saturation 36%). Swiss uses `tone-p
 - `mapbox/dark-v11`
 - `mapbox/streets-v12` (only with `tone-paper`, never raw)
 
-Never use `outdoors-v12` or `satellite-v9` — too colourful, will clash with both styles.
+Never use `outdoors-v12` or `satellite-v9` — too colourful, will clash with all three styles.
 
 ### Mode O · OpenStreetMap tile composite (fallback for real routes)
 
