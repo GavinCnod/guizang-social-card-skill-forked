@@ -4,6 +4,8 @@ Two rules that govern any poster where text sits on top of an image — full-ble
 
 A composition can pass HTML linting and still be unreadable. Both rules below must clear before you ship.
 
+**Style routing:** the two rules are style-agnostic. Editorial full-bleed covers use the M16 recipe; Warm Gold hero frames use G08 (`layout-recipes.md`) — serif title in a quiet zone, at most one `.gold-text` phrase, no gold-gradient wash over the photo (R10 still applies).
+
 ## Rule 1 — Selection first, mask only if selection fails
 
 The default editorial-magazine answer is **no mask**. Real magazine covers (Kinfolk, Cereal, Apartamento, Monocle) almost never lay a uniform black gradient over a hero photo. They rely on **photo selection + composition** so text lands in a quiet zone naturally. If you cannot find such a photo, the answer is usually to swap the photo, not to caulk over a bad one with a 70%-black scrim.

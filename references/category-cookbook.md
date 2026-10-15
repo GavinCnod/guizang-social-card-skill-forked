@@ -219,7 +219,7 @@ See: `local-tests/demo-image-02-wukong/` for a reference build.
 ### What does not work
 
 - "梦核 / 氛围感" with soft fluorescent gradients, glowing ovals, hazy lights. Our anti-pattern list explicitly bans those decorations.
-- Y2K / 早期网络回忆 / 千禧辣妹 aesthetic — outside Swiss and Editorial both.
+- Y2K / 早期网络回忆 / 千禧辣妹 aesthetic — outside all three visual systems (Editorial / Swiss / Warm Gold).
 - Heavy emoji / kaomoji captions. We use no emoji.
 
 **Pitfalls**:

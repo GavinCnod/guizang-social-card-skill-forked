@@ -118,7 +118,7 @@ Warm Gold assets (`assets/screenshot-backgrounds/style-c/`):
 - Decide once per deck whether asset stages are part of the visual identity — don't sprinkle one asset background into a deck of solid stages, it looks like a sample card.
 - These assets are crop-safe at 16:10 and 16:9. For tall `r-3x4` or square `r-1x1` slots, prefer solid `bg-*` — the texture pattern can read awkwardly when over-cropped.
 
-**Path note**: the `.bg-asset-*` rules use `url("../assets/screenshot-backgrounds/...")` — this assumes your deck's `index.html` lives one directory below `assets/`. If you place the deck elsewhere, override these rules locally with the correct relative path.
+**Path note**: the `.bg-asset-*` rules use `url("../../assets/screenshot-backgrounds/...")` — this assumes your deck's `index.html` lives two directories below the skill root (the default `local-tests/<slug>/` layout). If you place the deck elsewhere, override these rules locally with the correct relative path.
 
 ### 5. `inset-*` (padding between shot and stage)
 

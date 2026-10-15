@@ -298,6 +298,68 @@ mustInclude(
   ".docs README marks Warm Gold as fork-custom",
 );
 
+// ---- Template asset paths + CJK mono fallback pins — appended 2026-10-15 ----
+mustInclude(
+  "assets/template-editorial-card.html",
+  'url("../../assets/screenshot-backgrounds/',
+  "editorial template uses the local-tests-safe asset path",
+);
+mustInclude(
+  "assets/template-swiss-card.html",
+  'url("../../assets/screenshot-backgrounds/',
+  "swiss template uses the local-tests-safe asset path",
+);
+mustInclude(
+  "assets/template-warmgold-card.html",
+  'url("../../assets/screenshot-backgrounds/',
+  "warmgold template uses the local-tests-safe asset path",
+);
+mustNotMatch(
+  "assets/template-editorial-card.html",
+  /url\("\.\.\/assets\//,
+  "editorial template has no repo-root-relative bg-asset path",
+);
+mustNotMatch(
+  "assets/template-swiss-card.html",
+  /url\("\.\.\/assets\//,
+  "swiss template has no repo-root-relative bg-asset path",
+);
+mustNotMatch(
+  "assets/template-warmgold-card.html",
+  /url\("\.\.\/assets\//,
+  "warmgold template has no repo-root-relative bg-asset path",
+);
+mustInclude(
+  "assets/template-editorial-card.html",
+  '"IBM Plex Mono", "Noto Sans SC"',
+  "editorial mono stack carries a CJK fallback",
+);
+mustInclude(
+  "assets/template-swiss-card.html",
+  '"IBM Plex Mono", "Noto Sans SC"',
+  "swiss mono stack carries a CJK fallback",
+);
+mustInclude(
+  "assets/template-warmgold-card.html",
+  '"IBM Plex Mono", "Noto Sans SC"',
+  "warmgold mono stack carries a CJK fallback",
+);
+mustInclude(
+  "references/qa-checklist.md",
+  "Warm Gold identity test",
+  "qa checklist covers the Warm Gold identity test",
+);
+mustInclude(
+  "references/qa-checklist.md",
+  "R10",
+  "qa checklist lists the Warm Gold validator rules",
+);
+mustInclude(
+  ".docs/08-实现效果与验收标准.md",
+  "R10",
+  "docs 08 lists the Warm Gold validator rules",
+);
+
 let failed = 0;
 for (const run of checks) {
   const result = run();

@@ -38,7 +38,7 @@ https://api.mapbox.com/styles/v1/mapbox/light-v11/static/
 </div>
 ```
 
-Editorial uses `tone-paper` (multiply-blend, saturation 36%). Swiss uses `tone-paper` with saturation 0 (pure greyscale). Don't show the raw Mapbox colour-saturated style — it fights the deck.
+Editorial uses `tone-paper` (multiply-blend, saturation 36%). Swiss uses `tone-paper` with saturation 0 (pure greyscale). Warm Gold uses `tone-paper` with a warm sepia lift (`saturate(.30) sepia(.12)`). Don't show the raw Mapbox colour-saturated style — it fights the deck.
 
 **Style allowlist** for the URL — keep it monochrome:
 - `mapbox/light-v11`
@@ -132,11 +132,11 @@ Don't invent a "map-only" page — the map always pairs with text that says **wh
 
 ## Tone tokens
 
-| Token         | Editorial behaviour                              | Swiss behaviour                               |
-| ------------- | ------------------------------------------------ | --------------------------------------------- |
-| (none)        | Raw — only use for SVG schematic.                | Raw — only use for SVG schematic.             |
-| `tone-paper`  | Multiply blend on warm paper. Default for travel.| Hard greyscale. Default for everything.       |
-| `tone-ink`    | Brightness 62%, saturation 18%. Dark deck pages. | Brightness 58%, saturation 0%. Dark posters.  |
+| Token         | Editorial behaviour                              | Swiss behaviour                               | Warm Gold behaviour                            |
+| ------------- | ------------------------------------------------ | --------------------------------------------- | ---------------------------------------------- |
+| (none)        | Raw — only use for SVG schematic.                | Raw — only use for SVG schematic.             | Raw — only use for SVG schematic.              |
+| `tone-paper`  | Multiply blend on warm paper. Default for travel.| Hard greyscale. Default for everything.       | Warm sepia lift (`saturate .30 + sepia .12`). Default. |
+| `tone-ink`    | Brightness 62%, saturation 18%. Dark deck pages. | Brightness 58%, saturation 0%. Dark posters.  | Brightness 58%, saturation 16%. Noir posters.  |
 
 Tone only affects `> img` children, not the SVG schematic.
 

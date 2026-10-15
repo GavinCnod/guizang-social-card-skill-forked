@@ -146,7 +146,7 @@ Use this when the user supplies good footage and wants the Live Photo to behave 
 
 Supported shapes:
 
-- **Single video**: crop one clip to `3:4` full canvas. Add at most one short headline, placed in a confirmed quiet zone away from faces, bodies, hands, products, or key motion. If text is added, it must follow the M16 Image-Led Cover / text-on-image typography: Editorial serif/Songti, regular-medium weight, paper-cream color, restrained tracking, and no default full-canvas mask. Do not invent extra kicker, meta, hairlines, labels, or badges just to make the overlay feel designed. If only one headline is available, make the typography carry the layout: phrase-aware line break, restrained size, tracking, alignment, and placement.
+- **Single video**: crop one clip to `3:4` full canvas. Add at most one short headline, placed in a confirmed quiet zone away from faces, bodies, hands, products, or key motion. If text is added, it must follow the M16 Image-Led Cover / text-on-image typography: Editorial serif/Songti, regular-medium weight, paper-cream color, restrained tracking, and no default full-canvas mask. Do not invent extra kicker, meta, hairlines, labels, or badges just to make the overlay feel designed. If only one headline is available, make the typography carry the layout: phrase-aware line break, restrained size, tracking, alignment, and placement. For Warm Gold decks, use Warm Gold typography instead (serif title + mono meta, at most one `.gold-text` phrase) and never lay a gold gradient wash over the footage.
 - **Two-grid**: stack two clips vertically. Use no added text unless the user asks.
 - **Three-grid**: stack three clips vertically. Use no added text; the rhythm comes from the footage.
 - **Four-grid**: use a `2 x 2` grid of four `3:4` wells (`540 x 720` each inside a `1080 x 1440` card). Crop each source as a real `3:4` material, not as a tiny landscape thumbnail.
@@ -158,7 +158,7 @@ Rules:
 - Keep gutters at `0-12px`; choose no gutter when the user asks for pure 拼图 or the source already has strong edges.
 - Generate source contact sheets first, then choose crop positions. For people, protect faces and upper body; for objects, protect the focal feature.
 - For single-video text, follow `image-overlay.md`: subject map first, no full-canvas mask, title in one quiet zone, and thumbnail readability check.
-- Do not render single-video text as generic subtitles. It should look like an Editorial image-led cover title, not video captioning.
+- Do not render single-video text as generic subtitles. It should look like an image-led cover title (M16 for Editorial, G08 for Warm Gold), not video captioning.
 - Do not confuse "minimal copy" with permission to invent copy. Minimal copy still needs typography and a deliberate relation to the subject, but the agent must not add new visible words unless the user asks.
 - If a crop cannot preserve the subject, prefer a different puzzle geometry over forcing a bad crop.
 

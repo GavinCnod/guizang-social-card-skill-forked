@@ -10,13 +10,13 @@ Editorial Magazine x E-ink (`template-editorial-card.html`):
 - `--serif-en`: Playfair Display, italic for subtitles and pull quotes.
 - `--sans-zh`: Noto Sans SC, PingFang SC — utility text and fallback; body and lead default to serif-zh in Editorial.
 - `--sans-en`: Inter — Latin body in mixed content.
-- `--mono`: IBM Plex Mono — labels, page metadata, issue strip, captions.
+- `--mono`: IBM Plex Mono (+ Noto Sans SC CJK fallback) — labels, page metadata, issue strip, captions.
 
 Swiss International (`template-swiss-card.html`):
 
 - `--sans`: Inter, Helvetica Neue, Helvetica.
 - `--sans-zh`: Noto Sans SC, PingFang SC — Chinese body.
-- `--mono`: IBM Plex Mono — labels, captions, t-meta.
+- `--mono`: IBM Plex Mono (+ Noto Sans SC CJK fallback) — labels, captions, t-meta.
 
 Warm Gold 暖金中登 (`template-warmgold-card.html`):
 
@@ -24,9 +24,11 @@ Warm Gold 暖金中登 (`template-warmgold-card.html`):
 - `--serif-en`: Playfair Display — italic accent words inside titles, pull quotes.
 - `--sans-zh`: Noto Sans SC, PingFang SC — **body, lead, captions** (inverted vs Editorial).
 - `--sans-en`: Inter — Latin body in mixed content.
-- `--mono`: IBM Plex Mono — labels, metadata, numerals, issue strip.
+- `--mono`: IBM Plex Mono (+ Noto Sans SC CJK fallback) — labels, metadata, numerals, issue strip.
 
 Never load a serif font in the Swiss template. Never let the Editorial template lose its serif display family. Warm Gold must load **both** serif and sans: serif for titles, sans for body — dropping either breaks the identity test.
+
+All three templates declare a CJK fallback inside `--mono` (`"IBM Plex Mono", "Noto Sans SC", …`) so Chinese kickers / meta stay readable on machines without system CJK fonts.
 
 ## Type Scale + Weight Mapping
 
@@ -135,6 +137,8 @@ The smoke deck's p2 title `第三次进山,装备比上一次轻 3.4kg` is the 2
 - M11 (Marginalia Essay): 2-line title leaves room for **3 paragraphs of 3-4 sentences each** in a 700px main column, and 5-7 marginalia rows in a 220px aside.
 - M14 (Vertical Pipeline): 2-line title + **5 steps** (each step-title 42px serif + step-desc 26px sans, 28px gap) hits the 1440 floor exactly — adding a 6th step requires shrinking title to 1 line.
 - M07 (Field Ledger): 2-line title + **5 ledger rows** with both `.ledger-title` and `.ledger-note` ≈ 100-120px row height — exactly fills. 6 rows requires 1-line title.
+
+**Warm Gold (G recipes):** R6 caps are board-based, not style-based — Warm Gold inherits the same max lines / chars. `.poster.xhs .h-xl` defaults to 80px serif 500 (`.poster.square` 72px). Smoke-verified with G01 / G02 / G06 / G12 in `local-tests/smoke-warmgold-audit/`.
 
 ### Matrix + hero-stat-bottom on `.poster.xhs`
 

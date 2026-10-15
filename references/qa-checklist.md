@@ -69,6 +69,7 @@ If failing: don't shrink the canvas, don't add decorative blobs. Either expand c
 - `R1` / `R8`: DOM overflow and visual overflow, including measured pixel amount and the lowest overflowing element.
 - `R8`: bottom whitespace and active content height, which catches "fixed too much" layouts.
 - `R9`: title-to-content gap, which catches titles visually touching the next block.
+- `R10` / `R11` (Warm Gold only): canvas-wide gold gradient (≥60% of the board) and pure-`#000` shadows; treat as must-fix when they appear.
 
 Use these numbers as the first diagnosis. Multimodal inspection is still useful for taste, but overflow, empty lower bands, and title gaps should be handled from measured output first.
 
@@ -77,6 +78,8 @@ Use these numbers as the first diagnosis. Multimodal inspection is still useful 
 - Package uses one visual system.
 - Swiss identity test passes for every Swiss poster (see `style-system.md` "Style Identity Test"). In particular: every display title >=72px uses a typed class with weight <=300; no serif font is loaded; only one accent color is used. A bold 90px headline is not Swiss.
 - Editorial identity test passes for every Editorial poster: at least one atmosphere layer beyond a flat fill (paper grain / ink wash / WebGL); serif display family on the title; at least one of large photo well, serif pull quote, marginalia column, or true ledger structure. A flat paper with serif title + mono pills everywhere is Swiss-in-disguise.
+- Warm Gold identity test passes for every Warm Gold poster (see `style-system.md` "Warm Gold identity test"): `data-system="warm-gold"` + one sanctioned palette; mixed serif title / sans body / mono meta; at least one gold signature (gradient rule / `#B8860B` glow / warm-gold shadow / gold hairline). A serif-only or sans-only deck, or one with a canvas-wide gold fill, is not Warm Gold.
+- Warm Gold uses exactly one palette per package (never mix two).
 - Swiss uses one accent color only.
 - Magazine style uses restrained paper/ink tones.
 - No random SVG blobs, ovals, drops, circles, stickers, or decorative gradients.

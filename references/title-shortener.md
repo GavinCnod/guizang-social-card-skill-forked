@@ -27,7 +27,7 @@ When the user gives you a long title (or you wrote one for the 3:4 cover), deriv
 
 **3. Compress to 4-10 Chinese characters.** That is the readable band for 88-120px type on a 1080×1080 canvas. Outside that band, you either need 2 lines (still OK), 3+ lines (almost certainly wrong), or a typographic stunt (one giant character + meta — see Big Word recipe below).
 
-**4. Drop English unless it carries the verb.** Mixed CJK + Latin at large size is a Swiss/Editorial trick that takes a lot of practice. For 1:1 short titles, prefer pure Chinese. Exceptions: brand names (`AI`, `Mac`, `iOS`), domain terms with no Chinese equivalent (`PPT`, `MCP`).
+**4. Drop English unless it carries the verb.** Mixed CJK + Latin at large size is a large-display trick across Swiss / Editorial / Warm Gold that takes a lot of practice. For 1:1 short titles, prefer pure Chinese. Exceptions: brand names (`AI`, `Mac`, `iOS`), domain terms with no Chinese equivalent (`PPT`, `MCP`).
 
 **5. Add a small subtitle only if needed for disambiguation.** Most 1:1 covers don't need one. If you must add it, use `.kicker` or `.t-meta` size (20-22px mono), never a second `.h-xl`.
 
@@ -79,7 +79,7 @@ A single character can carry a cover if it's the conceptual anchor of the piece.
 共创笔记
 ```
 
-When the numerical fact is the news, lead with it. Editorial uses `.num-mega` (200px) over an 56px serif subtitle; Swiss uses `.num-mega` (200px) over a 22px mono cat.
+When the numerical fact is the news, lead with it. Editorial uses `.num-mega` (200px) over an 56px serif subtitle; Swiss uses `.num-mega` (200px) over a 22px mono cat; Warm Gold uses `.num-mega` (128px on `.poster.xhs`, 120px on square) over mono meta.
 
 ## Anti-patterns
 
@@ -99,7 +99,10 @@ Type scale defaults on square boards:
 | Editorial | `.h-xl`     |  78px        | Subtitle or secondary headline     |
 | Swiss     | `.h-hero`   | 200px        | Pattern A or B, 1-2 lines          |
 | Swiss     | `.h-statement` | 160px     | Same role as `.h-hero`, slightly tamer |
-| Both      | `.num-mega` | 200px        | Pattern D leading number           |
+| Warm Gold | `.h-display`| 104px        | Pattern A or B, 1-2 lines          |
+| Warm Gold | `.h-xl`     |  72px        | Subtitle or secondary headline     |
+| Editorial / Swiss | `.num-mega` | 200px | Pattern D leading number          |
+| Warm Gold | `.num-mega` | 120px        | Pattern D leading number           |
 
 If a single-line short title is ≤ 4 Chinese chars on Swiss square, you can push `.h-hero` to 240px without overflow.
 
