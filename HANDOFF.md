@@ -418,6 +418,8 @@ v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit �
 
 ## 4. 如何验证 skill 还能跑
 
+> **本 fork 现状（2026-10-15 起）**：下文的 `/Users/guohao/...` 路径与 `sips` 命令来自上游作者机器，保留为历史记录。在本 fork（WSL Ubuntu）里：文档层验证跑 `npm run test:docs`；渲染 / 校验回归跑 `node validate-social-deck.mjs local-tests/smoke-warmgold-audit`，并在 `local-tests/smoke-warmgold-audit/` 里 `node render.mjs`（WSL/Linux 尺寸核对用 `file output/*.png`）。`quick_validate.py` 仅上游 macOS 环境有，可跳过。
+
 先跑文档层验证，确认 Skill Creator 基础格式和本仓库约束都还成立：
 
 ```bash

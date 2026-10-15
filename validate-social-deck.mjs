@@ -21,7 +21,7 @@
  *   R11 shadow discipline      warmgold: pure #000 shadow with a gold glow (WARN)
  */
 import { chromium } from "playwright";
-import { fileURLToPath } from "node:url";
+import { pathToFileURL } from "node:url";
 import path from "node:path";
 import fs from "node:fs";
 
@@ -46,7 +46,7 @@ if (!fs.existsSync(htmlPath)) {
   process.exit(2);
 }
 
-const url = "file://" + htmlPath;
+const url = pathToFileURL(htmlPath).href;
 const browser = await chromium.launch({
   args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"],
 });

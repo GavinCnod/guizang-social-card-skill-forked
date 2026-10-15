@@ -369,6 +369,11 @@ mustInclude(
   "R2 full-bleed skip",
   "layout-recipes G08 documents the R2 full-bleed pattern",
 );
+mustInclude(
+  "validate-social-deck.mjs",
+  "pathToFileURL(htmlPath).href",
+  "validator builds cross-platform file URLs",
+);
 
 let failed = 0;
 for (const run of checks) {

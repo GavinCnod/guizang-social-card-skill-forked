@@ -26,7 +26,8 @@ node validate-social-deck.mjs <task-dir> --style=swiss   # 自动识别风格失
 ```
 
 - 渲染：在 `local-tests/<slug>/` 里放 `index.html` + 自写 `render.mjs`（Playwright 逐 section 截图），流程见 `references/production-workflow.md`。无 GPU 环境截 WebGL 墨流背景需要 `--use-angle=swiftshader --enable-unsafe-swiftshader`（validator 已内置）。
-- 本机（Ubuntu 24.04，sudo 需密码）跑 Playwright 前先装系统依赖：`sudo apt-get install -y libnspr4 libnss3 libasound2t64`；暂时无法 sudo 时用 `apt-get download` 解包到 /tmp 再设 `LD_LIBRARY_PATH` 运行（validator / render 都适用）。
+- 本机（WSL Ubuntu 24.04）已于 2026-10-15 安装 Playwright 系统依赖与中文字体：`libnspr4 libnss3 libasound2t64 fonts-noto-cjk`。换新机器 / 新 WSL 时重装这四件套即可；无法 sudo 时可用 `apt-get download` 解包 + `LD_LIBRARY_PATH` 临时绕过。Windows 原生跑 Playwright 不需要这一步。
+- 跨平台：渲染脚本构造页面 URL 一律用 `pathToFileURL(...).href`（手拼 `"file://" + path` 在 Windows 原生会失效）；`.pvt` / AirDrop / Swift 链路仅 macOS，其他平台按 `SKILL.md` Step 7 降级为 GIF / 静音 MP4。
 - 暖金本地冒烟 fixture：`local-tests/smoke-warmgold-audit/`（G01-G12 全覆盖正样例 + R10/R11 负样例 + `render.mjs`）；重跑 `node validate-social-deck.mjs local-tests/smoke-warmgold-audit`。
 - `scripts/make-video-contact-sheet.py` 依赖 `ffprobe`；`scripts/package-live-photo.py` 与 `*.swift` 辅助脚本面向 macOS/iPhone 的 `.pvt` 发布链路。
 

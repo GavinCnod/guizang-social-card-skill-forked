@@ -112,13 +112,15 @@ const targets = [
 ];
 ```
 
-If a local dev server is needed for assets or font loading, start it and tell the user the URL. If `file://` rendering works, no server is required.
+Build the page URL with `pathToFileURL(htmlPath).href` from `node:url` — never string-concatenate `"file://" + path`, which breaks on Windows (`file://C:\...` is not a valid URL). If a local dev server is needed for assets or font loading, start it and tell the user the URL. If `file://` rendering works, no server is required.
 
 ## Verification Commands
 
-Useful checks on macOS:
+Portable check (macOS / Linux / WSL — `file(1)` prints PNG dimensions):
 
 ```bash
+file output/*.png
+# macOS alternative:
 sips -g pixelWidth -g pixelHeight output/*.png
 ```
 
