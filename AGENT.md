@@ -2,7 +2,7 @@
 
 ## 项目说明
 
-这个目录是 `guizang-social-card-skill` 的 Skill 本体，用来给 Claude Code / Codex 等 Agent 提供"归藏风"社交图文生成能力。
+这个目录是 `guizang-social-card-skill-forked`（上游 `guizang-social-card-skill` 的个人 fork）的 Skill 本体，用来给 Claude Code / Codex 等 Agent 提供"归藏风"社交图文生成能力。
 
 它面向的产出包括：
 

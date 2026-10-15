@@ -13,6 +13,7 @@
 - `main`：只用于同步上游，保持能干净 merge；**不要在这里提交自用二次开发**。
 - `dev-personal-usage-gavin`：个人二次开发分支（本地创建：`git checkout dev-personal-usage-gavin`，会自动跟踪 origin）。
 - dev 比 main 多出：Warm Gold「暖金中登」第三视觉系统（`assets/template-warmgold-card.html`、`style-c/` 截图底、G01-G12 版式、validator R10/R11、`.docs/` 设计文档）和 1.1.0 版本号。在 main 上找不到这些文件是正常的，先确认自己在哪个分支。
+- 命名约定：dev 分支 `SKILL.md` 的 `name` 是 `guizang-social-card-skill-forked`，必须与仓库目录名一致（Agent Skills 规范要求 name=父目录名，`skills-ref validate` 会检查）；`main` 保持上游原名 `guizang-social-card-skill`，不要为了"统一"去改 main。
 - fork 的既有惯例：新增/修改风格、版式时，同步更新 `scripts/check-skill-docs.mjs` 的钉扎字符串和 `HANDOFF.md` 版本历史（dev 上的 Warm Gold 就是这么做的）。
 
 ## 命令

@@ -1,6 +1,6 @@
-# Handoff — guizang-social-card-skill
+# Handoff — guizang-social-card-skill-forked
 
-最后更新：2026-10-15 · 版本：v0.16（第三套视觉系统 Warm Gold 暖金中登：`data-system` 根属性、6 套色票、G01-G12 recipe、混排字体种子模板、validator R10/R11、Identity Test；README 补 fork 定制声明）
+最后更新：2026-10-15 · 版本：v0.17（fork 合规改名：`SKILL.md` 的 `name` 与仓库目录 `guizang-social-card-skill-forked` 对齐，符合 Agent Skills 规范 name=父目录名；v0.16 为 Warm Gold 暖金中登落地）
 
 这份文档只记录**事实**：当前 skill 由哪些文件组成、每个文件管什么、本轮更新改了什么、怎么验证它还能跑。想读"为什么这样做"或"未来要怎么走"，去看 `PRODUCT.md`。
 
@@ -11,7 +11,7 @@
 ## 1. 目录结构（事实版）
 
 ```
-guizang-social-card-skill/
+guizang-social-card-skill-forked/
 ├── SKILL.md                   # 7 步工作流入口
 ├── HANDOFF.md                 # 本文件
 ├── PRODUCT.md                 # 产品思考
@@ -44,7 +44,7 @@ guizang-social-card-skill/
 ├── agents/
 │   └── openai.yaml            # 子代理配置（备用）
 ├── scripts/
-│   ├── check-skill-docs.mjs       # Skill 文档约束测试（v0.16 追加 Warm Gold 断言）
+│   ├── check-skill-docs.mjs       # Skill 文档约束测试（v0.16 Warm Gold + v0.17 改名断言）
 │   ├── make-video-contact-sheet.py # Live Photo 视频抽帧 contact sheet
 │   ├── package-live-photo.py      # JPG+MOV 打包为 .pvt 的入口
 │   └── *.swift                    # Apple Live Photo metadata helper
@@ -78,7 +78,23 @@ v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit �
 
 仅记录"什么时候新增/变更了哪些可见资产"，不记录文风调整。
 
-### v0.16 · 2026-07-22（本轮）
+### v0.17 · 2026-10-15（本轮）
+
+主题：**fork 合规改名**。审查指出：fork 仓库目录名为 `guizang-social-card-skill-forked`，而 `SKILL.md` 的 `name` 仍是 `guizang-social-card-skill`，违反 Agent Skills 规范「`name` 必须与父目录同名」（`skills-ref validate` 会直接报 `Directory name 'guizang-social-card-skill-forked' must match skill name 'guizang-social-card-skill'`）。本仓库根目录即 skill 根，克隆目录名就是父目录名。本轮只对齐命名与安装说明，不涉及功能变更；`main` 分支保持上游原名，只用于同步上游。
+
+**修改**
+- `SKILL.md` 的 `name` → `guizang-social-card-skill-forked`。
+- `README.md` / `README.en.md`：fork 安装命令补目标目录 `~/.claude/skills/guizang-social-card-skill-forked`；安装 / 更新指令与目录树根名同步；`npx skills add` 命令标注为「上游原版（不含暖金中登）」；补旧目录迁移说明 `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`。
+- `agents/openai.yaml` 的 `default_prompt` → `$guizang-social-card-skill-forked`；`package.json` / `package-lock.json` 的 `name` 同步。
+- `AGENT.md`、`AGENTS.md`（命名约定）、`PRODUCT.md`（决策 8）、`.docs/README.md` / `.docs/01` / `.docs/06` / `.docs/07` 的仓库名与安装表述同步。
+- `scripts/check-skill-docs.mjs` 追加断言：SKILL.md 名字行、README 安装目录、`agents/openai.yaml` 的 default_prompt。
+
+**验收**
+- `skills-ref validate .`（Agent Skills 参考校验器）通过：目录名与 `name` 一致。
+- `npm run test:docs` 全过（含新增断言）。
+- 渲染与版面 validator 不读 skill 名，行为零变化。
+
+### v0.16 · 2026-07-22
 
 主题：**第三套视觉系统 Warm Gold 暖金中登落地**。用户明确要求增加暖金高端系（不是放开任意加风格口子）；按既有门槛完整进入：Identity Test、独立种子模板、专属 recipe 段、validator 探测与硬规则。
 

@@ -1,14 +1,14 @@
-# guizang-social-card-skill 理解与说明文档集
+# guizang-social-card-skill-forked 理解与说明文档集
 
-这是一套针对本仓库（`guizang-social-card-skill`）的中文说明文档，目标是让接手的人在不读完全部源码的情况下，回答四个问题：**这个 skill 能做什么、按什么流程做、靠哪些文件和工具做、做到什么程度算合格**。
+这是一套针对本仓库（`guizang-social-card-skill-forked`）的中文说明文档，目标是让接手的人在不读完全部源码的情况下，回答四个问题：**这个 skill 能做什么、按什么流程做、靠哪些文件和工具做、做到什么程度算合格**。
 
 | 项目 | 情况 |
 | --- | --- |
-| 仓库本体 | `guizang-social-card-skill`（Claude Code / Codex 等 Agent 环境的 Skill） |
+| 仓库本体 | `guizang-social-card-skill-forked`（Claude Code / Codex 等 Agent 环境的 Skill，目录名与 skill 名一致） |
 | 上游 | `op7418/guizang-social-card-skill` |
 | 本仓库 remote | `GavinCnod/guizang-social-card-skill-forked`（fork） |
 | 定制内容 | **暖金中登（Warm Gold）第三视觉系统**——本 fork 自定制，上游原版没有 |
-| 当前版本 | v0.16（2026-07-22，第三套视觉系统 Warm Gold 暖金中登） |
+| 当前版本 | v0.17（2026-10-15，fork 合规改名；v0.16 为 Warm Gold 暖金中登落地） |
 | 许可 | AGPL-3.0，另见 `COMMERCIAL_LICENSING.md` |
 | 文档定位 | 只描述仓库里真实存在的内容，不引入未实现的能力 |
 
@@ -81,14 +81,14 @@
 
 ## 五、30 秒上手
 
-安装（三选一）：
+安装（二选一）：
 
 ```bash
-# 方式一：skills 包管理器
-npx skills add https://github.com/op7418/guizang-social-card-skill --skill guizang-social-card-skill
+# 方式一：直接 clone fork 的 dev 分支（含暖金中登，目录名与 skill 名一致）
+git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked
 
-# 方式二：直接 clone 到 Claude skills 目录
-git clone https://github.com/op7418/guizang-social-card-skill.git ~/.claude/skills/guizang-social-card-skill
+# 方式二：skills 包管理器（只装上游原版，不含暖金中登）
+npx skills add https://github.com/op7418/guizang-social-card-skill --skill guizang-social-card-skill
 ```
 
 安装后直接对 Agent 说人话即可触发：

@@ -1,4 +1,4 @@
-# Product — guizang-social-card-skill
+# Product — guizang-social-card-skill-forked
 
 这份文档讲**为什么**。事实在 `HANDOFF.md`。
 
@@ -167,6 +167,12 @@ v0.6-v0.11 都把 validator（`validate-social-deck.mjs`）写成"渲完必须�
 - WebGL 背景只用于一次性渲染纹理，不真的"动起来"
 
 这条决策让 skill 比同等复杂度的"PPT 网页"轻一个数量级。
+
+### 决策 8：fork 分支按 Agent Skills 规范对齐命名（2026-10-15）
+
+上游仓库根即 skill 根，目录名与 `name` 天然一致。本 fork 把仓库命名为 `...-forked` 后，目录名与 `name` 失配——Agent Skills 规范要求 `name` 必须与父目录同名，参考校验器 `skills-ref validate` 会直接报 `Directory name 'guizang-social-card-skill-forked' must match skill name 'guizang-social-card-skill'`。
+
+两种修法里选择「改 skill 名」而不是「改仓库名」：保留 `-forked` 的 fork 可见性，不动 GitHub URL 与本地目录；改后 fork 版与上游原版可以作为两个独立 skill 并存安装、互不覆盖；`main` 分支保持上游原名，只承担同步上游的职责。代价是命令名变长（`/guizang-social-card-skill-forked`），描述触发不变，日常使用无感。
 
 ---
 

@@ -298,6 +298,23 @@ mustInclude(
   ".docs README marks Warm Gold as fork-custom",
 );
 
+// ---- Fork rename compliance (Agent Skills name=directory) — appended 2026-10-15 ----
+mustInclude(
+  "SKILL.md",
+  "name: guizang-social-card-skill-forked",
+  "skill name matches the fork repo directory",
+);
+mustInclude(
+  "README.md",
+  "~/.claude/skills/guizang-social-card-skill-forked",
+  "fork install target matches the skill name",
+);
+mustInclude(
+  "agents/openai.yaml",
+  "$guizang-social-card-skill-forked",
+  "openai.yaml default_prompt uses the fork skill name",
+);
+
 // ---- Template asset paths + CJK mono fallback pins — appended 2026-10-15 ----
 mustInclude(
   "assets/template-editorial-card.html",

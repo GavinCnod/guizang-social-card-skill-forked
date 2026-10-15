@@ -18,13 +18,21 @@ Three visual systems share one workflow:
 - **Swiss International**. Grid-first, single anchor color, sharp hairlines, extreme type contrast. Best for product reviews, data, frameworks, tutorials, and AI tools.
 - **Warm Gold (暖金中登)** — **fork-custom, not in upstream**. Serif titles + sans body + gold-gradient hairlines / glow / warm-gold shadows on ivory paper with espresso ink. Best for brand launches, membership perks, award rankings, annual milestones, and premium lifestyle.
 
-> ⚠️ **This repository is a personal fork, not the upstream original.** [Upstream op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill) ships only **Editorial** and **Swiss**; **Warm Gold (暖金中登) is a fork-custom third visual system that does not exist upstream** — its seed template, G01-G12 layouts, 6 palettes, `style-c/` screenshot stage backgrounds, and validator rules R10/R11 live only on this fork's `dev-personal-usage-gavin` branch. Install with: `git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git`
+> ⚠️ **This repository is a personal fork, not the upstream original.** [Upstream op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill) ships only **Editorial** and **Swiss**; **Warm Gold (暖金中登) is a fork-custom third visual system that does not exist upstream** — its seed template, G01-G12 layouts, 6 palettes, `style-c/` screenshot stage backgrounds, and validator rules R10/R11 live only on this fork's `dev-personal-usage-gavin` branch. Install with (the target directory must match the skill name, per the Agent Skills spec): `git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`. Upgrading from the old name: `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`.
 
 > Sister project to [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill). Shared visual language, separate maintenance. PPT solves "horizontal swipe talks"; this one solves "static feed images."
 
 ![Guizang Social Card Skill preview](https://github.com/user-attachments/assets/d370abcc-1fc4-4de1-903a-09020a6556ce)
 
 ## 30-second start
+
+This fork's Warm Gold capability lives only on the `dev-personal-usage-gavin` branch, so install it with a direct clone (the directory must match the skill name, per the Agent Skills spec):
+
+```bash
+git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked
+```
+
+Upstream original only (no Warm Gold):
 
 ```bash
 npx skills add https://github.com/op7418/guizang-social-card-skill --skill guizang-social-card-skill
@@ -33,13 +41,13 @@ npx skills add https://github.com/op7418/guizang-social-card-skill --skill guiza
 Or paste this to an AI agent with shell access:
 
 ```text
-Install guizang-social-card-skill for me. Clone https://github.com/op7418/guizang-social-card-skill into ~/.claude/skills/guizang-social-card-skill, then verify that SKILL.md, assets/, and references/ exist.
+Install guizang-social-card-skill-forked for me. Run git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked, then verify that SKILL.md, assets/, and references/ exist.
 ```
 
 If you already installed it, update with:
 
 ```text
-Update guizang-social-card-skill for me. Go to ~/.claude/skills/guizang-social-card-skill, run git pull, then tell me the latest commit.
+Update guizang-social-card-skill-forked for me. Go to ~/.claude/skills/guizang-social-card-skill-forked, run git pull, then tell me the latest commit. If the old directory ~/.claude/skills/guizang-social-card-skill still exists, run mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked.
 ```
 
 Then ask your agent:
@@ -162,27 +170,30 @@ Tiered by "circle of competence" — see [`references/category-cookbook.md`](./r
 
 ## Install
 
-### Option 1: One-line install (recommended)
+### Option 1: One-line install (fork build with Warm Gold; recommended)
 
 ```bash
-npx skills add https://github.com/op7418/guizang-social-card-skill --skill guizang-social-card-skill
+git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked
 ```
+
+> The install directory must match the skill name `guizang-social-card-skill-forked`; the Agent Skills spec requires `name` to equal the parent directory name. `npx skills add` can't target a branch, so the fork build uses the clone command.
+> If you installed the old directory `~/.claude/skills/guizang-social-card-skill` before, run `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked` first.
 
 ### Option 2: Paste this to an AI
 
-> Install the `guizang-social-card-skill` Claude Code skill for me. Steps:
+> Install the `guizang-social-card-skill-forked` Claude Code skill for me. Steps:
 >
 > 1. Make sure `~/.claude/skills/` exists (create if not)
-> 2. Run `git clone https://github.com/op7418/guizang-social-card-skill.git ~/.claude/skills/guizang-social-card-skill`
-> 3. Verify: `ls ~/.claude/skills/guizang-social-card-skill/` should show `SKILL.md`, `assets/`, `references/`
+> 2. Run `git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`
+> 3. Verify: `ls ~/.claude/skills/guizang-social-card-skill-forked/` should show `SKILL.md`, `assets/`, `references/`
 > 4. Tell me when done. Later, saying things like "make me a Xiaohongshu carousel" will trigger this skill.
 
 Paste the block above into Claude Code / Cursor / any AI agent with shell access.
 
-### Option 3: Manual CLI
+### Option 3: Upstream original (no Warm Gold)
 
 ```bash
-git clone https://github.com/op7418/guizang-social-card-skill.git ~/.claude/skills/guizang-social-card-skill
+npx skills add https://github.com/op7418/guizang-social-card-skill --skill guizang-social-card-skill
 ```
 
 ### How to trigger it
@@ -276,7 +287,7 @@ To switch themes, replace the root attribute on the seed template (Editorial `da
 ## Directory
 
 ```
-guizang-social-card-skill/
+guizang-social-card-skill-forked/
 ├── SKILL.md                              ← Main skill file: 7-step workflow
 ├── README.md                             ← Chinese README
 ├── README.en.md                          ← This file

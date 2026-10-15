@@ -18,13 +18,21 @@
 - **瑞士国际主义(Swiss)**。网格、单一锚点色、直角发丝线、极致字号对比,适合产品测评、数据、方法论、教程、AI 工具。
 - **暖金中登(Warm Gold)**(**本 fork 定制,上游没有**)。衬线标题 + 无衬线正文 + 金渐变发丝线/光晕/金投影,象牙纸底 + 浓咖啡墨,适合品牌发布、会员权益、颁奖榜单、年度里程碑、高端生活方式。
 
-> ⚠️ **本仓库是个人 fork,不是上游原版。** [上游 op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill) 只有 **Editorial** 和 **Swiss** 两套视觉系统;**暖金中登(Warm Gold)是本 fork 定制、上游原版没有的第三套系统**,它的种子模板、G01-G12 版式、6 套色票、`style-c/` 截图舞台底与 validator R10/R11 规则都只存在于本 fork 的 `dev-personal-usage-gavin` 分支。安装:`git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git`
+> ⚠️ **本仓库是个人 fork,不是上游原版。** [上游 op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill) 只有 **Editorial** 和 **Swiss** 两套视觉系统;**暖金中登(Warm Gold)是本 fork 定制、上游原版没有的第三套系统**,它的种子模板、G01-G12 版式、6 套色票、`style-c/` 截图舞台底与 validator R10/R11 规则都只存在于本 fork 的 `dev-personal-usage-gavin` 分支。安装(目录名与 skill 名一致,符合 Agent Skills 规范):`git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`。旧版本升级:`mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`。
 
 > 这个 Skill 是 [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill) 的姊妹项目,共享美学语言但独立维护。PPT 解决"横向翻页演讲",这里解决"静态信息流图文"。
 
 ![Guizang Social Card Skill 效果展示](https://github.com/user-attachments/assets/d370abcc-1fc4-4de1-903a-09020a6556ce)
 
 ## 30 秒开始
+
+本 fork 的暖金能力只在 `dev-personal-usage-gavin` 分支,推荐直接用 clone 安装(目录名与 skill 名一致,符合 Agent Skills 规范):
+
+```bash
+git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked
+```
+
+只想要上游原版(不含暖金中登):
 
 ```bash
 npx skills add https://github.com/op7418/guizang-social-card-skill --skill guizang-social-card-skill
@@ -33,13 +41,13 @@ npx skills add https://github.com/op7418/guizang-social-card-skill --skill guiza
 也可以直接把这段话发给有 shell 权限的 AI Agent:
 
 ```text
-帮我安装 guizang-social-card-skill。请把 https://github.com/op7418/guizang-social-card-skill 克隆到 ~/.claude/skills/guizang-social-card-skill,安装完成后检查 SKILL.md、assets/、references/ 是否存在。
+帮我安装 guizang-social-card-skill-forked。请执行 git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked,安装完成后检查 SKILL.md、assets/、references/ 是否存在。
 ```
 
 已经安装过的话,用这段话更新:
 
 ```text
-帮我更新 guizang-social-card-skill。请进入 ~/.claude/skills/guizang-social-card-skill 执行 git pull,然后告诉我当前最新 commit。
+帮我更新 guizang-social-card-skill-forked。请进入 ~/.claude/skills/guizang-social-card-skill-forked 执行 git pull,然后告诉我当前最新 commit。如果旧目录 ~/.claude/skills/guizang-social-card-skill 还在,执行 mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked。
 ```
 
 安装后直接对 Agent 说:
@@ -162,27 +170,30 @@ Live Photo 在这个 Skill 里的定位是"把用户提供的视频装进社交�
 
 ## 安装
 
-### 方式一:一行命令安装(推荐)
+### 方式一:一行命令安装(fork 版,含暖金中登;推荐)
 
 ```bash
-npx skills add https://github.com/op7418/guizang-social-card-skill --skill guizang-social-card-skill
+git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked
 ```
+
+> 安装目录必须与 skill 名 `guizang-social-card-skill-forked` 相同:Agent Skills 规范要求 `name` 与父目录同名。`npx skills add` 不支持指定分支,所以 fork 版走 clone 安装。
+> 已经装过旧目录 `~/.claude/skills/guizang-social-card-skill` 的话,先 `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`。
 
 ### 方式二:把下面这段话直接发给 AI
 
-> 帮我安装 `guizang-social-card-skill` 这个 Claude Code skill。请按下面步骤做:
+> 帮我安装 `guizang-social-card-skill-forked` 这个 Claude Code skill。请按下面步骤做:
 >
 > 1. 确保 `~/.claude/skills/` 目录存在(不存在就创建)
-> 2. 执行 `git clone https://github.com/op7418/guizang-social-card-skill.git ~/.claude/skills/guizang-social-card-skill`
-> 3. 验证:`ls ~/.claude/skills/guizang-social-card-skill/` 应该看到 `SKILL.md`、`assets/`、`references/` 三项
+> 2. 执行 `git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`
+> 3. 验证:`ls ~/.claude/skills/guizang-social-card-skill-forked/` 应该看到 `SKILL.md`、`assets/`、`references/` 三项
 > 4. 告诉我装好了,之后我说"做一套小红书图文"之类的话就会触发这个 skill
 
 把这段话复制粘贴给 Claude Code / Cursor / 任何有 shell 权限的 AI Agent,它会自动完成安装。
 
-### 方式三:手动命令行
+### 方式三:上游原版(不含暖金中登)
 
 ```bash
-git clone https://github.com/op7418/guizang-social-card-skill.git ~/.claude/skills/guizang-social-card-skill
+npx skills add https://github.com/op7418/guizang-social-card-skill --skill guizang-social-card-skill
 ```
 
 ### 触发方式
@@ -276,7 +287,7 @@ node validate-social-deck.mjs path/to/task-dir
 ## 目录结构
 
 ```
-guizang-social-card-skill/
+guizang-social-card-skill-forked/
 ├── SKILL.md                              ← Skill 主文件:7 步工作流
 ├── README.md                             ← 本文件
 ├── HANDOFF.md                            ← 交接文档:事实 + 版本历史
