@@ -332,6 +332,23 @@ mustInclude(
   "README fork notice carries the contact entry",
 );
 
+// ---- npx branch-ref install guidance — appended 2026-10-16 ----
+mustInclude(
+  "README.md",
+  "npx skills add GavinCnod/guizang-social-card-skill-forked#dev-personal-usage-gavin",
+  "README.md documents the npx install with an explicit branch ref",
+);
+mustInclude(
+  "README.en.md",
+  "npx skills add GavinCnod/guizang-social-card-skill-forked#dev-personal-usage-gavin",
+  "README.en.md documents the npx install with an explicit branch ref",
+);
+mustInclude(
+  "HANDOFF.md",
+  "### v0.18 · 2026-10-16",
+  "HANDOFF.md records the install-docs correction entry",
+);
+
 // ---- Template asset paths + CJK mono fallback pins — appended 2026-10-15 ----
 mustInclude(
   "assets/template-editorial-card.html",

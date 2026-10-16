@@ -22,7 +22,7 @@
 >
 > 它基于 [op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill)(作者 [op7418 / 归藏](https://github.com/op7418))的出色工作 fork 而来。因为个人与团队的真实使用需求,**GavinChen**(GitHub [@GavinCnod](https://github.com/GavinCnod))在上游 **Editorial / Swiss** 两套视觉系统之外,定制了第三套 **暖金中登(Warm Gold)**:种子模板、G01-G12 版式、6 套色票、`style-c/` 截图舞台底、validator R10/R11 规则,并持续打磨 Live Photo、公众号封面等生产细节。这些定制只存在于本 fork 的 `dev-personal-usage-gavin` 分支,上游原版没有。
 >
-> 安装(目录名与 skill 名一致,符合 Agent Skills 规范):`git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`。旧版本升级:`mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`。
+> 安装(目录名与 skill 名一致,符合 Agent Skills 规范),两种方式都行 —— 推荐 clone:`git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`(保留 `.git`,以后 `git pull` 就能更新);或用 `skills` CLI ≥ 1.5.0 指定分支:`npx skills add GavinCnod/guizang-social-card-skill-forked#dev-personal-usage-gavin -g`(必须带 `#dev-personal-usage-gavin`,不带只会装默认分支 `main`,也就是上游原副本)。旧版本升级:`mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`。
 >
 > **协议与开源**:本 fork 遵循上游的 **AGPL-3.0** 协议(见 [LICENSE](./LICENSE)),并继续开源;商用授权另见 [COMMERCIAL_LICENSING.md](./COMMERCIAL_LICENSING.md)。
 >
@@ -36,10 +36,16 @@
 
 ## 30 秒开始
 
-本 fork 的暖金能力只在 `dev-personal-usage-gavin` 分支,推荐直接用 clone 安装(目录名与 skill 名一致,符合 Agent Skills 规范):
+本 fork 的暖金能力只在 `dev-personal-usage-gavin` 分支(不是默认分支),推荐直接用 clone 安装(目录名与 skill 名一致,符合 Agent Skills 规范;带 `.git`,以后 `git pull` 就能更新):
 
 ```bash
 git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked
+```
+
+想走 `npx skills add` 也可以(`skills` CLI ≥ 1.5.0 支持用 `#分支` 指定 ref)。注意必须带上 `#dev-personal-usage-gavin`,否则装到的是默认分支 `main`,也就是上游原副本:
+
+```bash
+npx skills add GavinCnod/guizang-social-card-skill-forked#dev-personal-usage-gavin -g -a claude-code
 ```
 
 只想要上游原版(不含暖金中登):
@@ -186,7 +192,7 @@ Live Photo 在这个 Skill 里的定位是"把用户提供的视频装进社交�
 git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked
 ```
 
-> 安装目录必须与 skill 名 `guizang-social-card-skill-forked` 相同:Agent Skills 规范要求 `name` 与父目录同名。`npx skills add` 不支持指定分支,所以 fork 版走 clone 安装。
+> 安装目录必须与 skill 名 `guizang-social-card-skill-forked` 相同:Agent Skills 规范要求 `name` 与父目录同名。`skills` CLI ≥ 1.5.0 已支持用 `#分支` 指定 ref(`npx skills add GavinCnod/guizang-social-card-skill-forked#dev-personal-usage-gavin -g`);不带 `#分支` 时只会装默认分支 `main`,拿到的是上游原副本,所以 fork 版推荐 clone 安装——它保留 `.git`,能用 `git pull` 持续更新,`npx` 路线则用 `npx skills update` 更新。
 > 已经装过旧目录 `~/.claude/skills/guizang-social-card-skill` 的话,先 `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`。
 
 ### 方式二:把下面这段话直接发给 AI

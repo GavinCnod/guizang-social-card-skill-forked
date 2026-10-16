@@ -22,7 +22,7 @@ Three visual systems share one workflow:
 >
 > It is forked from and builds on the excellent work of [op7418/guizang-social-card-skill](https://github.com/op7418/guizang-social-card-skill) (by [op7418](https://github.com/op7418)). To fit personal and team needs, **GavinChen** (GitHub [@GavinCnod](https://github.com/GavinCnod)) added a third visual system, **Warm Gold (暖金中登)**, on top of upstream's **Editorial / Swiss**: seed template, G01-G12 layouts, 6 palettes, `style-c/` screenshot stage backgrounds, and validator rules R10/R11 — and keeps refining Live Photo and WeChat cover details. These customizations live only on this fork's `dev-personal-usage-gavin` branch, not upstream.
 >
-> Install (the target directory must match the skill name, per the Agent Skills spec): `git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked`. Upgrading from the old name: `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`.
+> Install (the target directory must match the skill name, per the Agent Skills spec) — either way works. Recommended, clone: `git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked` (keeps a `.git` directory, so `git pull` tracks updates). Or pin the branch with `skills` CLI ≥ 1.5.0: `npx skills add GavinCnod/guizang-social-card-skill-forked#dev-personal-usage-gavin -g` (the `#dev-personal-usage-gavin` part is required; without it you only get the default branch `main`, an upstream copy). Upgrading from the old name: `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked`.
 >
 > **License & open source**: this fork follows upstream's **AGPL-3.0** license ([LICENSE](./LICENSE)) and stays open source; see [COMMERCIAL_LICENSING.md](./COMMERCIAL_LICENSING.md) for commercial licensing.
 >
@@ -36,10 +36,16 @@ Three visual systems share one workflow:
 
 ## 30-second start
 
-This fork's Warm Gold capability lives only on the `dev-personal-usage-gavin` branch, so install it with a direct clone (the directory must match the skill name, per the Agent Skills spec):
+This fork's Warm Gold capability lives only on the `dev-personal-usage-gavin` branch (not the default branch), so the recommended install is a direct clone (the directory must match the skill name, per the Agent Skills spec; it keeps a `.git` directory, so `git pull` tracks updates):
 
 ```bash
 git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked
+```
+
+`npx skills add` works too — `skills` CLI ≥ 1.5.0 accepts a `#ref` fragment to pin the branch. The `#dev-personal-usage-gavin` part is required; without it you get the default branch `main`, which is just an upstream copy:
+
+```bash
+npx skills add GavinCnod/guizang-social-card-skill-forked#dev-personal-usage-gavin -g -a claude-code
 ```
 
 Upstream original only (no Warm Gold):
@@ -186,7 +192,7 @@ Tiered by "circle of competence" — see [`references/category-cookbook.md`](./r
 git clone -b dev-personal-usage-gavin https://github.com/GavinCnod/guizang-social-card-skill-forked.git ~/.claude/skills/guizang-social-card-skill-forked
 ```
 
-> The install directory must match the skill name `guizang-social-card-skill-forked`; the Agent Skills spec requires `name` to equal the parent directory name. `npx skills add` can't target a branch, so the fork build uses the clone command.
+> The install directory must match the skill name `guizang-social-card-skill-forked`; the Agent Skills spec requires `name` to equal the parent directory name. `skills` CLI ≥ 1.5.0 can pin a branch with a `#ref` fragment (`npx skills add GavinCnod/guizang-social-card-skill-forked#dev-personal-usage-gavin -g`); without the `#branch` part you only get the default branch `main`, an upstream copy. The fork build therefore still recommends the clone install: it keeps a `.git` directory so `git pull` tracks updates, while the `npx` route updates through `npx skills update`.
 > If you installed the old directory `~/.claude/skills/guizang-social-card-skill` before, run `mv ~/.claude/skills/guizang-social-card-skill ~/.claude/skills/guizang-social-card-skill-forked` first.
 
 ### Option 2: Paste this to an AI

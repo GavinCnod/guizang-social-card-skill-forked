@@ -1,6 +1,6 @@
 # Handoff — guizang-social-card-skill-forked
 
-最后更新：2026-10-15 · 版本：v0.17（fork 合规改名 + 规范字段补齐 + 署名文案：`SKILL.md` 的 `name` 与仓库目录对齐，frontmatter 补齐 `license` / `compatibility` / `metadata`；README 与 `.docs` 的 fork 声明升级为署名 + Star + 联系入口；v0.16 为 Warm Gold 暖金中登落地）
+最后更新：2026-10-16 · 版本：v0.18（安装文档修正：`npx skills add` 自 skills 1.5.0 起支持 `#分支` 指定 ref，README ×2 补该写法并保留 clone 为推荐路径；v0.17 为 fork 合规改名 + 规范字段补齐 + 署名文案，v0.16 为 Warm Gold 暖金中登落地）
 
 这份文档只记录**事实**：当前 skill 由哪些文件组成、每个文件管什么、本轮更新改了什么、怎么验证它还能跑。想读"为什么这样做"或"未来要怎么走"，去看 `PRODUCT.md`。
 
@@ -78,7 +78,25 @@ v0.13 起：git 仓库。`local-tests/` 整目录在 `.gitignore` 中，commit �
 
 仅记录"什么时候新增/变更了哪些可见资产"，不记录文风调整。
 
-### v0.17 · 2026-10-15（本轮）
+### v0.18 · 2026-10-16（本轮）
+
+主题：**安装文档修正**。原 README ×2 断言「`npx skills add` 不支持指定分支」，据此只给 clone 装法。核对上游 `skills` CLI 实现后发现该说法只对 ≤1.4.x 成立：`skills` **1.5.0** 起 `parseSource` / `parseFragmentRef` 支持 ref，可用 `#分支` 片段或 `https://github.com/<owner>/<repo>/tree/<ref>` 形式指定非默认分支，`skills update` 也会按 lock 里的 `ref` 继续拉同一分支（本条为文档事实修正，行为零变化）。
+
+**修改**
+- `README.md`「30 秒开始」与「安装 / 方式一」：补 `npx skills add GavinCnod/guizang-social-card-skill-forked#dev-personal-usage-gavin -g -a claude-code` 写法，并写明**必须**带 `#dev-personal-usage-gavin`（不带则落默认分支 `main` = 上游原副本）；clone 仍为推荐路径（保留 `.git`、可 `git pull`），`npx` 路线更新走 `npx skills update`。
+- `README.md` / `README.en.md` 顶部 fork 声明块的安装语句同步为**两种方式都写**（clone 推荐 + `npx skills add ...#dev-personal-usage-gavin`），保留原有的旧目录迁移说明。
+- `README.en.md` 同段同步（"30-second start" 与 "Option 1" 注记）。
+- `scripts/check-skill-docs.mjs` 新增 3 条断言：README ×2 出现带 `#dev-personal-usage-gavin` 的 `npx skills add` 命令、HANDOFF 记录本站条目。
+
+**验收**
+- `npm run test:docs` 全过（76 项）。
+- 真机实测 `npx skills add`（`skills@1.7.2`，沙箱 `HOME` 隔离）：
+  - 带 ref：`npx skills add GavinCnod/guizang-social-card-skill-forked#dev-personal-usage-gavin -g -a claude-code` → source 显示 `@ dev-personal-usage-gavin`，装到 `~/.claude/skills/guizang-social-card-skill-forked`，`SKILL.md` 的 `name` 与目录同名；含 `assets/template-warmgold-card.html`、`assets/screenshot-backgrounds/style-c/`（gold-ivory / champagne / bronze / noir）、`references/layout-recipes.md` 的 G01-G12、validator `R10` / `R11`。
+  - 不带 ref：同样命令省掉 `#dev-personal-usage-gavin` → 装出上游名 `~/.claude/skills/guizang-social-card-skill`，`assets/` 只有 editorial / swiss 两个种子，确认 README 的「不带 ref 拿到上游原副本」警告成立。
+  - 安装产物无 `.git`（更新只能走 `npx skills update`），`~/.agents/.skill-lock.json` 记录 `ref: dev-personal-usage-gavin`；`npx skills update -g -y` 从同一 source 复查并停在 `dev-personal-usage-gavin`（All global skills are up to date）。
+- 纯文档改动：`SKILL.md`、种子模板、`validate-social-deck.mjs`、渲染链路均未触碰。
+
+### v0.17 · 2026-10-15（上一轮）
 
 主题：**fork 合规改名与署名升级**。审查指出：fork 仓库目录名为 `guizang-social-card-skill-forked`，而 `SKILL.md` 的 `name` 仍是 `guizang-social-card-skill`，违反 Agent Skills 规范「`name` 必须与父目录同名」（`skills-ref validate` 会直接报 `Directory name 'guizang-social-card-skill-forked' must match skill name 'guizang-social-card-skill'`）。本仓库根目录即 skill 根，克隆目录名就是父目录名。本轮对齐命名、补齐规范可选字段并升级 fork 署名文案，不涉及功能变更；`main` 分支保持上游原名，只用于同步上游。
 
